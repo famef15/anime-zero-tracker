@@ -2,7 +2,7 @@
   "player": {
     "name": "Liesajsor17919",
     "guild": "Shinoko",
-    "level": 457,
+    "level": 458,
     "userId": 9165405454,
     "displayName": "フレーム",
     "avatarUrl": "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-D6503A306B66A0258D0C5C0C28E2C068-Png/150/150/AvatarHeadshot/Png/noFilter",
@@ -10,11 +10,11 @@
   },
   "playerProg": {
     "isMaxLevel": false,
-    "requiredXp": "447979",
-    "totalXp": "56468847",
-    "level": 457,
-    "ratio": 0.8236011063018579,
-    "currentXp": "368956"
+    "requiredXp": "450371",
+    "totalXp": "56586357",
+    "level": 458,
+    "ratio": 0.08545621276680782,
+    "currentXp": "38487"
   },
   "characters": [
     {
@@ -24,12 +24,12 @@
         "SPD": 5,
         "ATK": 5
       },
-      "ratio": 0.5046174881328045,
+      "ratio": 0.7315329442618392,
       "name": "Astra yao",
       "requiredXp": 258907,
       "id": "astra_yao",
       "level": 367,
-      "currentXp": 130649,
+      "currentXp": 189399,
       "rarity": "Zenless"
     },
     {
@@ -39,12 +39,12 @@
         "SPD": 5,
         "ATK": 5
       },
-      "ratio": 0.32721886255064164,
+      "ratio": 0.5590164775125543,
       "name": "Rin",
       "requiredXp": 253497,
       "id": "rin",
       "level": 364,
-      "currentXp": 82949,
+      "currentXp": 141709,
       "rarity": "Zenless"
     },
     {
@@ -321,16 +321,16 @@
   "serverLeaderboard": [
     {
       "guild": "Shinoko",
-      "currentXp": 286699,
+      "currentXp": 404209,
       "userId": 9165405454,
       "displayName": "フレーム",
-      "totalXp": 56386590,
+      "totalXp": 56504100,
       "guildTag": "7NO",
       "name": "Liesajsor17919",
       "requiredXp": 447979,
       "isLocal": true,
       "level": 457,
-      "ratio": 0.6399831242089473,
+      "ratio": 0.9022945271988196,
       "rank": 1,
       "avatarUrl": "https://www.roblox.com/headshot-thumbnail/image?userId=9165405454&width=150&height=150&format=png"
     }
@@ -340,8 +340,8 @@
       "rank": 1,
       "name": "Liesajsor17919",
       "displayName": "フレーム",
-      "level": 457,
-      "totalXp": 56468847,
+      "level": 458,
+      "totalXp": 56586357,
       "guild": "Shinoko",
       "guildTag": "7NO",
       "userId": 9165405454,
@@ -352,13 +352,13 @@
   "currencies": {
     "zenlessPity": 109,
     "luckySpins": 6958,
-    "money": 298772130,
-    "gems": 3584376,
-    "xp": 56468847,
+    "money": 299078420,
+    "gems": 3587876,
+    "xp": 56586357,
     "traitExoticPity": 9,
     "mythicPity": 5,
     "arcanePity": 0,
-    "traitRerolls": 13723,
+    "traitRerolls": 13731,
     "rolls": 1361,
     "traitLegendaryPity": 9
   },
@@ -406,7 +406,7 @@
       "id": "105",
       "rarity": "Epic",
       "icon": "137498955017283",
-      "count": 5073
+      "count": 5101
     },
     "106": {
       "description": "Really cool, wait.. did it move..?",
@@ -424,7 +424,7 @@
       "id": "107",
       "rarity": "Rare",
       "icon": "105954615720624",
-      "count": 13453
+      "count": 13561
     },
     "108": {
       "description": "Used to forge from within",
@@ -442,7 +442,7 @@
       "id": "109",
       "rarity": "Legendary",
       "icon": "129315240126806",
-      "count": 1210
+      "count": 1226
     },
     "110": {
       "description": "Like in the fantasy storytellings!",
@@ -853,6 +853,384 @@
     }
   },
   "matchLogs": [
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792255506,
+      "duration": 89,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30828,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Broken Blade",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/105954615720624",
+          "amount": 4
+        },
+        {
+          "name": "SunCore",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/129315240126806",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792255417,
+      "duration": 80,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30591,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Broken Blade",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/105954615720624",
+          "amount": 14
+        },
+        {
+          "name": "Tech Component",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/137498955017283",
+          "amount": 4
+        },
+        {
+          "name": "SunCore",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/129315240126806",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792255337,
+      "duration": 82,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30418,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Broken Blade",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/105954615720624",
+          "amount": 18
+        },
+        {
+          "name": "Tech Component",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/137498955017283",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792255255,
+      "duration": 86,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30508,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Broken Blade",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/105954615720624",
+          "amount": 12
+        },
+        {
+          "name": "Tech Component",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/137498955017283",
+          "amount": 2
+        },
+        {
+          "name": "SunCore",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/129315240126806",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792255169,
+      "duration": 89,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30444,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Broken Blade",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/105954615720624",
+          "amount": 12
+        },
+        {
+          "name": "Tech Component",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/137498955017283",
+          "amount": 2
+        },
+        {
+          "name": "SunCore",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/129315240126806",
+          "amount": 8
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792255080,
+      "duration": 79,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31138,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Broken Blade",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/105954615720624",
+          "amount": 4
+        },
+        {
+          "name": "SunCore",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/129315240126806",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792255001,
+      "duration": 88,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30297,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Broken Blade",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/105954615720624",
+          "amount": 8
+        },
+        {
+          "name": "Tech Component",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/137498955017283",
+          "amount": 4
+        }
+      ]
+    },
     {
       "map": "Hxh",
       "won": true,
@@ -3061,398 +3439,25 @@
           "amount": 2
         }
       ]
-    },
-    {
-      "map": "Hxh",
-      "won": true,
-      "difficulty": "Nightmare",
-      "wave": 11,
-      "time": 1792251009,
-      "duration": 82,
-      "mode": "Story",
-      "character": "rin",
-      "kills": 106,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30794,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Broken Blade",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/105954615720624",
-          "amount": 14
-        },
-        {
-          "name": "Tech Component",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/137498955017283",
-          "amount": 6
-        },
-        {
-          "name": "SunCore",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/129315240126806",
-          "amount": 2
-        }
-      ]
-    },
-    {
-      "map": "Hxh",
-      "won": true,
-      "difficulty": "Nightmare",
-      "wave": 11,
-      "time": 1792250927,
-      "duration": 79,
-      "mode": "Story",
-      "character": "rin",
-      "kills": 106,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30843,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Broken Blade",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/105954615720624",
-          "amount": 16
-        },
-        {
-          "name": "Tech Component",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/137498955017283",
-          "amount": 2
-        },
-        {
-          "name": "SunCore",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/129315240126806",
-          "amount": 2
-        }
-      ]
-    },
-    {
-      "map": "Hxh",
-      "won": true,
-      "difficulty": "Nightmare",
-      "wave": 11,
-      "time": 1792250848,
-      "duration": 86,
-      "mode": "Story",
-      "character": "rin",
-      "kills": 106,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30876,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Broken Blade",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/105954615720624",
-          "amount": 8
-        },
-        {
-          "name": "Tech Component",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/137498955017283",
-          "amount": 6
-        }
-      ]
-    },
-    {
-      "map": "Hxh",
-      "won": true,
-      "difficulty": "Nightmare",
-      "wave": 11,
-      "time": 1792250762,
-      "duration": 85,
-      "mode": "Story",
-      "character": "rin",
-      "kills": 106,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30549,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Broken Blade",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/105954615720624",
-          "amount": 6
-        },
-        {
-          "name": "Tech Component",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/137498955017283",
-          "amount": 2
-        },
-        {
-          "name": "SunCore",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/129315240126806",
-          "amount": 2
-        }
-      ]
-    },
-    {
-      "map": "Hxh",
-      "won": true,
-      "difficulty": "Nightmare",
-      "wave": 11,
-      "time": 1792250677,
-      "duration": 88,
-      "mode": "Story",
-      "character": "rin",
-      "kills": 106,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30590,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Broken Blade",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/105954615720624",
-          "amount": 10
-        },
-        {
-          "name": "Tech Component",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/137498955017283",
-          "amount": 6
-        },
-        {
-          "name": "SunCore",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/129315240126806",
-          "amount": 2
-        }
-      ]
-    },
-    {
-      "map": "Hxh",
-      "won": true,
-      "difficulty": "Nightmare",
-      "wave": 11,
-      "time": 1792250589,
-      "duration": 80,
-      "mode": "Story",
-      "character": "rin",
-      "kills": 106,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30990,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Broken Blade",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/105954615720624",
-          "amount": 10
-        },
-        {
-          "name": "Tech Component",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/137498955017283",
-          "amount": 14
-        }
-      ]
-    },
-    {
-      "map": "Hxh",
-      "won": true,
-      "difficulty": "Nightmare",
-      "wave": 11,
-      "time": 1792250509,
-      "duration": 90,
-      "mode": "Story",
-      "character": "rin",
-      "kills": 106,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 31089,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Broken Blade",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/105954615720624",
-          "amount": 20
-        },
-        {
-          "name": "Tech Component",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/137498955017283",
-          "amount": 4
-        }
-      ]
     }
   ],
   "sessionStats": {
-    "totalMatches": 357,
-    "wins": 355,
+    "totalMatches": 364,
+    "wins": 362,
     "losses": 2,
-    "gemsGained": 120260,
-    "goldGained": 10562959,
-    "itemsGained": 10458
+    "gemsGained": 122710,
+    "goldGained": 10777183,
+    "itemsGained": 10562
   },
-  "lastUpdated": 1792254664,
+  "lastUpdated": 1792255508,
   "connected": true,
   "latestMatch": {
     "map": "Hxh",
     "won": true,
     "difficulty": "Nightmare",
     "wave": 11,
-    "time": 1792254654,
-    "duration": 90,
+    "time": 1792255506,
+    "duration": 89,
     "mode": "Story",
     "character": "rin",
     "kills": 106,
@@ -3465,7 +3470,7 @@
       },
       {
         "icon": "🪙",
-        "amount": 30974,
+        "amount": 30828,
         "name": "Gold",
         "category": "currency"
       },
@@ -3486,21 +3491,21 @@
         "category": "material",
         "rarity": "Rare",
         "icon": "http://localhost:18888/api/icon/105954615720624",
-        "amount": 6
+        "amount": 4
       },
       {
-        "name": "Tech Component",
+        "name": "SunCore",
         "category": "material",
-        "rarity": "Epic",
-        "icon": "http://localhost:18888/api/icon/137498955017283",
+        "rarity": "Legendary",
+        "icon": "http://localhost:18888/api/icon/129315240126806",
         "amount": 2
       }
     ]
   },
   "live": {
     "inMatch": true,
-    "wave": "Wave 2/2",
-    "info": "Nightmare · Area 1/5 · 6 left",
-    "timer": "00:09"
+    "wave": "Wave 3/3",
+    "info": "Nightmare · Area 5/5 · 1 left",
+    "timer": "01:25"
   }
 }
