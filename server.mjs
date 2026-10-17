@@ -215,6 +215,30 @@ try {
     if (!state.latestMatch && state.matchLogs && state.matchLogs.length > 0) {
       state.latestMatch = state.matchLogs[0];
     }
+
+    // Initialize Multi-User Store
+    if (!state.users || typeof state.users !== "object") {
+      state.users = {};
+    }
+    if (state.player && (state.player.userId || state.player.name)) {
+      const defaultUid = String(state.player.userId || state.player.name);
+      if (!state.users[defaultUid]) {
+        state.users[defaultUid] = {
+          player: { ...state.player },
+          playerProg: state.playerProg || {},
+          characters: state.characters || [],
+          currencies: state.currencies || {},
+          materials: state.materials || {},
+          accessories: state.accessories || {},
+          matchLogs: state.matchLogs || [],
+          latestMatch: state.latestMatch || null,
+          sessionStats: state.sessionStats || { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 },
+          lastUpdated: state.lastUpdated || Math.floor(Date.now() / 1000),
+          connected: state.connected || false
+        };
+      }
+      state.lastActiveUserId = defaultUid;
+    }
   }
 } catch (e) {
   console.error("Failed to read data.json:", e);
@@ -565,13 +589,24 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Download Deployment ZIP Route
-  if ((url.pathname === "/cfame-tracker-deploy.zip" || url.pathname === "/download-zip") && req.method === "GET") {
+  // Download Deployment ZIP Routes (Clean & OBF)
+  if ((url.pathname === "/cfame-tracker-clean.zip" || url.pathname === "/cfame-tracker-deploy.zip" || url.pathname === "/download-zip") && req.method === "GET") {
     const zipPath = path.join(__dirname, "cfame-tracker-deploy.zip");
     if (fs.existsSync(zipPath)) {
       res.writeHead(200, {
         "Content-Type": "application/zip",
-        "Content-Disposition": 'attachment; filename="cfame-tracker-deploy.zip"'
+        "Content-Disposition": 'attachment; filename="cfame-tracker-clean.zip"'
+      });
+      fs.createReadStream(zipPath).pipe(res);
+      return;
+    }
+  }
+  if ((url.pathname === "/cfame-tracker-obf.zip" || url.pathname === "/download-obf") && req.method === "GET") {
+    const zipPath = path.join(__dirname, "cfame-tracker-obf.zip");
+    if (fs.existsSync(zipPath)) {
+      res.writeHead(200, {
+        "Content-Type": "application/zip",
+        "Content-Disposition": 'attachment; filename="cfame-tracker-obf.zip"'
       });
       fs.createReadStream(zipPath).pipe(res);
       return;
@@ -609,7 +644,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // API: Get State
+  // API: Get State (Multi-User)
   if (url.pathname === "/api/data" && req.method === "GET") {
     const pin = req.headers["x-dashboard-pin"] || url.searchParams.get("pin");
     if (DASHBOARD_PIN && pin !== DASHBOARD_PIN) {
@@ -617,8 +652,76 @@ const server = http.createServer(async (req, res) => {
       res.end(JSON.stringify({ locked: true, requirePin: true, error: "Unauthorized" }));
       return;
     }
+
+    const target = url.searchParams.get("u") || url.searchParams.get("user") || url.searchParams.get("id");
+    let foundUser = null;
+
+    if (target && state.users) {
+      const targetLower = target.trim().toLowerCase();
+      for (const [uid, u] of Object.entries(state.users)) {
+        if (
+          uid.toLowerCase() === targetLower ||
+          (u.player?.userId && String(u.player.userId) === target.trim()) ||
+          (u.player?.name && u.player.name.toLowerCase() === targetLower) ||
+          (u.player?.displayName && u.player.displayName.toLowerCase() === targetLower)
+        ) {
+          foundUser = u;
+          break;
+        }
+      }
+    }
+
+    if (!foundUser && state.users) {
+      if (state.lastActiveUserId && state.users[state.lastActiveUserId]) {
+        foundUser = state.users[state.lastActiveUserId];
+      } else {
+        const firstKey = Object.keys(state.users)[0];
+        if (firstKey) foundUser = state.users[firstKey];
+      }
+    }
+
+    const nowSec = Math.floor(Date.now() / 1000);
+    const activeUsersList = Object.values(state.users || {}).map(u => ({
+      userId: u.player?.userId,
+      name: u.player?.name || "Player",
+      displayName: u.player?.displayName || u.player?.name || "Player",
+      avatarUrl: u.player?.avatarUrl || (u.player?.userId ? `https://www.roblox.com/headshot-thumbnail/image?userId=${u.player.userId}&width=150&height=150&format=png` : ''),
+      level: u.playerProg?.level || u.player?.level || 1,
+      guild: u.player?.guild || "None",
+      lastUpdated: u.lastUpdated || 0,
+      connected: (nowSec - (u.lastUpdated || 0)) < 45
+    }));
+
+    const responseData = foundUser ? {
+      ...foundUser,
+      activeUsers: activeUsersList,
+      serverLeaderboard: state.serverLeaderboard || [],
+      globalLeaderboard: state.globalLeaderboard || []
+    } : {
+      ...state,
+      activeUsers: activeUsersList
+    };
+
     res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-    res.end(JSON.stringify(state));
+    res.end(JSON.stringify(responseData));
+    return;
+  }
+
+  // API: Get All Active Users
+  if (url.pathname === "/api/users" && req.method === "GET") {
+    const nowSec = Math.floor(Date.now() / 1000);
+    const activeUsersList = Object.values(state.users || {}).map(u => ({
+      userId: u.player?.userId,
+      name: u.player?.name || "Player",
+      displayName: u.player?.displayName || u.player?.name || "Player",
+      avatarUrl: u.player?.avatarUrl || (u.player?.userId ? `https://www.roblox.com/headshot-thumbnail/image?userId=${u.player.userId}&width=150&height=150&format=png` : ''),
+      level: u.playerProg?.level || u.player?.level || 1,
+      guild: u.player?.guild || "None",
+      lastUpdated: u.lastUpdated || 0,
+      connected: (nowSec - (u.lastUpdated || 0)) < 45
+    }));
+    res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+    res.end(JSON.stringify(activeUsersList));
     return;
   }
 
@@ -674,95 +777,80 @@ function applySnapshot(data) {
   if (!data) return;
   const d = Array.isArray(data) ? data[0] : data;
   if (!d) return;
-  if (d.player) state.player = { ...state.player, ...d.player };
-  if (d.playerProg) state.playerProg = d.playerProg;
-  if (d.characters) state.characters = d.characters;
-  if (d.currencies) state.currencies = d.currencies;
-  if (d.materials) state.materials = d.materials;
-  if (d.accessories) state.accessories = d.accessories;
-  if (d.serverLeaderboard && Array.isArray(d.serverLeaderboard)) {
-    state.serverLeaderboard = d.serverLeaderboard;
-    for (const p of state.serverLeaderboard) {
-      if (p.userId && !p.avatarUrl) {
-        p.avatarUrl = `https://www.roblox.com/headshot-thumbnail/image?userId=${p.userId}&width=150&height=150&format=png`;
-      }
-    }
-  }
-
-  // Ensure player.level is valid and synced with progression
-  const validLevel = (state.playerProg?.level && Number(state.playerProg.level) > 0)
-    ? Number(state.playerProg.level)
-    : (state.player?.level && Number(state.player.level) > 0 ? Number(state.player.level) : null);
-  if (validLevel && state.player) {
-    state.player.level = validLevel;
-  }
-  if (state.player && state.player.userId && !state.player.avatarUrl) {
-    fetchRobloxAvatar(state.player.userId).then(url => {
-      if (url && state.player) {
-        state.player.avatarUrl = url;
-        syncGlobalLeaderboard();
-        saveData();
-      }
-    });
-  }
-
-  syncGlobalLeaderboard();
-  state.lastUpdated = d.timestamp || Math.floor(Date.now() / 1000);
-  state.connected = true;
-  saveData();
+  applyReport(d);
 }
 
 function applyReport(payload) {
-  if (payload.player) state.player = { ...state.player, ...payload.player };
-  if (payload.playerProg) state.playerProg = payload.playerProg;
-  if (payload.characters) state.characters = payload.characters;
-  if (payload.currencies) state.currencies = payload.currencies;
-  if (payload.materials) state.materials = payload.materials;
-  if (payload.accessories) state.accessories = payload.accessories;
-  if (payload.serverLeaderboard && Array.isArray(payload.serverLeaderboard)) {
-    state.serverLeaderboard = payload.serverLeaderboard;
-    for (const p of state.serverLeaderboard) {
-      if (p.userId && !p.avatarUrl) {
-        p.avatarUrl = `https://www.roblox.com/headshot-thumbnail/image?userId=${p.userId}&width=150&height=150&format=png`;
-      }
-    }
+  if (!payload) return;
+  const p = payload.player || {};
+  const uid = String(p.userId || p.name || state.lastActiveUserId || "default");
+
+  if (!state.users) state.users = {};
+  if (!state.users[uid]) {
+    state.users[uid] = {
+      player: {
+        name: p.name || "Player",
+        displayName: p.displayName || p.name || "Player",
+        userId: p.userId,
+        level: Number(payload.playerProg?.level || p.level || 1),
+        guild: p.guild || "None",
+        guildTag: p.guildTag || "",
+        avatarUrl: p.avatarUrl || (p.userId ? `https://www.roblox.com/headshot-thumbnail/image?userId=${p.userId}&width=150&height=150&format=png` : '')
+      },
+      playerProg: payload.playerProg || {},
+      characters: payload.characters || [],
+      currencies: payload.currencies || {},
+      materials: payload.materials || {},
+      accessories: payload.accessories || {},
+      matchLogs: [],
+      latestMatch: payload.latestMatch || null,
+      sessionStats: { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 },
+      lastUpdated: Math.floor(Date.now() / 1000),
+      connected: true
+    };
   }
-  if (payload.live) {
-    state.live = payload.live;
-  }
+
+  const u = state.users[uid];
+
+  if (payload.player) u.player = { ...u.player, ...payload.player };
+  if (payload.playerProg) u.playerProg = payload.playerProg;
+  if (payload.characters) u.characters = payload.characters;
+  if (payload.currencies) u.currencies = payload.currencies;
+  if (payload.materials) u.materials = payload.materials;
+  if (payload.accessories) u.accessories = payload.accessories;
+  if (payload.latestMatch && !u.latestMatch) u.latestMatch = payload.latestMatch;
 
   // Ensure player.level is valid and synced with progression
-  const validLevel = (state.playerProg?.level && Number(state.playerProg.level) > 0)
-    ? Number(state.playerProg.level)
-    : (state.player?.level && Number(state.player.level) > 0 ? Number(state.player.level) : null);
-  if (validLevel && state.player) {
-    state.player.level = validLevel;
+  const validLevel = (u.playerProg?.level && Number(u.playerProg.level) > 0)
+    ? Number(u.playerProg.level)
+    : (u.player?.level && Number(u.player.level) > 0 ? Number(u.player.level) : null);
+  if (validLevel && u.player) {
+    u.player.level = validLevel;
   }
 
-  if (state.player && state.player.userId && !state.player.avatarUrl) {
-    fetchRobloxAvatar(state.player.userId).then(url => {
-      if (url && state.player) {
-        state.player.avatarUrl = url;
+  if (u.player && u.player.userId && !u.player.avatarUrl) {
+    fetchRobloxAvatar(u.player.userId).then(url => {
+      if (url && u.player) {
+        u.player.avatarUrl = url;
         syncGlobalLeaderboard();
         saveData();
       }
     });
   }
 
-  syncGlobalLeaderboard();
-  state.lastUpdated = Math.floor(Date.now() / 1000);
-  state.connected = true;
+  u.lastUpdated = payload.timestamp || Math.floor(Date.now() / 1000);
+  u.connected = true;
+  state.lastActiveUserId = uid;
 
   if (payload.type === "reward_update") {
-    // If passive reward update arrives and we have latestMatch, append to latestMatch
-    if (state.latestMatch && payload.rewards && payload.rewards.length > 0) {
-      state.latestMatch.rewards = state.latestMatch.rewards || [];
+    if (u.latestMatch && payload.rewards && payload.rewards.length > 0) {
+      u.latestMatch.rewards = u.latestMatch.rewards || [];
       for (const r of payload.rewards) {
-        if (!state.latestMatch.rewards.some(er => er.name === r.name && er.amount === r.amount)) {
-          state.latestMatch.rewards.push(r);
-          if (r.name === "Gems") state.sessionStats.gemsGained += r.amount;
-          if (r.name === "Money" || r.name === "Gold") state.sessionStats.goldGained += r.amount;
-          if (r.category === "material" || r.category === "accessory") state.sessionStats.itemsGained += r.amount;
+        if (!u.latestMatch.rewards.some(er => er.name === r.name && er.amount === r.amount)) {
+          u.latestMatch.rewards.push(r);
+          if (r.name === "Gems") u.sessionStats.gemsGained += r.amount;
+          if (r.name === "Money" || r.name === "Gold") u.sessionStats.goldGained += r.amount;
+          if (r.category === "material" || r.category === "accessory") u.sessionStats.itemsGained += r.amount;
         }
       }
     }
@@ -774,50 +862,63 @@ function applyReport(payload) {
       rewards: payload.rewards || []
     };
 
-    // Check if match with this timestamp is already recorded
-    const existing = state.matchLogs.find(m => m.time && m.time === matchRecord.time);
+    const existing = u.matchLogs.find(m => m.time && m.time === matchRecord.time);
     if (existing) {
-      // Merge rewards into existing match without adding duplicate row
       if (matchRecord.rewards && matchRecord.rewards.length > 0) {
         existing.rewards = existing.rewards || [];
         for (const r of matchRecord.rewards) {
           if (!existing.rewards.some(er => er.name === r.name && er.amount === r.amount)) {
             existing.rewards.push(r);
-            if (r.name === "Gems") state.sessionStats.gemsGained += r.amount;
-            if (r.name === "Money" || r.name === "Gold") state.sessionStats.goldGained += r.amount;
-            if (r.category === "material" || r.category === "accessory") state.sessionStats.itemsGained += r.amount;
+            if (r.name === "Gems") u.sessionStats.gemsGained += r.amount;
+            if (r.name === "Money" || r.name === "Gold") u.sessionStats.goldGained += r.amount;
+            if (r.category === "material" || r.category === "accessory") u.sessionStats.itemsGained += r.amount;
           }
         }
       }
-      saveData();
-      return;
-    }
-
-    // Calculate duration from previous match if not supplied or invalid
-    if (!matchRecord.duration || matchRecord.duration <= 0) {
-      if (state.matchLogs.length > 0 && state.matchLogs[0].time && matchRecord.time) {
-        const diff = Math.abs(matchRecord.time - state.matchLogs[0].time);
-        if (diff > 0 && diff < 1800) {
-          matchRecord.duration = diff;
+    } else {
+      if (!matchRecord.duration || matchRecord.duration <= 0) {
+        if (u.matchLogs.length > 0 && u.matchLogs[0].time && matchRecord.time) {
+          const diff = Math.abs(matchRecord.time - u.matchLogs[0].time);
+          if (diff > 0 && diff < 1800) {
+            matchRecord.duration = diff;
+          }
         }
       }
-    }
 
-    state.matchLogs.unshift(matchRecord);
-    if (state.matchLogs.length > 50) state.matchLogs.pop();
-    state.latestMatch = matchRecord;
+      u.matchLogs.unshift(matchRecord);
+      if (u.matchLogs.length > 50) u.matchLogs.pop();
+      u.latestMatch = matchRecord;
 
-    state.sessionStats.totalMatches++;
-    if (matchRecord.won) state.sessionStats.wins++;
-    else state.sessionStats.losses++;
+      u.sessionStats.totalMatches++;
+      if (matchRecord.won) u.sessionStats.wins++;
+      else u.sessionStats.losses++;
 
-    for (const r of (matchRecord.rewards || [])) {
-      if (r.name === "Gems") state.sessionStats.gemsGained += r.amount;
-      if (r.name === "Money" || r.name === "Gold") state.sessionStats.goldGained += r.amount;
-      if (r.category === "material" || r.category === "accessory") state.sessionStats.itemsGained += r.amount;
+      for (const r of (matchRecord.rewards || [])) {
+        if (r.name === "Gems") u.sessionStats.gemsGained += r.amount;
+        if (r.name === "Money" || r.name === "Gold") u.sessionStats.goldGained += r.amount;
+        if (r.category === "material" || r.category === "accessory") u.sessionStats.itemsGained += r.amount;
+      }
     }
   }
 
+  // Also mirror to global state for legacy fallback
+  state.player = u.player;
+  state.playerProg = u.playerProg;
+  state.characters = u.characters;
+  state.currencies = u.currencies;
+  state.materials = u.materials;
+  state.accessories = u.accessories;
+  state.matchLogs = u.matchLogs;
+  state.latestMatch = u.latestMatch;
+  state.sessionStats = u.sessionStats;
+  state.lastUpdated = u.lastUpdated;
+  state.connected = true;
+
+  if (payload.serverLeaderboard && Array.isArray(payload.serverLeaderboard)) {
+    state.serverLeaderboard = payload.serverLeaderboard;
+  }
+
+  syncGlobalLeaderboard();
   saveData();
 }
 

@@ -1993,6 +1993,23 @@
         <span id="langLabel" style="font-family: 'JetBrains Mono', monospace;">TH</span>
       </button>
 
+      <!-- Copy Personal Link Button -->
+      <button class="nav-btn" onclick="copyPersonalLink()" title="คัดลอกลิงก์ส่วนตัวของคุณเพื่อเปิดดูในเบราว์เซอร์หรือเครื่องอื่น">
+        <svg height="14" viewBox="0 0 16 16" width="14" fill="currentColor">
+          <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
+          <path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+        </svg>
+        <span id="labelCopyLink">ลิงก์ส่วนตัว</span>
+      </button>
+
+      <!-- Switch Player / Search Button -->
+      <button class="nav-btn" onclick="openUserModal()" title="สลับดูข้อมูลผู้เล่นอื่น หรือค้นหาตามชื่อ/UserId">
+        <svg height="14" viewBox="0 0 16 16" width="14" fill="currentColor">
+          <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+        </svg>
+        <span id="labelSwitchUser">สลับผู้เล่น</span>
+      </button>
+
       <button class="nav-btn primary" id="btnSyncNow" onclick="triggerSync()">
         <svg height="14" viewBox="0 0 16 16" width="14" fill="currentColor">
           <path d="M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z"></path>
@@ -2000,12 +2017,41 @@
         <span>ซิงค์ข้อมูล</span>
       </button>
 
-      <div class="nav-user">
+      <div class="nav-user" onclick="openUserModal()" style="cursor: pointer;" title="คลิกเพื่อสลับผู้เล่น">
         <img id="navAvatarImg" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-D6503A306B66A0258D0C5C0C28E2C068-Png/150/150/AvatarHeadshot/Png/noFilter" alt="User">
         <span id="navUsername">Liesajsor17919</span>
       </div>
     </div>
   </header>
+
+  <!-- User Switcher Modal -->
+  <div class="item-modal" id="userSwitcherModal" onclick="if(event.target===this) closeUserModal()">
+    <div class="item-modal-card" style="max-width: 520px; text-align: left; background: rgba(15, 23, 42, 0.98); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 18px; padding: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 30px rgba(56, 189, 248, 0.2);">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 14px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">👥</span>
+          <div>
+            <h3 style="margin: 0; font-size: 17px; color: #fff; font-weight: 800;">สลับผู้เล่น / ค้นหาแดชบอร์ด</h3>
+            <span style="font-size: 12px; color: #94a3b8;">เลือกดูข้อมูลส่วนตัวของแต่ละคน</span>
+          </div>
+        </div>
+        <button onclick="closeUserModal()" style="background: transparent; border: none; color: #94a3b8; font-size: 22px; cursor: pointer; padding: 4px; line-height: 1;">✕</button>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <input type="text" id="userSearchInput" placeholder="พิมพ์ชื่อ Roblox หรือ UserId..." style="flex: 1; background: rgba(10, 14, 24, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 8px; padding: 11px 16px; color: #fff; font-family: inherit; font-size: 14px; outline: none;" onkeydown="if(event.key==='Enter') searchAndSwitchUser()">
+        <button onclick="searchAndSwitchUser()" style="background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 8px; padding: 11px 20px; color: #fff; font-weight: 700; cursor: pointer; font-size: 14px; font-family: inherit;">ค้นหา</button>
+      </div>
+
+      <div style="font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; display: flex; justify-content: space-between;">
+        <span>ผู้เล่นที่เปิดใช้งานระบบ</span>
+        <span id="userCountBadge" style="color: #38bdf8;">0 คน</span>
+      </div>
+      <div style="max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;" id="userModalList">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
 
   <!-- Main Container -->
   <main class="app-container">
@@ -2763,10 +2809,155 @@
       }
     }
 
+    function getTargetUserParam() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('u') || urlParams.get('user') || localStorage.getItem('cfame_user') || '';
+    }
+
+    function setTargetUser(userKey) {
+      if (!userKey) return;
+      localStorage.setItem('cfame_user', userKey);
+      const url = new URL(window.location.href);
+      url.searchParams.set('u', userKey);
+      window.history.pushState({}, '', url.toString());
+      closeUserModal();
+      fetchState();
+      showToast('🔄 สลับไปยังแดชบอร์ดของ: ' + userKey);
+    }
+
+    function openUserModal() {
+      const modal = document.getElementById('userSwitcherModal');
+      if (modal) modal.style.display = 'flex';
+      renderUserModalList();
+      const input = document.getElementById('userSearchInput');
+      if (input) {
+        input.value = '';
+        setTimeout(() => input.focus(), 100);
+      }
+    }
+
+    function closeUserModal() {
+      const modal = document.getElementById('userSwitcherModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function searchAndSwitchUser() {
+      const input = document.getElementById('userSearchInput');
+      if (input && input.value.trim()) {
+        setTargetUser(input.value.trim());
+      }
+    }
+
+    function copyPersonalLink() {
+      const p = state.player || {};
+      const identifier = p.name || p.userId || getTargetUserParam();
+      const origin = window.location.origin;
+      const path = window.location.pathname;
+      const shareUrl = identifier ? `${origin}${path}?u=${encodeURIComponent(identifier)}` : window.location.href;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast('🔗 คัดลอกลิงก์ส่วนตัวของคุณแล้ว!\n' + shareUrl);
+        }).catch(() => {
+          prompt('คัดลอกลิงก์ส่วนตัวของคุณ:', shareUrl);
+        });
+      } else {
+        prompt('คัดลอกลิงก์ส่วนตัวของคุณ:', shareUrl);
+      }
+    }
+
+    function showToast(msg) {
+      let toast = document.getElementById('cfameToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'cfameToast';
+        toast.style.position = 'fixed';
+        toast.style.bottom = '24px';
+        toast.style.right = '24px';
+        toast.style.background = 'rgba(15, 23, 42, 0.96)';
+        toast.style.border = '1px solid rgba(56, 189, 248, 0.5)';
+        toast.style.boxShadow = '0 12px 36px rgba(0,0,0,0.8), 0 0 20px rgba(56, 189, 248, 0.3)';
+        toast.style.color = '#fff';
+        toast.style.padding = '12px 20px';
+        toast.style.borderRadius = '12px';
+        toast.style.zIndex = '99999';
+        toast.style.fontSize = '13px';
+        toast.style.fontWeight = '600';
+        toast.style.backdropFilter = 'blur(16px)';
+        toast.style.transition = 'all 0.25s ease';
+        toast.style.pointerEvents = 'none';
+        toast.style.maxWidth = '90vw';
+        toast.style.wordBreak = 'break-all';
+        document.body.appendChild(toast);
+      }
+      toast.innerText = msg;
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0)';
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+      }, 3500);
+    }
+
+    function renderUserModalList() {
+      const container = document.getElementById('userModalList');
+      const badge = document.getElementById('userCountBadge');
+      if (!container) return;
+
+      const users = state.activeUsers || [];
+      if (badge) badge.innerText = `${users.length} คน`;
+
+      if (users.length === 0) {
+        container.innerHTML = `
+          <div style="padding: 24px; text-align: center; color: #94a3b8; font-size: 13px;">
+            ยังไม่มีผู้เล่นอื่นส่งข้อมูลเข้ามา<br>
+            <span style="font-size: 12px; color: #64748b;">(รันสคริปต์ในเกมเพื่อเพิ่มแดชบอร์ดส่วนตัวของคุณ)</span>
+          </div>
+        `;
+        return;
+      }
+
+      const currentUid = String(state.player?.userId || state.player?.name || '');
+
+      container.innerHTML = users.map(u => {
+        const isCurrent = String(u.userId) === currentUid || (u.name && u.name.toLowerCase() === currentUid.toLowerCase());
+        const isOnline = u.connected;
+        const avatar = u.avatarUrl || `https://www.roblox.com/headshot-thumbnail/image?userId=${u.userId}&width=150&height=150&format=png`;
+
+        return `
+          <div onclick="setTargetUser('${u.name || u.userId}')" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: ${isCurrent ? 'rgba(56, 189, 248, 0.15)' : 'rgba(255,255,255,0.03)'}; border: 1px solid ${isCurrent ? 'rgba(56, 189, 248, 0.4)' : 'rgba(255,255,255,0.07)'}; border-radius: 12px; cursor: pointer; transition: all 0.15s ease;" onmouseenter="this.style.background='rgba(56, 189, 248, 0.12)'" onmouseleave="this.style.background='${isCurrent ? 'rgba(56, 189, 248, 0.15)' : 'rgba(255,255,255,0.03)'}'">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="position: relative;">
+                <img src="${avatar}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #0b0f19; border: 1.5px solid ${isCurrent ? '#38bdf8' : 'rgba(255,255,255,0.1)'};">
+                <span style="position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-radius: 50%; background: ${isOnline ? '#22c55e' : '#64748b'}; border: 2px solid #0f172a;"></span>
+              </div>
+              <div style="display: flex; flex-direction: column;">
+                <div style="font-weight: 700; color: #fff; font-size: 14px; display: flex; align-items: center; gap: 6px;">
+                  <span>${u.displayName || u.name}</span>
+                  ${isCurrent ? '<span style="font-size: 10px; background: rgba(56, 189, 248, 0.25); color: #38bdf8; padding: 1px 6px; border-radius: 9999px;">คุณ</span>' : ''}
+                </div>
+                <div style="font-size: 12px; color: #94a3b8; font-family: 'JetBrains Mono', monospace;">
+                  @${u.name} • Lv. ${u.level || 1} ${u.guild ? `• [${u.guild}]` : ''}
+                </div>
+              </div>
+            </div>
+            <button style="background: transparent; border: 1px solid ${isCurrent ? '#38bdf8' : 'rgba(255,255,255,0.15)'}; color: ${isCurrent ? '#38bdf8' : '#cbd5e1'}; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer;">
+              ${isCurrent ? 'กำลังดู' : 'เปิดดู'}
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
     async function fetchState() {
       try {
         const pin = localStorage.getItem('dashboard_pin') || '';
-        const url = `/api/data?_t=${Date.now()}` + (pin ? `&pin=${encodeURIComponent(pin)}` : '');
+        const targetUser = getTargetUserParam();
+        let url = `/api/data?_t=${Date.now()}` + (pin ? `&pin=${encodeURIComponent(pin)}` : '');
+        if (targetUser) {
+          url += `&u=${encodeURIComponent(targetUser)}`;
+        }
+
         const res = await fetch(url, {
           cache: 'no-store',
           headers: pin ? { 'x-dashboard-pin': pin } : {}
@@ -2780,6 +2971,15 @@
 
         if (!res.ok) throw new Error('Network error');
         state = await res.json();
+
+        // Save active user identifier
+        if (state.player && (state.player.name || state.player.userId)) {
+          const currentIdentifier = state.player.name || state.player.userId;
+          if (!localStorage.getItem('cfame_user')) {
+            localStorage.setItem('cfame_user', currentIdentifier);
+          }
+        }
+
         renderAll();
       } catch (err) {
         setOffline();
