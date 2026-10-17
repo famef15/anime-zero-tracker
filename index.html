@@ -1333,7 +1333,9 @@
     async function fetchState() {
       try {
         const pin = localStorage.getItem('dashboard_pin') || '';
-        const res = await fetch('/api/data' + (pin ? `?pin=${encodeURIComponent(pin)}` : ''), {
+        const url = `/api/data?_t=${Date.now()}` + (pin ? `&pin=${encodeURIComponent(pin)}` : '');
+        const res = await fetch(url, {
+          cache: 'no-store',
           headers: pin ? { 'x-dashboard-pin': pin } : {}
         });
         if (res.status === 401) {

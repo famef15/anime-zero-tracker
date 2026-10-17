@@ -285,10 +285,13 @@ setInterval(async () => {
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
-  // CORS
+  // CORS & Anti-Cache (Zero delay, pure real-time)
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-dashboard-pin, x-tracker-secret");
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
 
   if (req.method === "OPTIONS") {
     res.writeHead(204);
@@ -403,6 +406,9 @@ function applyReport(payload) {
   if (payload.currencies) state.currencies = payload.currencies;
   if (payload.materials) state.materials = payload.materials;
   if (payload.accessories) state.accessories = payload.accessories;
+  if (payload.live) {
+    state.live = payload.live;
+  }
 
   // Ensure player.level is valid and synced with progression
   const validLevel = (state.playerProg?.level && Number(state.playerProg.level) > 0)
