@@ -1,63 +1,65 @@
 <!DOCTYPE html>
-<html lang="th" data-color-mode="dark" data-dark-theme="dark">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Liesajsor17919/anime-zero-tracker: Live Drops & Inventory Tracker</title>
+  <title>Anime Zero Tracker | CFame.HOST</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    /* ============================================================
-       GitHub Primer Dark Theme Design System
-       ============================================================ */
     :root {
-      --gh-bg-default: #0d1117;
-      --gh-bg-canvas: #010409;
-      --gh-bg-subtle: #161b22;
-      --gh-bg-inset: #0d1117;
-      --gh-bg-hover: #1f242c;
-      --gh-bg-active: #282e37;
+      --bg-base: #0a0d13;
+      --bg-surface: #11151e;
+      --bg-card: #151922;
+      --bg-card-hover: #1a202c;
+      --bg-pill: #10141d;
+      --bg-input: #0e121a;
 
-      --gh-border-default: #30363d;
-      --gh-border-muted: #21262d;
-      --gh-border-subtle: rgba(240, 246, 252, 0.1);
+      --border-subtle: #1c2230;
+      --border-card: #232a3b;
+      --border-active: #3b82f6;
 
-      --gh-fg-default: #e6edf3;
-      --gh-fg-muted: #7d8590;
-      --gh-fg-subtle: #6e7681;
-      --gh-fg-on-emphasis: #ffffff;
+      --text-main: #f1f5f9;
+      --text-muted: #8492a6;
+      --text-dim: #526077;
 
-      --gh-accent-fg: #2f81f7;
-      --gh-accent-emphasis: #1f6feb;
-      --gh-accent-subtle: rgba(56, 139, 253, 0.15);
+      /* Ducky Host Rarity Palette */
+      --rarity-mythic-bg: rgba(249, 115, 22, 0.15);
+      --rarity-mythic-border: #f97316;
+      --rarity-mythic-text: #ff8a3d;
 
-      --gh-success-fg: #3fb950;
-      --gh-success-emphasis: #238636;
-      --gh-success-hover: #2ea043;
-      --gh-success-subtle: rgba(46, 160, 67, 0.15);
+      --rarity-legendary-bg: rgba(168, 85, 247, 0.15);
+      --rarity-legendary-border: #a855f7;
+      --rarity-legendary-text: #c084fc;
 
-      --gh-danger-fg: #f85149;
-      --gh-danger-emphasis: #da3633;
-      --gh-danger-subtle: rgba(248, 81, 73, 0.15);
+      --rarity-epic-bg: rgba(236, 72, 153, 0.15);
+      --rarity-epic-border: #ec4899;
+      --rarity-epic-text: #f472b6;
 
-      --gh-attention-fg: #d29922;
-      --gh-attention-subtle: rgba(187, 128, 9, 0.15);
+      --rarity-rare-bg: rgba(14, 165, 233, 0.15);
+      --rarity-rare-border: #0ea5e9;
+      --rarity-rare-text: #38bdf8;
 
-      --gh-done-fg: #a371f7;
-      --gh-done-subtle: rgba(163, 113, 247, 0.15);
+      --rarity-common-bg: rgba(148, 163, 184, 0.1);
+      --rarity-common-border: #64748b;
+      --rarity-common-text: #94a3b8;
 
-      --gh-tab-active-border: #f78166;
-      --gh-radius-sm: 4px;
-      --gh-radius-md: 6px;
-      --gh-radius-lg: 8px;
-      --gh-radius-pill: 100px;
+      /* Currencies Accent Colors */
+      --color-gold: #facc15;
+      --color-gems: #c084fc;
+      --color-reroll: #818cf8;
+      --color-rolls: #cbd5e1;
+      --color-spins: #f59e0b;
+      --color-level: #38bdf8;
+      --color-success: #22c55e;
+      --color-danger: #ef4444;
 
-      /* Game Rarity Colors (GitHub Label Style) */
-      --rarity-t4: #d29922;
-      --rarity-t3: #bc8cff;
-      --rarity-t2: #58a6ff;
-      --rarity-t1: #7d8590;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-pill: 9999px;
     }
 
     * {
@@ -67,1208 +69,1854 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", 'Kanit', Helvetica, Arial, sans-serif;
-      background-color: var(--gh-bg-default);
-      color: var(--gh-fg-default);
-      font-size: 14px;
-      line-height: 1.5;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.5;
     }
 
-    /* GitHub Global Header Bar */
-    .gh-header {
-      background-color: var(--gh-bg-canvas);
-      border-bottom: 1px solid var(--gh-border-default);
-      padding: 12px 24px;
+    /* Top Navigation Bar */
+    .top-nav {
+      background-color: #0d1118;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .gh-header-left {
+    .brand-wrap {
       display: flex;
       align-items: center;
-      gap: 16px;
-    }
-
-    .gh-logo {
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      transition: opacity 0.2s;
-    }
-    .gh-logo:hover { opacity: 0.8; }
-
-    .gh-repo-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--gh-fg-muted);
-    }
-
-    .gh-repo-title a {
-      color: var(--gh-accent-fg);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .gh-repo-title a:hover {
-      text-decoration: underline;
-    }
-
-    .gh-repo-title .divider {
-      color: var(--gh-fg-muted);
-    }
-
-    .gh-badge-visibility {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 2px 8px;
-      border-radius: var(--gh-radius-pill);
-      border: 1px solid var(--gh-border-default);
-      color: var(--gh-fg-muted);
-      line-height: 18px;
-    }
-
-    .gh-header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    /* GitHub Action Buttons */
-    .gh-btn-group {
-      display: inline-flex;
-      border: 1px solid var(--gh-border-default);
-      border-radius: var(--gh-radius-md);
-      overflow: hidden;
-    }
-
-    .gh-btn {
-      background-color: var(--gh-bg-subtle);
-      border: 1px solid var(--gh-border-default);
-      color: var(--gh-fg-default);
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 5px 12px;
-      border-radius: var(--gh-radius-md);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background-color 0.15s, border-color 0.15s;
-      white-space: nowrap;
-      text-decoration: none;
-    }
-
-    .gh-btn:hover {
-      background-color: var(--gh-bg-hover);
-      border-color: var(--gh-fg-subtle);
-    }
-
-    .gh-btn-primary {
-      background-color: var(--gh-success-emphasis);
-      border-color: rgba(240, 246, 252, 0.1);
-      color: #ffffff;
-      font-weight: 600;
-    }
-    .gh-btn-primary:hover {
-      background-color: var(--gh-success-hover);
-      border-color: rgba(240, 246, 252, 0.15);
-    }
-
-    .gh-btn-counter {
-      background-color: var(--gh-bg-inset);
-      color: var(--gh-fg-default);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 0 6px;
-      border-radius: 10px;
-      border: 1px solid var(--gh-border-default);
-      margin-left: 2px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Connection Status Pill */
-    .gh-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 10px;
-      border-radius: var(--gh-radius-pill);
-      border: 1px solid rgba(46, 160, 67, 0.4);
-      background-color: var(--gh-success-subtle);
-      color: var(--gh-success-fg);
-    }
-    .gh-status-pill.offline {
-      border-color: rgba(248, 81, 73, 0.4);
-      background-color: var(--gh-danger-subtle);
-      color: var(--gh-danger-fg);
-    }
-    .gh-status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: currentColor;
-    }
-
-    /* GitHub Subnav / Repository Navigation Tabs */
-    .gh-subnav-container {
-      background-color: var(--gh-bg-canvas);
-      border-bottom: 1px solid var(--gh-border-default);
-      padding: 0 24px;
-    }
-
-    .gh-tabs {
-      display: flex;
-      gap: 8px;
-      list-style: none;
-      overflow-x: auto;
-    }
-
-    .gh-tab {
-      padding: 10px 14px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--gh-fg-default);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .gh-tab:hover {
-      color: var(--gh-fg-default);
-      background-color: rgba(177, 186, 196, 0.04);
-      border-radius: var(--gh-radius-md) var(--gh-radius-md) 0 0;
-    }
-
-    .gh-tab.active {
-      font-weight: 600;
-      color: var(--gh-fg-default);
-      border-bottom-color: var(--gh-tab-active-border);
-    }
-
-    .gh-tab .counter {
-      background-color: var(--gh-border-default);
-      color: var(--gh-fg-default);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 1px 7px;
-      border-radius: 10px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Main Content Container */
-    .gh-container {
-      max-width: 1360px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 24px 20px;
-      flex: 1;
-    }
-
-    /* GitHub Box Layout */
-    .gh-box {
-      background-color: var(--gh-bg-subtle);
-      border: 1px solid var(--gh-border-default);
-      border-radius: var(--gh-radius-md);
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
-
-    .gh-box-header {
-      background-color: var(--gh-bg-inset);
-      border-bottom: 1px solid var(--gh-border-default);
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gh-fg-default);
-    }
-
-    .gh-box-body {
-      padding: 16px;
-    }
-
-    /* Player Profile Hero (Styled like GitHub Profile Card) */
-    .gh-profile-card {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 20px;
-      align-items: center;
-      background-color: var(--gh-bg-subtle);
-      border: 1px solid var(--gh-border-default);
-      border-radius: var(--gh-radius-md);
-      padding: 18px 22px;
-      margin-bottom: 20px;
-    }
-
-    @media (max-width: 840px) {
-      .gh-profile-card { grid-template-columns: 1fr; }
-    }
-
-    .gh-avatar {
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
-      background-color: var(--gh-bg-inset);
-      border: 2px solid var(--gh-border-default);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.5);
-    }
-
-    .gh-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-    }
-
-    .gh-profile-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .gh-profile-name-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .gh-profile-name {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--gh-fg-default);
-    }
-
-    .gh-profile-handle {
-      font-size: 14px;
-      color: var(--gh-fg-muted);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .gh-profile-guild {
-      font-size: 12px;
-      background-color: var(--gh-accent-subtle);
-      color: var(--gh-accent-fg);
-      border: 1px solid rgba(56, 139, 253, 0.4);
-      padding: 2px 8px;
-      border-radius: var(--gh-radius-pill);
-      font-weight: 600;
-    }
-
-    .gh-level-tag {
-      background-color: var(--gh-attention-subtle);
-      color: var(--gh-attention-fg);
-      border: 1px solid rgba(187, 128, 9, 0.4);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: var(--gh-radius-pill);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* GitHub Progress Bar (Like Language Breakdown bar) */
-    .gh-exp-section {
-      margin-top: 4px;
-    }
-
-    .gh-exp-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--gh-fg-muted);
-      margin-bottom: 4px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .gh-exp-track {
-      width: 100%;
-      height: 8px;
-      background-color: var(--gh-border-muted);
-      border-radius: var(--gh-radius-pill);
-      overflow: hidden;
-      display: flex;
-    }
-
-    .gh-exp-fill {
-      height: 100%;
-      width: 0%;
-      background-color: var(--gh-success-fg);
-      border-radius: var(--gh-radius-pill);
-      transition: width 0.4s ease;
-    }
-
-    /* GitHub Metric Boxes (Currencies Ribbon) */
-    .gh-metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .gh-metric-card {
-      background-color: var(--gh-bg-subtle);
-      border: 1px solid var(--gh-border-default);
-      border-radius: var(--gh-radius-md);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      transition: border-color 0.15s;
-    }
-
-    .gh-metric-card:hover {
-      border-color: var(--gh-accent-fg);
-    }
-
-    .gh-metric-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: var(--gh-radius-md);
-      background-color: var(--gh-bg-inset);
-      border: 1px solid var(--gh-border-default);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .gh-metric-data .title {
-      font-size: 12px;
-      color: var(--gh-fg-muted);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-
-    .gh-metric-data .number {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--gh-fg-default);
-      font-family: 'JetBrains Mono', monospace;
-      margin-top: 2px;
-    }
-
-    /* Latest Match Banner (Styled like GitHub Action Latest Workflow Run) */
-    .gh-run-card {
-      background-color: var(--gh-bg-subtle);
-      border: 1px solid var(--gh-border-default);
-      border-radius: var(--gh-radius-md);
-      padding: 16px 20px;
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .gh-run-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       gap: 12px;
-      flex-wrap: wrap;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--gh-border-muted);
     }
 
-    .gh-run-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .brand-logo {
       font-size: 15px;
-      font-weight: 600;
-    }
-
-    .gh-run-tags {
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #ffffff;
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
     }
 
-    /* GitHub Status Badges (Open/Success vs Closed/Failed) */
-    .gh-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: var(--gh-radius-pill);
-      border: 1px solid transparent;
-      font-family: 'JetBrains Mono', monospace;
-      white-space: nowrap;
+    .brand-logo span.tag {
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 400;
     }
 
-    .gh-badge-success {
-      background-color: var(--gh-success-subtle);
-      color: var(--gh-success-fg);
-      border-color: rgba(46, 160, 67, 0.4);
-    }
-
-    .gh-badge-danger {
-      background-color: var(--gh-danger-subtle);
-      color: var(--gh-danger-fg);
-      border-color: rgba(248, 81, 73, 0.4);
-    }
-
-    .gh-badge-info {
-      background-color: var(--gh-accent-subtle);
-      color: var(--gh-accent-fg);
-      border-color: rgba(56, 139, 253, 0.4);
-    }
-
-    .gh-badge-muted {
-      background-color: var(--gh-bg-inset);
-      color: var(--gh-fg-muted);
-      border-color: var(--gh-border-default);
-    }
-
-    /* GitHub Issue / Pull Request Label Chips */
-    .gh-label {
+    .status-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 2px 8px;
-      border-radius: var(--gh-radius-pill);
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 18px;
-      border: 1px solid var(--gh-border-default);
-      background-color: var(--gh-bg-inset);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .gh-drops-flow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    /* Tab Panes */
-    .gh-pane {
-      display: none;
-    }
-    .gh-pane.active {
-      display: block;
-    }
-
-    /* GitHub Filter Bar */
-    .gh-filter-bar {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-
-    .gh-search-input {
-      flex: 1;
-      min-width: 260px;
-      background-color: var(--gh-bg-inset);
-      border: 1px solid var(--gh-border-default);
-      border-radius: var(--gh-radius-md);
-      color: var(--gh-fg-default);
-      font-family: inherit;
-      font-size: 13px;
-      padding: 6px 12px;
-      outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
-    }
-
-    .gh-search-input:focus {
-      border-color: var(--gh-accent-fg);
-      box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.3);
-    }
-
-    /* GitHub Release Assets / Packages Grid */
-    .gh-assets-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 12px;
-    }
-
-    .gh-asset-card {
-      background-color: var(--gh-bg-subtle);
-      border: 1px solid var(--gh-border-default);
-      border-radius: var(--gh-radius-md);
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      position: relative;
-      transition: background-color 0.15s, border-color 0.15s;
-    }
-
-    .gh-asset-card:hover {
-      background-color: var(--gh-bg-hover);
-      border-color: var(--gh-fg-subtle);
-    }
-
-    /* Tier Chip on card */
-    .gh-tier-tag {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: var(--gh-radius-pill);
-      border: 1px solid var(--gh-border-default);
-      text-transform: uppercase;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .gh-count-pill {
-      position: absolute;
-      top: 8px;
-      right: 8px;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
       font-size: 11px;
       font-weight: 600;
-      padding: 1px 6px;
-      border-radius: var(--gh-radius-pill);
-      background-color: var(--gh-bg-inset);
-      border: 1px solid var(--gh-border-default);
-      color: var(--gh-fg-default);
-      font-family: 'JetBrains Mono', monospace;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #4ade80;
     }
 
-    .gh-asset-visual {
-      width: 58px;
-      height: 58px;
-      border-radius: var(--gh-radius-md);
-      background-color: var(--gh-bg-inset);
-      border: 1px solid var(--gh-border-muted);
+    .status-badge.offline {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+
+    .status-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
+
+    .top-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .nav-btn:hover {
+      background-color: var(--bg-card-hover);
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    .nav-btn.primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border-color: #38bdf8;
+      color: #ffffff;
+    }
+
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px 4px 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .nav-user img {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #1e2430;
+    }
+
+    /* Main Container */
+    .app-container {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* IMAGE 1: Account Currency Pill Bar */
+    .account-bar {
+      background: #0f131b;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .account-bar::-webkit-scrollbar { display: none; }
+
+    .acc-col {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .acc-col-title {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500;
+    }
+
+    .acc-user-val {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Currency Pills */
+    .curr-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-md);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      cursor: default;
+    }
+    .curr-pill:hover {
+      transform: translateY(-1px);
+    }
+
+    .curr-pill.level {
+      background: #0a2536;
+      border: 1px solid #0284c7;
+      color: var(--color-level);
+    }
+    .curr-pill.gold {
+      background: #241d0f;
+      border: 1px solid #ca8a04;
+      color: var(--color-gold);
+    }
+    .curr-pill.gems {
+      background: #231233;
+      border: 1px solid #9333ea;
+      color: var(--color-gems);
+    }
+    .curr-pill.reroll {
+      background: #1b1938;
+      border: 1px solid #6366f1;
+      color: var(--color-reroll);
+    }
+    .curr-pill.spins {
+      background: #111a2e;
+      border: 1px solid #2563eb;
+      color: var(--color-rolls);
+    }
+    .curr-pill .divider {
+      color: #334155;
+      font-weight: 300;
+      margin: 0 4px;
+    }
+    .curr-pill .lucky-val {
+      color: #f59e0b;
+    }
+
+    /* IMAGE 2: Top Stat Metric Cards (5 Cards) */
+    .metric-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 1024px) {
+      .metric-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .metric-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      overflow: visible;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .metric-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    /* Modern Floating Tooltips on Hover */
+    .has-tooltip {
+      position: relative;
+    }
+    .has-tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #161b26;
+      border: 1px solid #3b82f6;
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.18s;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 16px rgba(59, 130, 246, 0.3);
+      z-index: 1000;
+    }
+    .has-tooltip::before {
+      content: '';
+      position: absolute;
+      bottom: calc(100% + 5px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      border-width: 7px 7px 0 7px;
+      border-style: solid;
+      border-color: #3b82f6 transparent transparent transparent;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.18s;
+      z-index: 1000;
+    }
+    .has-tooltip:hover::after,
+    .has-tooltip:hover::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Account Pill tooltips open downwards to avoid clipping */
+    .curr-pill.has-tooltip::after {
+      bottom: auto;
+      top: calc(100% + 12px);
+      transform: translateX(-50%) translateY(-6px);
+    }
+    .curr-pill.has-tooltip::before {
+      bottom: auto;
+      top: calc(100% + 5px);
+      transform: translateX(-50%) translateY(-6px);
+      border-width: 0 7px 7px 7px;
+      border-color: transparent transparent #3b82f6 transparent;
+    }
+    .curr-pill.has-tooltip:hover::after,
+    .curr-pill.has-tooltip:hover::before {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Color variations for Tooltips */
+    .has-tooltip.tip-gold::after { border-color: var(--color-gold); color: #fef08a; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 16px rgba(250, 204, 21, 0.35); }
+    .has-tooltip.tip-gold::before { border-color: var(--color-gold) transparent transparent transparent; }
+    .curr-pill.has-tooltip.tip-gold::before { border-color: transparent transparent var(--color-gold) transparent; }
+
+    .has-tooltip.tip-gems::after { border-color: var(--color-gems); color: #f3e8ff; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 16px rgba(192, 132, 252, 0.35); }
+    .has-tooltip.tip-gems::before { border-color: var(--color-gems) transparent transparent transparent; }
+    .curr-pill.has-tooltip.tip-gems::before { border-color: transparent transparent var(--color-gems) transparent; }
+
+    .has-tooltip.tip-reroll::after { border-color: var(--color-reroll); color: #e0e7ff; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 16px rgba(129, 140, 248, 0.35); }
+    .has-tooltip.tip-reroll::before { border-color: var(--color-reroll) transparent transparent transparent; }
+    .curr-pill.has-tooltip.tip-reroll::before { border-color: transparent transparent var(--color-reroll) transparent; }
+
+    .has-tooltip.tip-rolls::after { border-color: #94a3b8; color: #f8fafc; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 16px rgba(148, 163, 184, 0.35); }
+    .has-tooltip.tip-rolls::before { border-color: #94a3b8 transparent transparent transparent; }
+
+    .has-tooltip.tip-spins::after { border-color: var(--color-spins); color: #fef3c7; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 16px rgba(245, 158, 11, 0.35); }
+    .has-tooltip.tip-spins::before { border-color: var(--color-spins) transparent transparent transparent; }
+    .curr-pill.has-tooltip.tip-spins::before { border-color: transparent transparent var(--color-spins) transparent; }
+
+    .has-tooltip.tip-level::after { border-color: var(--color-level); color: #e0f2fe; box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 16px rgba(56, 189, 248, 0.35); }
+    .has-tooltip.tip-level::before { border-color: var(--color-level) transparent transparent transparent; }
+    .curr-pill.has-tooltip.tip-level::before { border-color: transparent transparent var(--color-level) transparent; }
+
+    .metric-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--bg-pill);
+      border: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
-      margin-top: 14px;
-      margin-bottom: 2px;
+      flex-shrink: 0;
     }
-
-    .gh-asset-visual img {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      image-rendering: -webkit-optimize-contrast;
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.45));
-    }
-
-    .gh-item-img {
-      width: 20px;
-      height: 20px;
-      object-fit: contain;
-      vertical-align: -3px;
-      margin-right: 5px;
-      image-rendering: -webkit-optimize-contrast;
-      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
-    }
-
-    .gh-metric-img {
+    .metric-icon-wrap img {
       width: 32px;
       height: 32px;
       object-fit: contain;
       image-rendering: -webkit-optimize-contrast;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+      image-rendering: crisp-edges;
     }
 
-    .gh-asset-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--gh-fg-default);
-      text-align: center;
-      max-width: 100%;
+    .metric-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .metric-info .m-title {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
-    .gh-asset-desc {
-      font-size: 11px;
-      color: var(--gh-fg-muted);
-      text-align: center;
-      line-height: 1.3;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 28px;
-    }
-
-    /* GitHub Table (Commit / Workflow Run History) */
-    .gh-table-container {
-      background-color: var(--gh-bg-subtle);
-      border: 1px solid var(--gh-border-default);
-      border-radius: var(--gh-radius-md);
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    table.gh-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    table.gh-table th {
-      background-color: var(--gh-bg-inset);
-      color: var(--gh-fg-muted);
-      font-weight: 600;
-      padding: 10px 14px;
-      text-align: left;
-      border-bottom: 1px solid var(--gh-border-default);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-    }
-
-    table.gh-table td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--gh-border-muted);
-      color: var(--gh-fg-default);
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-
-    table.gh-table td:last-child {
-      white-space: normal;
-    }
-
-    table.gh-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    table.gh-table tr:hover td {
-      background-color: var(--gh-bg-hover);
-    }
-
-    .gh-branch-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 7px;
-      border-radius: var(--gh-radius-pill);
-      background-color: var(--gh-accent-subtle);
-      color: var(--gh-accent-fg);
-      border: 1px solid rgba(56, 139, 253, 0.3);
-      font-size: 12px;
+    .metric-info .m-value {
+      font-size: 20px;
+      font-weight: 800;
       font-family: 'JetBrains Mono', monospace;
-      font-weight: 500;
+      color: #ffffff;
+      white-space: nowrap;
     }
 
-    .empty-msg {
-      text-align: center;
-      padding: 36px 16px;
-      color: var(--gh-fg-muted);
-      font-size: 13px;
-    }
-
-    /* GitHub Footer */
-    .gh-footer {
-      border-top: 1px solid var(--gh-border-default);
-      padding: 24px 20px;
-      font-size: 12px;
-      color: var(--gh-fg-muted);
+    /* Navigation Tabs Bar */
+    .section-tabs-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      max-width: 1360px;
-      margin: 0 auto;
+      gap: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .tab-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 7px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: var(--bg-card);
+    }
+    .tab-btn.active {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+    }
+    .tab-btn .badge-num {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .tab-btn.active .badge-num {
+      background: rgba(34, 197, 94, 0.25);
+      color: #86efac;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .custom-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      padding: 7px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      cursor: pointer;
+    }
+    .custom-select:focus {
+      border-color: #3b82f6;
+    }
+
+    .search-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 200px;
+    }
+    .search-box input {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
       width: 100%;
+    }
+    .search-box input::placeholder {
+      color: var(--text-dim);
+    }
+
+    /* Subheader count */
+    .inventory-header-count {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-bottom: 8px;
+    }
+    .inventory-header-count .title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .inventory-header-count .subtext {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ITEM CARDS GRID (IMAGE 2 REPLICA) */
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+      gap: 12px;
+    }
+
+    .item-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 168px;
+      position: relative;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      cursor: pointer;
+      user-select: none;
+      overflow: hidden;
+    }
+    .item-card:hover {
+      transform: translateY(-3px);
+      background: var(--bg-card-hover);
+      border-color: #475569;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    .item-card.selected {
+      border-color: #22c55e !important;
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.3) !important;
+    }
+
+    /* Rarity specific border glow */
+    .item-card.rarity-mythic {
+      border-color: rgba(249, 115, 22, 0.4);
+    }
+    .item-card.rarity-mythic:hover {
+      border-color: var(--rarity-mythic-border);
+      box-shadow: 0 6px 18px rgba(249, 115, 22, 0.2);
+    }
+    .item-card.rarity-legendary {
+      border-color: rgba(168, 85, 247, 0.4);
+    }
+    .item-card.rarity-legendary:hover {
+      border-color: var(--rarity-legendary-border);
+      box-shadow: 0 6px 18px rgba(168, 85, 247, 0.2);
+    }
+    .item-card.rarity-epic {
+      border-color: rgba(236, 72, 153, 0.4);
+    }
+    .item-card.rarity-rare {
+      border-color: rgba(14, 165, 233, 0.4);
+    }
+
+    /* Card Top Bar */
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .rarity-pill {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .rarity-pill.mythic {
+      background: var(--rarity-mythic-bg);
+      color: var(--rarity-mythic-text);
+      border: 1px solid rgba(249, 115, 22, 0.5);
+    }
+    .rarity-pill.legendary {
+      background: var(--rarity-legendary-bg);
+      color: var(--rarity-legendary-text);
+      border: 1px solid rgba(168, 85, 247, 0.5);
+    }
+    .rarity-pill.epic {
+      background: var(--rarity-epic-bg);
+      color: var(--rarity-epic-text);
+      border: 1px solid rgba(236, 72, 153, 0.5);
+    }
+    .rarity-pill.rare {
+      background: var(--rarity-rare-bg);
+      color: var(--rarity-rare-text);
+      border: 1px solid rgba(14, 165, 233, 0.5);
+    }
+    .rarity-pill.common {
+      background: var(--rarity-common-bg);
+      color: var(--rarity-common-text);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .card-qty {
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Card Center Visual */
+    .card-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 72px;
+      position: relative;
+    }
+    .card-visual img {
+      max-width: 58px;
+      max-height: 58px;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+      transition: transform 0.15s ease;
+    }
+    .item-card:hover .card-visual img {
+      transform: scale(1.1);
+    }
+    .card-visual .no-icon {
+      font-size: 26px;
+      color: #334155;
+      font-weight: 300;
+    }
+
+    /* Card Bottom Details */
+    .card-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 2px;
+    }
+    .card-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+    .card-type {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Floating Selection Toolbar (IMAGE 2 BOTTOM) */
+    .floating-toolbar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #141822;
+      border: 1px solid #2a3449;
+      border-radius: var(--radius-pill);
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .floating-toolbar.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    .floating-toolbar .count-tag {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      padding-right: 12px;
+      border-right: 1px solid #232b3d;
+    }
+    .f-action-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+    .f-action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .f-action-btn.copy {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+    }
+    .f-action-btn.info {
+      background: rgba(14, 165, 233, 0.15);
+      border-color: rgba(14, 165, 233, 0.4);
+      color: #38bdf8;
+    }
+
+    /* TAB CONTENT WRAPPERS */
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* MATCH HISTORY & SPOTLIGHT SECTION */
+    .spotlight-card {
+      background: linear-gradient(135deg, #151a26, #0e121a);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .spotlight-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
     }
 
-    .gh-footer-links {
+    .spotlight-title {
       display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .spotlight-title h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .badge-result {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge-result.win {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+    }
+    .badge-result.loss {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+    .badge-result.idle {
+      background: rgba(148, 163, 184, 0.15);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #94a3b8;
+    }
+
+    .rewards-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .reward-chip {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .reward-chip img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    /* MATCH HISTORY TABLE */
+    .history-table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table.ducky-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    table.ducky-table th {
+      background: #0f131b;
+      padding: 12px 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    table.ducky-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #1a202c;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    table.ducky-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* PIN MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background: #141822;
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      width: 90%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
       gap: 16px;
-      list-style: none;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
     }
 
-    .gh-footer-links a {
-      color: var(--gh-accent-fg);
-      text-decoration: none;
+    /* Item Details Modal */
+    .item-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      z-index: 1001;
     }
-    .gh-footer-links a:hover {
-      text-decoration: underline;
+    .item-modal-card {
+      background: #151924;
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      max-width: 420px;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    /* ============================================================
-       Mobile & Tablet Responsive Adaptations
-       ============================================================ */
+    /* Player Profile & EXP Progression Card (Ultra Clean & Sleek Gaming Style) */
+    .player-profile-strip {
+      background: linear-gradient(135deg, #131722 0%, #0c0f16 100%);
+      border: 1px solid #232b3d;
+      border-radius: var(--radius-lg);
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .player-profile-strip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #38bdf8, #22c55e);
+    }
+
+    .player-avatar-box {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .player-avatar-box img {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 2px solid #38bdf8;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+      object-fit: cover;
+      background: #151a24;
+      display: block;
+    }
+
+    .player-meta-box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .player-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .p-display-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.3px;
+    }
+
+    .p-handle {
+      font-size: 13px;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+    }
+
+    .p-guild-pill {
+      background: rgba(37, 99, 235, 0.18);
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      color: #60a5fa;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.5px;
+    }
+
+    .p-level-pill {
+      background: rgba(202, 138, 4, 0.18);
+      border: 1px solid rgba(234, 179, 8, 0.5);
+      color: #facc15;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.5px;
+    }
+
+    .p-updated-time {
+      font-size: 12px;
+      color: #64748b;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .player-exp-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .p-exp-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #94a3b8;
+    }
+
+    .p-exp-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .p-exp-track {
+      width: 100%;
+      height: 6px;
+      background: #182030;
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .p-exp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #22c55e, #4ade80);
+      border-radius: var(--radius-pill);
+      transition: width 0.4s ease;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+    }
+
+    /* Language Toggle Pill */
+    .lang-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-pill);
+      padding: 5px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .lang-toggle:hover {
+      border-color: #38bdf8;
+      background: var(--bg-card-hover);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+    }
+
+    /* FULL MOBILE RESPONSIVENESS */
     @media (max-width: 768px) {
-      .gh-header {
-        padding: 10px 14px;
+      .top-nav {
+        padding: 8px 14px;
+        flex-wrap: wrap;
         gap: 10px;
       }
-
-      .gh-header-left {
-        width: 100%;
-        justify-content: space-between;
+      .app-container {
+        padding: 12px 12px 60px;
+        gap: 14px;
       }
-
-      .gh-header-actions {
-        width: 100%;
-        justify-content: space-between;
-        gap: 8px;
+      .brand-logo {
+        font-size: 14px;
       }
-
-      .gh-subnav-container {
-        padding: 0 10px;
-      }
-
-      .gh-tabs {
-        scrollbar-width: none;
-      }
-
-      .gh-tabs::-webkit-scrollbar {
+      .brand-logo span.tag {
         display: none;
       }
-
-      .gh-tab {
-        padding: 9px 12px;
-        font-size: 13px;
+      .nav-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+      .nav-user {
+        padding: 3px 8px 3px 4px;
+        font-size: 12px;
+      }
+      .nav-user img {
+        width: 22px;
+        height: 22px;
       }
 
-      .gh-container {
-        padding: 14px 10px;
+      /* Player Profile Strip Mobile */
+      .player-profile-strip {
+        padding: 12px 14px;
+        gap: 12px;
       }
-
-      .gh-profile-card {
-        padding: 14px;
-        gap: 14px;
-        grid-template-columns: 1fr;
+      .player-avatar-box img {
+        width: 46px;
+        height: 46px;
       }
-
-      .gh-profile-card > div:last-child {
-        border-left: none !important;
-        border-top: 1px solid var(--gh-border-muted);
-        padding-left: 0 !important;
-        padding-top: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-align: left !important;
-      }
-
-      .gh-avatar {
-        width: 52px;
-        height: 52px;
-        font-size: 26px;
-      }
-
-      .gh-profile-name {
-        font-size: 16px;
-      }
-
-      .gh-metrics-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        margin-bottom: 14px;
-      }
-
-      .gh-metric-card:last-child {
-        grid-column: 1 / -1;
-      }
-
-      .gh-metric-card {
-        padding: 10px 12px;
-        gap: 10px;
-      }
-
-      .gh-metric-icon {
-        width: 32px;
-        height: 32px;
-        font-size: 18px;
-      }
-
-      .gh-metric-data .number {
+      .p-display-name {
         font-size: 15px;
       }
-
-      .gh-run-card {
-        padding: 12px 14px;
-        margin-bottom: 14px;
+      .p-handle {
+        font-size: 11px;
       }
-
-      .gh-run-header {
+      .p-guild-pill, .p-level-pill {
+        font-size: 10px;
+        padding: 1px 6px;
+      }
+      .p-updated-time {
+        font-size: 11px;
+      }
+      .p-exp-labels {
+        font-size: 11px;
         flex-direction: column;
         align-items: flex-start;
+        gap: 2px;
+      }
+      .p-exp-labels .p-exp-numbers {
+        align-self: flex-end;
+      }
+
+      /* Account Bar Mobile */
+      .account-bar {
+        padding: 8px 12px;
         gap: 8px;
+        -webkit-overflow-scrolling: touch;
       }
-
-      .gh-run-tags {
-        width: 100%;
-        justify-content: flex-start;
+      .acc-col-title {
+        font-size: 10px;
       }
-
-      .gh-search-input {
-        font-size: 16px; /* Prevents auto-zoom on iOS Safari */
-      }
-
-      .gh-assets-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
-
-      .gh-asset-card {
-        padding: 10px 8px;
-      }
-
-      .gh-asset-visual {
-        width: 48px;
-        height: 48px;
-        font-size: 26px;
-        margin-top: 10px;
-      }
-
-      .gh-asset-name {
+      .curr-pill {
+        padding: 4px 8px;
         font-size: 12px;
       }
 
-      .gh-asset-desc {
-        font-size: 10px;
-        min-height: 24px;
+      /* Metric Cards Mobile */
+      .metric-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
       }
-
-      table.gh-table {
-        min-width: 680px;
+      .metric-card:nth-child(5) {
+        grid-column: span 2;
       }
-
-      .gh-footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+      .metric-card {
+        padding: 10px 12px;
         gap: 10px;
-        padding: 18px 14px;
+      }
+      .metric-icon-wrap {
+        width: 36px;
+        height: 36px;
+      }
+      .metric-icon-wrap img {
+        width: 24px;
+        height: 24px;
+      }
+      .metric-info .m-title {
+        font-size: 11px;
+      }
+      .metric-info .m-value {
+        font-size: 16px;
+      }
+
+      /* Navigation Tabs & Filters Mobile */
+      .section-tabs-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .tab-group {
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .tab-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .custom-select {
+        width: 100%;
+        padding: 8px 10px;
+      }
+      .search-box {
+        width: 100%;
+        min-width: 0;
+        padding: 8px 12px;
+      }
+
+      /* Items Grid Mobile */
+      .items-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .item-card {
+        height: 140px;
+        padding: 6px;
+        border-radius: 8px;
+      }
+      .card-visual {
+        height: 52px;
+      }
+      .card-visual img {
+        max-width: 42px;
+        max-height: 42px;
+      }
+      .rarity-pill {
+        font-size: 8px;
+        padding: 1px 4px;
+      }
+      .card-qty {
+        font-size: 10px;
+      }
+      .card-name {
+        font-size: 10.5px;
+      }
+      .card-type {
+        font-size: 8px;
+      }
+
+      /* Floating Action Toolbar Mobile */
+      .floating-toolbar {
+        width: calc(100% - 24px);
+        padding: 6px 12px;
+        gap: 6px;
+        bottom: 12px;
+        justify-content: space-between;
+      }
+      .floating-toolbar .count-tag {
+        font-size: 11px;
+        padding-right: 6px;
+      }
+      .f-action-btn {
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+
+      /* Match Spotlight & Tables Mobile */
+      .spotlight-card {
+        padding: 14px 16px;
+        gap: 12px;
+      }
+      .spotlight-title h3 {
+        font-size: 14px;
+      }
+      table.ducky-table th, table.ducky-table td {
+        padding: 8px 10px;
+        font-size: 11px;
       }
     }
 
-    @media (max-width: 480px) {
-      .gh-repo-title {
-        font-size: 13px;
-        gap: 6px;
-      }
-      .gh-badge-visibility {
-        display: none;
-      }
-      .gh-profile-name-row {
-        gap: 6px;
-      }
-      .gh-profile-guild, .gh-level-tag {
-        font-size: 11px;
-        padding: 1px 6px;
+    @media (max-width: 400px) {
+      .items-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- GitHub Top Navigation Header -->
-  <header class="gh-header">
-    <div class="gh-header-left">
-      <!-- Octocat Logo -->
-      <a href="#" class="gh-logo" title="Anime Zero Tracker">
-        <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" fill="currentColor">
-          <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
-        </svg>
-      </a>
-
-      <!-- Breadcrumb Repo Title -->
-      <div class="gh-repo-title">
-        <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" fill="currentColor" style="color: var(--gh-fg-muted);">
-          <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h7a.25.25 0 0 1 .25.25v1.25a.25.25 0 0 1-.25.25h-7a.25.25 0 0 1-.25-.25Z"></path>
-        </svg>
-        <a href="#" id="repoOwnerLink">Liesajsor17919</a>
-        <span class="divider">/</span>
-        <a href="#"><strong>anime-zero-tracker</strong></a>
-        <span class="gh-badge-visibility">Public</span>
+  <!-- Top Header Navigation -->
+  <header class="top-nav">
+    <div class="brand-wrap">
+      <div class="brand-logo">
+        <span>CFame.HOST</span>
+        <span class="tag">| Anime Zero Tracker</span>
+      </div>
+      <div class="status-badge" id="botStatusBadge">
+        <span class="dot"></span>
+        <span id="botStatusText">ออนไลน์</span>
       </div>
     </div>
 
-    <!-- Header Right Actions -->
-    <div class="gh-header-actions">
-      <!-- Status Pill -->
-      <span id="connStatus" class="gh-status-pill offline">
-        <span class="gh-status-dot"></span>
-        <span id="connStatusText">Offline</span>
-      </span>
+    <div class="top-nav-actions">
+      <!-- Language Toggle TH / EN -->
+      <button class="lang-toggle" id="btnLangToggle" onclick="toggleLanguage()" title="เปลี่ยนภาษา / Switch Language">
+        <span id="langFlag">🇹🇭</span>
+        <span id="langLabel" style="font-family: 'JetBrains Mono', monospace;">TH</span>
+      </button>
 
-      <!-- Star / Level badge -->
-      <div class="gh-btn-group">
-        <button class="gh-btn">
-          <span>★ Star</span>
-          <span class="gh-btn-counter" id="starLevelCounter">Lv. -</span>
-        </button>
-      </div>
-
-      <!-- Sync Live Data Button (GitHub Primary Button) -->
-      <button class="gh-btn gh-btn-primary" onclick="syncNow()">
-        <svg height="14" viewBox="0 0 16 16" version="1.1" width="14" fill="currentColor">
+      <button class="nav-btn primary" id="btnSyncNow" onclick="triggerSync()">
+        <svg height="14" viewBox="0 0 16 16" width="14" fill="currentColor">
           <path d="M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z"></path>
         </svg>
-        Sync Now
+        <span>ซิงค์ข้อมูล</span>
       </button>
+
+      <div class="nav-user">
+        <img id="navAvatarImg" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-D6503A306B66A0258D0C5C0C28E2C068-Png/150/150/AvatarHeadshot/Png/noFilter" alt="User">
+        <span id="navUsername">Liesajsor17919</span>
+      </div>
     </div>
   </header>
 
-  <!-- GitHub Subnav Tabs -->
-  <div class="gh-subnav-container">
-    <nav class="gh-tabs">
-      <div class="gh-tab active" onclick="switchTab('overview')">
-        <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" fill="currentColor">
-          <path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25ZM1.5 6.5v7.75c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V6.5Zm0-1.5h13V1.75a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25Z"></path>
-        </svg>
-        Overview
-      </div>
-      <div class="gh-tab" onclick="switchTab('materials')">
-        <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" fill="currentColor">
-          <path d="m8.878.392 5.25 3.045c.54.314.872.89.872 1.514v6.098a1.75 1.75 0 0 1-.872 1.514l-5.25 3.045a1.75 1.75 0 0 1-1.756 0l-5.25-3.045A1.75 1.75 0 0 1 1 11.049V4.951c0-.624.332-1.201.872-1.514L7.122.392a1.75 1.75 0 0 1 1.756 0ZM7.875 1.69l-4.63 2.685L8 7.133l4.755-2.758-4.63-2.685a.248.248 0 0 0-.25 0ZM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432Zm11 5.372V5.677L8.75 8.432v5.516l4.625-2.683a.25.25 0 0 0 .125-.216Z"></path>
-        </svg>
-        Materials
-        <span class="counter" id="tabMatCounter">0</span>
-      </div>
-      <div class="gh-tab" onclick="switchTab('accessories')">
-        <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" fill="currentColor">
-          <path d="M7.646.146a.5.5 0 0 1 .708 0l1.5 1.5a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.854 2.354a.5.5 0 1 1-.708-.708ZM2.5 4a.5.5 0 0 1 .5.5v1.793l.646-.647a.5.5 0 0 1 .708.708l-1.5 1.5a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708l.646.647V4.5a.5.5 0 0 1 .5-.5Zm11 0a.5.5 0 0 1 .5.5v1.793l.646-.647a.5.5 0 0 1 .708.708l-1.5 1.5a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708l.646.647V4.5a.5.5 0 0 1 .5-.5ZM1 10a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2Zm1.5.5v2.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-2.5Z"></path>
-        </svg>
-        Accessories
-        <span class="counter" id="tabAccCounter">0</span>
-      </div>
-      <div class="gh-tab" onclick="switchTab('history')">
-        <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" fill="currentColor">
-          <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
-        </svg>
-        Match History
-        <span class="counter" id="tabHistCounter">0</span>
-      </div>
-    </nav>
-  </div>
+  <!-- Main Container -->
+  <main class="app-container">
 
-  <!-- Main Workspace -->
-  <main class="gh-container">
-
-    <!-- Player Profile Card (GitHub Profile Style) -->
-    <div class="gh-profile-card">
-      <div class="gh-avatar">
-        <img id="playerAvatarImg" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-D6503A306B66A0258D0C5C0C28E2C068-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Roblox Avatar" onerror="this.src='https://www.roblox.com/headshot-thumbnail/image?userId=9165405454&width=150&height=150&format=png'">
+    <!-- Player Profile & EXP Progression Card (User Requested Style) -->
+    <section class="player-profile-strip">
+      <div class="player-avatar-box">
+        <img id="playerAvatarImg" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-D6503A306B66A0258D0C5C0C28E2C068-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Avatar">
       </div>
-      <div class="gh-profile-meta">
-        <div class="gh-profile-name-row">
-          <span class="gh-profile-name" id="heroPlayerName">Loading...</span>
-          <span class="gh-profile-handle" id="heroPlayerHandle">@Liesajsor17919</span>
-          <span class="gh-profile-guild" id="heroGuildTag">Shinoko</span>
-          <span class="gh-level-tag" id="playerLevelBadge">LV. 439</span>
-          <span style="font-size: 12px; color: var(--gh-fg-muted);">• Updated: <span id="heroLastUpdate">-</span></span>
+      <div class="player-meta-box">
+        <div class="player-title-row">
+          <span class="p-display-name" id="pDisplayName">フレーム</span>
+          <span class="p-handle" id="pUsername">@Liesajsor17919</span>
+          <span class="p-guild-pill" id="pGuildBadge">Shinoko</span>
+          <span class="p-level-pill" id="pLevelBadge">LV. 451</span>
+          <span class="p-updated-time">• <span id="pUpdatedLabel">Updated:</span> <span id="pUpdatedTime">17:14:41</span></span>
         </div>
-
-        <!-- Language / EXP Progress Track -->
-        <div class="gh-exp-section">
-          <div class="gh-exp-header">
-            <span><span id="expSectionTitle">⚡ Level Progression</span> <strong id="expPercent" style="color: var(--gh-success-fg);">(0.0%)</strong></span>
-            <span id="expNumbers">0 / 0 XP</span>
+        <div class="player-exp-container">
+          <div class="p-exp-labels">
+            <span class="p-exp-title">⚡ <span id="pExpTitle">Level 451 Progression</span> <strong id="pExpPct" style="color: #22c55e;">(41.9%)</strong></span>
+            <span class="p-exp-numbers" id="pExpNums">181,728 / 433,761 XP</span>
           </div>
-          <div class="gh-exp-track">
-            <div class="gh-exp-fill" id="expFillBar"></div>
+          <div class="p-exp-track">
+            <div class="p-exp-fill" id="pExpBar" style="width: 41.9%;"></div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Right Side Session Summary -->
-      <div style="text-align: right; border-left: 1px solid var(--gh-border-muted); padding-left: 20px;">
-        <div style="font-size: 12px; color: var(--gh-fg-muted); margin-bottom: 2px;">Session Record</div>
-        <div style="font-size: 18px; font-weight: 700; color: var(--gh-fg-default); font-family: 'JetBrains Mono', monospace;" id="sessionWinLoss">
-          0W - 0L
-        </div>
+    <!-- IMAGE 1: Account Currency Bar -->
+    <section class="account-bar">
+      <!-- Col 1: Account / Username -->
+      <div class="acc-col">
+        <div class="acc-col-title">👤 บัญชี</div>
+        <div class="acc-user-val" id="barUsername">Liesajsor17919</div>
       </div>
-    </div>
 
-    <!-- Quick Metrics (Currencies) -->
-    <div class="gh-metrics-grid">
-      <div class="gh-metric-card">
-        <div class="gh-metric-icon"><img src="/icons/currency_gems.png" class="gh-metric-img" alt="Gems" onerror="this.onerror=null; this.src=''; this.innerText='💎';"></div>
-        <div class="gh-metric-data">
-          <div class="title">Gems</div>
-          <div class="number" id="valGems" style="color: #58a6ff;">-</div>
+      <!-- Col 2: Level -->
+      <div class="acc-col">
+        <div class="acc-col-title">📊 เลเวล</div>
+        <div class="curr-pill level has-tooltip tip-level" id="pillLevel" data-tooltip="กำลังโหลดเลเวล..." onclick="toggleLevelExp()">
+          <span>🎖️</span>
+          <span id="barLevelVal">Lv 451</span>
         </div>
       </div>
-      <div class="gh-metric-card">
-        <div class="gh-metric-icon"><img src="/icons/currency_gold.png" class="gh-metric-img" alt="Gold" onerror="this.onerror=null; this.src=''; this.innerText='🪙';"></div>
-        <div class="gh-metric-data">
-          <div class="title">Gold / Money</div>
-          <div class="number" id="valMoney" style="color: #d29922;">-</div>
-        </div>
-      </div>
-      <div class="gh-metric-card">
-        <div class="gh-metric-icon"><img src="/icons/currency_spins.png" class="gh-metric-img" alt="Lucky Spins" onerror="this.onerror=null; this.src=''; this.innerText='🎰';"></div>
-        <div class="gh-metric-data">
-          <div class="title">Lucky Spins</div>
-          <div class="number" id="valSpins" style="color: #e3b341;">-</div>
-        </div>
-      </div>
-      <div class="gh-metric-card">
-        <div class="gh-metric-icon"><img src="/icons/currency_rerolls.png" class="gh-metric-img" alt="Trait Rerolls" onerror="this.onerror=null; this.src=''; this.innerText='🎲';"></div>
-        <div class="gh-metric-data">
-          <div class="title">Trait Rerolls</div>
-          <div class="number" id="valRerolls" style="color: #bc8cff;">-</div>
-        </div>
-      </div>
-      <div class="gh-metric-card">
-        <div class="gh-metric-icon">⚡</div>
-        <div class="gh-metric-data">
-          <div class="title">Total Player XP</div>
-          <div class="number" id="valRolls" style="color: #3fb950;">-</div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Latest Match Spotlight (GitHub Workflow Run Style) -->
-    <div class="gh-run-card">
-      <div class="gh-run-header">
-        <div class="gh-run-title">
-          <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" fill="currentColor" style="color: var(--gh-accent-fg);">
-            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm7-3.25v3.5a.75.75 0 0 1-.22.53l-2.25 2.25a.75.75 0 0 1-1.06-1.06L6.72 8.25V4.75a.75.75 0 0 1 1.5 0Z"></path>
+      <!-- Col 3: Gold / Coins -->
+      <div class="acc-col">
+        <div class="acc-col-title">🪙 เหรียญ</div>
+        <div class="curr-pill gold has-tooltip tip-gold" id="pillGold" data-tooltip="กำลังโหลดยอดเงิน..." onclick="toggleCurrencyVal('barGoldVal', 'gold')">
+          <span>🪙</span>
+          <span id="barGoldVal">289.3M</span>
+        </div>
+      </div>
+
+      <!-- Col 4: Gems -->
+      <div class="acc-col">
+        <div class="acc-col-title">💎 เจม</div>
+        <div class="curr-pill gems has-tooltip tip-gems" id="pillGems" data-tooltip="กำลังโหลดยอดเจม..." onclick="toggleCurrencyVal('barGemsVal', 'gems')">
+          <span>💎</span>
+          <span id="barGemsVal">3.5M</span>
+        </div>
+      </div>
+
+      <!-- Col 5: Trait Rerolls -->
+      <div class="acc-col">
+        <div class="acc-col-title">🔮 รีโรลเทรต</div>
+        <div class="curr-pill reroll has-tooltip tip-reroll" id="pillRerolls" data-tooltip="กำลังโหลดรีโรล..." onclick="toggleCurrencyVal('barRerollsVal', 'rerolls')">
+          <span>🔮</span>
+          <span id="barRerollsVal">11.8K</span>
+        </div>
+      </div>
+
+      <!-- Col 6: Rolls & Lucky Spins -->
+      <div class="acc-col">
+        <div class="acc-col-title">🎲 สปิน</div>
+        <div class="curr-pill spins has-tooltip tip-spins" id="pillSpins" data-tooltip="กำลังโหลดสปิน..." onclick="toggleSpinsVal()">
+          <span>🎲</span>
+          <span id="barRollsVal">1,078</span>
+          <span class="divider">|</span>
+          <span>🎰</span>
+          <span class="lucky-val" id="barLuckySpinsVal">6,847</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMAGE 2: Top Stat Metric Cards (5 Cards) -->
+    <section class="metric-cards-grid">
+      <!-- Card 1: Gold -->
+      <div class="metric-card has-tooltip tip-gold" id="cardGoldBox" data-tooltip="กำลังโหลดยอดเงิน..." onclick="toggleCurrencyVal('cardGold', 'gold')">
+        <div class="metric-icon-wrap">
+          <img src="/icons/currency_gold.png" alt="Gold" onerror="this.src=''; this.innerText='🪙';">
+        </div>
+        <div class="metric-info">
+          <div class="m-title">เหรียญรวม</div>
+          <div class="m-value" id="cardGold" style="color: var(--color-gold);">-</div>
+        </div>
+      </div>
+
+      <!-- Card 2: Gems -->
+      <div class="metric-card has-tooltip tip-gems" id="cardGemsBox" data-tooltip="กำลังโหลดยอดเจม..." onclick="toggleCurrencyVal('cardGems', 'gems')">
+        <div class="metric-icon-wrap">
+          <img src="/icons/currency_gems.png" alt="Gems" onerror="this.src=''; this.innerText='💎';">
+        </div>
+        <div class="metric-info">
+          <div class="m-title">เจมรวม</div>
+          <div class="m-value" id="cardGems" style="color: var(--color-gems);">-</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Trait Rerolls -->
+      <div class="metric-card has-tooltip tip-reroll" id="cardRerollsBox" data-tooltip="กำลังโหลดรีโรล..." onclick="toggleCurrencyVal('cardRerolls', 'rerolls')">
+        <div class="metric-icon-wrap">
+          <img src="/icons/currency_rerolls.png" alt="Trait Rerolls" onerror="this.src=''; this.innerText='🔮';">
+        </div>
+        <div class="metric-info">
+          <div class="m-title">รีโรลเทรตรวม</div>
+          <div class="m-value" id="cardRerolls" style="color: var(--color-reroll);">-</div>
+        </div>
+      </div>
+
+      <!-- Card 4: Normal Rolls -->
+      <div class="metric-card has-tooltip tip-rolls" id="cardRollsBox" data-tooltip="กำลังโหลด ROLLS..." onclick="toggleCurrencyVal('cardRolls', 'rolls')">
+        <div class="metric-icon-wrap">
+          <span style="font-size: 24px;">🎲</span>
+        </div>
+        <div class="metric-info">
+          <div class="m-title">ROLLS รวม</div>
+          <div class="m-value" id="cardRolls" style="color: #cbd5e1;">-</div>
+        </div>
+      </div>
+
+      <!-- Card 5: Lucky Spins -->
+      <div class="metric-card has-tooltip tip-spins" id="cardLuckySpinsBox" data-tooltip="กำลังโหลด LUCKY SPINS..." onclick="toggleCurrencyVal('cardLuckySpins', 'luckySpins')">
+        <div class="metric-icon-wrap">
+          <img src="/icons/currency_spins.png" alt="Lucky Spins" onerror="this.src=''; this.innerText='🎰';">
+        </div>
+        <div class="metric-info">
+          <div class="m-title">LUCKY SPINS รวม</div>
+          <div class="m-value" id="cardLuckySpins" style="color: #f59e0b;">-</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs & Filter Bar -->
+    <section class="section-tabs-bar">
+      <!-- Left Tabs -->
+      <div class="tab-group">
+        <button class="tab-btn active" onclick="setMainTab('inventory', this)">
+          <span>🎒 คลังไอเทม</span>
+          <span class="badge-num" id="tabBadgeItems">51</span>
+        </button>
+        <button class="tab-btn" onclick="setMainTab('history', this)">
+          <span>⚔️ ประวัติแมตช์</span>
+          <span class="badge-num" id="tabBadgeHistory">0</span>
+        </button>
+      </div>
+
+      <!-- Right Filters (Visible on Inventory) -->
+      <div class="filter-group" id="inventoryFilters">
+        <select class="custom-select" id="filterCategory" onchange="renderItemsGrid()">
+          <option value="all">หมวดหมู่: ทั้งหมด</option>
+          <option value="material">🧱 เฉพาะวัสดุ (Materials)</option>
+          <option value="accessory">👑 เฉพาะเครื่องประดับ (Accessories)</option>
+        </select>
+
+        <select class="custom-select" id="filterRarity" onchange="renderItemsGrid()">
+          <option value="all">ความหายาก: ทั้งหมด</option>
+          <option value="mythic">🔥 Mythic</option>
+          <option value="legendary">⚡ Legendary</option>
+          <option value="epic">🟣 Epic</option>
+          <option value="rare">🔵 Rare</option>
+          <option value="common">⚪ Common</option>
+        </select>
+
+        <div class="search-box">
+          <svg height="14" viewBox="0 0 16 16" width="14" fill="#64748b">
+            <path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"></path>
           </svg>
-          <span>Latest Match Run: <strong id="spotMapInfo">Hxh (Nightmare)</strong></span>
-        </div>
-        <div class="gh-run-tags">
-          <span class="gh-badge gh-badge-success" id="spotResultBadge">✓ Victory</span>
-          <span class="gh-badge gh-badge-info" id="spotDurationBadge">⏱️ 1m 34s</span>
+          <input type="text" id="itemSearchInput" placeholder="ค้นหา..." oninput="renderItemsGrid()">
         </div>
       </div>
-      <div>
-        <div style="font-size: 12px; font-weight: 600; color: var(--gh-fg-muted); margin-bottom: 8px;">
-          DROPS & REWARDS EARNED
-        </div>
-        <div class="gh-drops-flow" id="spotRewardsFlow">
-          <div class="empty-msg" style="padding: 10px;">กำลังดึงข้อมูลของดรอป...</div>
-        </div>
-      </div>
-    </div>
+    </section>
 
-    <!-- Tab Pane 1: Overview (Default) -->
-    <div id="pane-overview" class="gh-pane active">
-      <div class="gh-box">
-        <div class="gh-box-header">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" fill="currentColor">
-              <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
-            </svg>
-            <span>README.md • Recent Farm History</span>
+    <!-- TAB 1: INVENTORY (IMAGE 2 REPLICA) -->
+    <section class="tab-content active" id="tab-inventory">
+      <div class="inventory-header-count">
+        <div class="title">คลังไอเทม</div>
+        <div class="subtext" id="invSummaryText">51 ชนิด • 230,402 ทั้งหมด</div>
+      </div>
+
+      <!-- Items Grid -->
+      <div class="items-grid" id="itemsGridContainer">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- TAB 2: MATCH HISTORY & SPOTLIGHT -->
+    <section class="tab-content" id="tab-history">
+      <!-- Spotlight Latest Match Card -->
+      <div class="spotlight-card">
+        <div class="spotlight-header">
+          <div class="spotlight-title">
+            <span style="font-size: 20px;">⚔️</span>
+            <div>
+              <h3 id="spotMapTitle">Hxh (Nightmare)</h3>
+              <div style="font-size: 12px; color: var(--text-muted);" id="spotSubInfo">Wave 11 • 2,400 Kills</div>
+            </div>
           </div>
-          <button class="gh-btn" style="padding: 2px 8px; font-size: 12px;" onclick="switchTab('history')">View all runs →</button>
+
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="badge-result win" id="spotResult">✓ Victory</div>
+            <div class="badge-result idle" id="spotDuration">⏱️ 1m 24s</div>
+          </div>
         </div>
-        <div class="gh-table-container" style="border: none; border-radius: 0;">
-          <table class="gh-table">
+
+        <div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">ของรางวัลที่ได้รับในแมตช์นี้:</div>
+          <div class="rewards-flow" id="spotRewardsFlow">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Match History Table -->
+      <div class="history-table-card">
+        <div class="table-responsive">
+          <table class="ducky-table">
             <thead>
               <tr>
-                <th>Time</th>
-                <th>Map & Difficulty</th>
-                <th>Unit / Branch</th>
-                <th>Status</th>
-                <th>Duration</th>
-                <th>Wave / Kills</th>
-                <th>Drops</th>
+                <th>เวลา</th>
+                <th>ด่าน / โหมด</th>
+                <th>ผลการเล่น</th>
+                <th>ระยะเวลา</th>
+                <th>EXP ได้รับ</th>
+                <th>ไอเทมดรอป</th>
               </tr>
             </thead>
-            <tbody id="overviewHistoryBody">
-              <tr><td colspan="7" class="empty-msg">กำลังโหลดประวัติ...</td></tr>
+            <tbody id="historyTableBody">
+              <!-- Injected dynamically -->
             </tbody>
           </table>
         </div>
       </div>
-    </div>
-
-    <!-- Tab Pane 2: Materials -->
-    <div id="pane-materials" class="gh-pane">
-      <div class="gh-filter-bar">
-        <input type="text" class="gh-search-input" id="matSearch" placeholder="Filter materials (e.g. Cloth, Feather, Blade, Finger...)" oninput="renderMaterials()">
-      </div>
-      <div class="gh-assets-grid" id="materialsGrid">
-        <div class="empty-msg" style="grid-column: 1/-1;">กำลังโหลดวัตถุดิบ...</div>
-      </div>
-    </div>
-
-    <!-- Tab Pane 3: Accessories -->
-    <div id="pane-accessories" class="gh-pane">
-      <div class="gh-filter-bar">
-        <input type="text" class="gh-search-input" id="accSearch" placeholder="Filter accessories (e.g. Headband, Crown, Wings, Cloak...)" oninput="renderAccessories()">
-      </div>
-      <div class="gh-assets-grid" id="accessoriesGrid">
-        <div class="empty-msg" style="grid-column: 1/-1;">กำลังโหลดเครื่องประดับ...</div>
-      </div>
-    </div>
-
-    <!-- Tab Pane 4: Full Match History -->
-    <div id="pane-history" class="gh-pane">
-      <div class="gh-table-container">
-        <table class="gh-table">
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th>Map & Difficulty</th>
-              <th>Unit / Branch</th>
-              <th>Status</th>
-              <th>Duration</th>
-              <th>Wave / Kills</th>
-              <th>Drops Earned</th>
-            </tr>
-          </thead>
-          <tbody id="historyTableBody">
-            <tr><td colspan="7" class="empty-msg">กำลังดึงประวัติการแข่ง...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    </section>
 
   </main>
 
-  <!-- GitHub Footer -->
-  <footer class="gh-footer">
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <svg height="20" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="20" fill="currentColor">
-        <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
-      </svg>
-      <span>© 2026 Anime Zero Tracker. Powered by Roblox Executor MCP.</span>
+  <!-- FLOATING SELECTION TOOLBAR (IMAGE 2 REPLICA) -->
+  <div class="floating-toolbar" id="floatingToolbar">
+    <div class="count-tag"><span id="selectedCount">1</span> ที่เลือก</div>
+    <button class="f-action-btn copy" onclick="copySelectedItemName()">
+      📋 คัดลอกชื่อ
+    </button>
+    <button class="f-action-btn info" onclick="openSelectedItemModal()">
+      🔍 ดูรายละเอียด
+    </button>
+    <button class="f-action-btn" onclick="clearSelection()" style="color: #94a3b8;">
+      ✕ ล้าง
+    </button>
+  </div>
+
+  <!-- ITEM DETAILS MODAL -->
+  <div class="item-modal" id="itemDetailModal" onclick="if(event.target === this) closeItemModal()">
+    <div class="item-modal-card">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <span class="rarity-pill mythic" id="modalRarityBadge">MYTHIC</span>
+        <button onclick="closeItemModal()" style="background: none; border: none; color: #94a3b8; font-size: 18px; cursor: pointer;">✕</button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="width: 72px; height: 72px; background: #0e121a; border-radius: 10px; display: flex; align-items: center; justify-content: center;" id="modalIconWrap">
+          <img src="" style="width: 56px; height: 56px; object-fit: contain;" id="modalItemImg">
+        </div>
+        <div>
+          <div style="font-size: 18px; font-weight: 700; color: #fff;" id="modalItemName">Item Name</div>
+          <div style="font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;" id="modalItemCategory">MATERIAL</div>
+          <div style="font-size: 14px; font-weight: 700; color: #22c55e; margin-top: 4px;" id="modalItemStock">ในคลัง: 1,424 ชิ้น</div>
+        </div>
+      </div>
+      <div style="background: #0f131c; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; font-size: 13px; color: #cbd5e1;" id="modalItemDesc">
+        Description
+      </div>
     </div>
-    <ul class="gh-footer-links">
-      <li><a href="http://localhost:18888/api/data" target="_blank">API JSON</a></li>
-      <li><a href="#" onclick="syncNow(); return false;">Sync Now</a></li>
-    </ul>
-  </footer>
+  </div>
+
+  <!-- PIN PROMPT MODAL -->
+  <div class="modal-overlay" id="pinModal">
+    <div class="modal-box">
+      <h3 style="font-size: 18px; font-weight: 700; color: #ffffff;">🔒 กรุณากรอก PIN เพื่อเข้าดูข้อมูล</h3>
+      <p style="font-size: 13px; color: var(--text-muted);">ระบบต้องการ PIN สำหรับความปลอดภัยของบัญชี</p>
+      <input type="password" id="pinInput" placeholder="ระบุ PIN..." style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-card); background: #0c0f16; color: #fff; font-size: 16px; text-align: center; outline: none;">
+      <button class="nav-btn primary" onclick="submitPin()" style="justify-content: center; padding: 10px; font-size: 14px;">ยืนยัน PIN</button>
+    </div>
+  </div>
 
   <script>
     let state = {};
+    let selectedItemId = null;
+    let selectedItemObj = null;
+
+    let currentLang = localStorage.getItem('dashboard_lang') || 'th';
+
+    const I18N = {
+      th: {
+        code: 'TH',
+        flag: '🇹🇭',
+        statusOnline: 'ออนไลน์',
+        statusOffline: 'ออฟไลน์',
+        syncBtn: 'ซิงค์ข้อมูล',
+        syncing: 'กำลังซิงค์...',
+        accColUser: '👤 บัญชี',
+        accColLevel: '📊 เลเวล',
+        accColGold: '🪙 เหรียญ',
+        accColGems: '💎 เจม',
+        accColRerolls: '🔮 รีโรลเทรต',
+        accColSpins: '🎲 สปิน',
+        cardTitleGold: 'เหรียญรวม',
+        cardTitleGems: 'เจมรวม',
+        cardTitleRerolls: 'รีโรลเทรตรวม',
+        cardTitleRolls: 'ROLLS รวม',
+        cardTitleLuckySpins: 'LUCKY SPINS รวม',
+        tabInv: '🎒 คลังไอเทม',
+        tabHist: '⚔️ ประวัติแมตช์',
+        catAll: 'หมวดหมู่: ทั้งหมด',
+        catMat: '🧱 เฉพาะวัสดุ (Materials)',
+        catAcc: '👑 เฉพาะเครื่องประดับ (Accessories)',
+        rarAll: 'ความหายาก: ทั้งหมด',
+        searchPlaceholder: 'ค้นหา...',
+        invHeaderTitle: 'คลังไอเทม',
+        invSummaryPattern: '{kinds} ชนิด • {total} ทั้งหมด',
+        selectedPattern: '{count} ที่เลือก',
+        btnCopy: '📋 คัดลอกชื่อ',
+        btnCopied: '✓ คัดลอกแล้ว',
+        btnDetails: '🔍 ดูรายละเอียด',
+        btnClear: '✕ ล้าง',
+        waitingMatch: 'รอเริ่มแมตช์...',
+        noMatchYet: 'ยังไม่มีประวัติในรอบนี้',
+        matchRewardsTitle: 'ของรางวัลที่ได้รับในแมตช์นี้:',
+        noDrops: 'ไม่มีของดรอป',
+        noDropsBonus: 'ไม่มีของดรอปเพิ่ม',
+        thTime: 'เวลา',
+        thStage: 'ด่าน / โหมด',
+        thResult: 'ผลการเล่น',
+        thDuration: 'ระยะเวลา',
+        thExp: 'EXP ได้รับ',
+        thDrops: 'ไอเทมดรอป',
+        noHistoryText: 'ยังไม่มีประวัติการเล่น',
+        noItemsText: 'ไม่พบไอเทมที่ค้นหา',
+        stockPattern: 'ในคลัง: {count} ชิ้น',
+        itemFallbackDesc: 'ไอเทมสำหรับอัปเกรดหรือสวมใส่ในตัวละคร',
+        pinTitle: '🔒 กรุณากรอก PIN เพื่อเข้าดูข้อมูล',
+        pinDesc: 'ระบบต้องการ PIN สำหรับความปลอดภัยของบัญชี',
+        pinInputPh: 'ระบุ PIN...',
+        pinSubmitBtn: 'ยืนยัน PIN',
+        unitGold: 'เหรียญ',
+        unitGems: 'เจม',
+        unitReroll: 'รีโรลเทรต',
+        unitSpinsNormal: 'ROLLS ปกติ',
+        unitSpinsLucky: 'LUCKY SPINS',
+        resWin: 'Victory',
+        resLoss: 'Defeat',
+        updatedLabel: 'อัปเดต: ',
+        expProgTitle: 'ความคืบหน้าเลเวล {lvl}'
+      },
+      en: {
+        code: 'EN',
+        flag: '🇺🇸',
+        statusOnline: 'Online',
+        statusOffline: 'Offline',
+        syncBtn: 'Sync Now',
+        syncing: 'Syncing...',
+        accColUser: '👤 Account',
+        accColLevel: '📊 Level',
+        accColGold: '🪙 Gold',
+        accColGems: '💎 Gems',
+        accColRerolls: '🔮 Trait Rerolls',
+        accColSpins: '🎲 Spins',
+        cardTitleGold: 'Total Gold',
+        cardTitleGems: 'Total Gems',
+        cardTitleRerolls: 'Total Rerolls',
+        cardTitleRolls: 'Total Rolls',
+        cardTitleLuckySpins: 'Total Lucky Spins',
+        tabInv: '🎒 Inventory',
+        tabHist: '⚔️ Match History',
+        catAll: 'Category: All',
+        catMat: '🧱 Materials Only',
+        catAcc: '👑 Accessories Only',
+        rarAll: 'Rarity: All',
+        searchPlaceholder: 'Search items...',
+        invHeaderTitle: 'Item Inventory',
+        invSummaryPattern: '{kinds} Items • {total} Total Count',
+        selectedPattern: '{count} Selected',
+        btnCopy: '📋 Copy Name',
+        btnCopied: '✓ Copied!',
+        btnDetails: '🔍 View Details',
+        btnClear: '✕ Clear',
+        waitingMatch: 'Waiting for match...',
+        noMatchYet: 'No matches recorded this session',
+        matchRewardsTitle: 'Rewards gained in this match:',
+        noDrops: 'No item drops',
+        noDropsBonus: 'No bonus drops',
+        thTime: 'Time',
+        thStage: 'Map / Mode',
+        thResult: 'Result',
+        thDuration: 'Duration',
+        thExp: 'EXP Gained',
+        thDrops: 'Drops',
+        noHistoryText: 'No match history available',
+        noItemsText: 'No items match your search',
+        stockPattern: 'In Stock: {count}',
+        itemFallbackDesc: 'Item used for upgrading or equipping',
+        pinTitle: '🔒 Enter PIN to Access Dashboard',
+        pinDesc: 'PIN protection is required for account security',
+        pinInputPh: 'Enter PIN...',
+        pinSubmitBtn: 'Submit PIN',
+        unitGold: 'Gold',
+        unitGems: 'Gems',
+        unitReroll: 'Trait Rerolls',
+        unitSpinsNormal: 'Normal Rolls',
+        unitSpinsLucky: 'Lucky Spins',
+        resWin: 'Victory',
+        resLoss: 'Defeat',
+        updatedLabel: 'Updated: ',
+        expProgTitle: 'Level {lvl} Progression'
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'th') ? 'en' : 'th';
+      localStorage.setItem('dashboard_lang', currentLang);
+      applyTranslations();
+      renderAll();
+    }
+
+    function applyTranslations() {
+      const t = I18N[currentLang] || I18N.th;
+
+      // Header button
+      const flagEl = document.getElementById('langFlag');
+      if (flagEl) flagEl.innerText = t.flag;
+      const labelEl = document.getElementById('langLabel');
+      if (labelEl) labelEl.innerText = t.code;
+
+      // Status badge
+      const botText = document.getElementById('botStatusText');
+      if (botText) botText.innerText = state.connected ? t.statusOnline : t.statusOffline;
+
+      // Sync button
+      const btnSync = document.getElementById('btnSyncNow');
+      if (btnSync && !btnSync.disabled) {
+        const span = btnSync.querySelector('span');
+        if (span) span.innerText = t.syncBtn;
+      }
+
+      // Player Strip Updated Label
+      const pUpEl = document.getElementById('pUpdatedLabel');
+      if (pUpEl) pUpEl.innerText = t.updatedLabel;
+
+      // Account Bar Titles
+      const colUser = document.querySelector('.acc-col:nth-child(1) .acc-col-title');
+      if (colUser) colUser.innerText = t.accColUser;
+      const colLvl = document.querySelector('.acc-col:nth-child(2) .acc-col-title');
+      if (colLvl) colLvl.innerText = t.accColLevel;
+      const colGold = document.querySelector('.acc-col:nth-child(3) .acc-col-title');
+      if (colGold) colGold.innerText = t.accColGold;
+      const colGems = document.querySelector('.acc-col:nth-child(4) .acc-col-title');
+      if (colGems) colGems.innerText = t.accColGems;
+      const colRerolls = document.querySelector('.acc-col:nth-child(5) .acc-col-title');
+      if (colRerolls) colRerolls.innerText = t.accColRerolls;
+      const colSpins = document.querySelector('.acc-col:nth-child(6) .acc-col-title');
+      if (colSpins) colSpins.innerText = t.accColSpins;
+
+      // Metric Card Titles
+      const mGold = document.querySelector('#cardGoldBox .m-title');
+      if (mGold) mGold.innerText = t.cardTitleGold;
+      const mGems = document.querySelector('#cardGemsBox .m-title');
+      if (mGems) mGems.innerText = t.cardTitleGems;
+      const mRerolls = document.querySelector('#cardRerollsBox .m-title');
+      if (mRerolls) mRerolls.innerText = t.cardTitleRerolls;
+      const mRolls = document.querySelector('#cardRollsBox .m-title');
+      if (mRolls) mRolls.innerText = t.cardTitleRolls;
+      const mSpins = document.querySelector('#cardLuckySpinsBox .m-title');
+      if (mSpins) mSpins.innerText = t.cardTitleLuckySpins;
+
+      // Tab Buttons
+      const tabInv = document.querySelector('.tab-btn:nth-child(1) span:first-child');
+      if (tabInv) tabInv.innerText = t.tabInv;
+      const tabHist = document.querySelector('.tab-btn:nth-child(2) span:first-child');
+      if (tabHist) tabHist.innerText = t.tabHist;
+
+      // Filter Options
+      const selCat = document.getElementById('filterCategory');
+      if (selCat && selCat.options.length >= 3) {
+        selCat.options[0].text = t.catAll;
+        selCat.options[1].text = t.catMat;
+        selCat.options[2].text = t.catAcc;
+      }
+      const selRar = document.getElementById('filterRarity');
+      if (selRar && selRar.options.length >= 1) {
+        selRar.options[0].text = t.rarAll;
+      }
+      const searchInp = document.getElementById('itemSearchInput');
+      if (searchInp) searchInp.placeholder = t.searchPlaceholder;
+
+      // Inventory Header
+      const invHead = document.querySelector('.inventory-header-count .title');
+      if (invHead) invHead.innerText = t.invHeaderTitle;
+
+      // Action toolbar
+      const btnCopy = document.querySelector('.f-action-btn.copy');
+      if (btnCopy) btnCopy.innerText = t.btnCopy;
+      const btnInfo = document.querySelector('.f-action-btn.info');
+      if (btnInfo) btnInfo.innerText = t.btnDetails;
+      const btnClear = document.querySelector('.f-action-btn:last-child');
+      if (btnClear) btnClear.innerText = t.btnClear;
+
+      // Match Spotlight Title
+      const spotRewardLabel = document.querySelector('#tab-history .spotlight-card > div:last-child > div:first-child');
+      if (spotRewardLabel) spotRewardLabel.innerText = t.matchRewardsTitle;
+
+      // History Table Headers
+      const ths = document.querySelectorAll('table.ducky-table th');
+      if (ths.length >= 6) {
+        ths[0].innerText = t.thTime;
+        ths[1].innerText = t.thStage;
+        ths[2].innerText = t.thResult;
+        ths[3].innerText = t.thDuration;
+        ths[4].innerText = t.thExp;
+        ths[5].innerText = t.thDrops;
+      }
+
+      // Pin Modal Texts
+      const pinH3 = document.querySelector('#pinModal h3');
+      if (pinH3) pinH3.innerText = t.pinTitle;
+      const pinP = document.querySelector('#pinModal p');
+      if (pinP) pinP.innerText = t.pinDesc;
+      const pinInp = document.getElementById('pinInput');
+      if (pinInp) pinInp.placeholder = t.pinInputPh;
+      const pinBtn = document.querySelector('#pinModal button');
+      if (pinBtn) pinBtn.innerText = t.pinSubmitBtn;
+    }
 
     // Real in-game icon map matching game assets 1:1
     const NAME_TO_ICON = {
-      // Currencies
       'gems': '/icons/currency_gems.png',
       'gem': '/icons/currency_gems.png',
       'gold': '/icons/currency_gold.png',
@@ -1313,10 +1961,12 @@
       'kitsune mask': '/icons/accessory_106.png',
       'diva headphones': '/icons/accessory_107.png',
       'panther hollow mask': '/icons/accessory_108.png',
+      'light admiral cloak': '/icons/accessory_109.png',
       'wind spirit wing': '/icons/accessory_110.png',
       'dark captain wings': '/icons/accessory_111.png',
       'flame pirate hat': '/icons/accessory_112.png',
       'blast archer crown': '/icons/accessory_113.png',
+      'blast archer wings': '/icons/accessory_114.png',
       'solar wings': '/icons/accessory_115.png',
       'astral wings': '/icons/accessory_116.png',
       'spectral wings': '/icons/accessory_117.png',
@@ -1333,81 +1983,19 @@
       "divine general's wheel": '/icons/accessory_128.png'
     };
 
-    function getItemIconHtml(nameOrId, category, size = 20) {
-      const key = String(nameOrId || '').toLowerCase().trim();
-      let iconUrl = NAME_TO_ICON[key];
-      if (!iconUrl) {
-        if (category === 'material' && /^\d+$/.test(key)) iconUrl = `/icons/material_${key}.png`;
-        else if (category === 'accessory' && /^\d+$/.test(key)) iconUrl = `/icons/accessory_${key}.png`;
-      }
-      const emojiFallback = getItemEmoji(nameOrId, category);
-      if (iconUrl) {
-        return `<img src="${iconUrl}" class="gh-item-img" style="width: ${size}px; height: ${size}px;" alt="${nameOrId}" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"><span style="display:none;">${emojiFallback}</span>`;
-      }
-      return `<span>${emojiFallback}</span>`;
-    }
-
-    // Specific Item Emoji Mapping (Fallback)
-    const ITEM_MAP = {
-      '101': { emoji: '🧶', name: 'Fine Cloth' },
-      '102': { emoji: '📜', name: 'Shinobi Scroll' },
-      '103': { emoji: '🪶', name: 'Mana Feather' },
-      '104': { emoji: '💎', name: 'Magic Crystal' },
-      '105': { emoji: '🩸', name: 'Cursed Blood' },
-      '106': { emoji: '🪵', name: 'Spirit Wood' },
-      '107': { emoji: '🦴', name: 'Dragon Bone' },
-      '108': { emoji: '⚡', name: 'Thunder Core' },
-      '109': { emoji: '🔥', name: 'Flame Essence' },
-      '110': { emoji: '❄️', name: 'Frost Shard' },
-      '111': { emoji: '🌑', name: 'Dark Remnant' },
-      '112': { emoji: '☀️', name: 'Solar Fragment' },
-      '113': { emoji: '🌟', name: 'Astral Tear' },
-      '114': { emoji: '👑', name: 'Emperor Seal' }
-    };
-
-    function getItemEmoji(idOrName, category) {
-      const key = String(idOrName || '').toLowerCase();
-      if (ITEM_MAP[key]) return ITEM_MAP[key].emoji;
-      for (const k in ITEM_MAP) {
-        if (ITEM_MAP[k].name.toLowerCase() === key) return ITEM_MAP[k].emoji;
-      }
-
-      if (key.includes('cloth') || key.includes('fabric')) return '🧶';
-      if (key.includes('scroll') || key.includes('paper')) return '📜';
-      if (key.includes('feather') || key.includes('wing')) return '🪶';
-      if (key.includes('crystal') || key.includes('gem')) return '💎';
-      if (key.includes('blade') || key.includes('sword') || key.includes('dagger')) return '🗡️';
-      if (key.includes('bone') || key.includes('skull')) return '🦴';
-      if (key.includes('wood') || key.includes('branch')) return '🪵';
-      if (key.includes('flame') || key.includes('fire')) return '🔥';
-      if (key.includes('frost') || key.includes('ice')) return '❄️';
-      if (key.includes('thunder') || key.includes('lightning') || key.includes('spark')) return '⚡';
-      if (key.includes('finger')) return '🖐️';
-      if (key.includes('eye') || key.includes('orb')) return '👁️';
-      if (key.includes('core') || key.includes('heart')) return '❤️‍🔥';
-      if (key.includes('headband')) return '🥷';
-      if (key.includes('crown') || key.includes('tiara')) return '👑';
-      if (key.includes('ring')) return '💍';
-      if (key.includes('necklace') || key.includes('amulet') || key.includes('pendant')) return '📿';
-      if (key.includes('cloak') || key.includes('cape') || key.includes('robe')) return '🧥';
-      if (key.includes('boots') || key.includes('shoes')) return '👢';
-      if (key.includes('gloves') || key.includes('gauntlet')) return '🥊';
-      if (key.includes('mask')) return '🎭';
-      if (key.includes('glasses') || key.includes('goggles')) return '👓';
-
-      if (category === 'currency') {
-        if (key.includes('gold') || key.includes('money')) return '🪙';
-        if (key.includes('gem')) return '💎';
-        if (key.includes('spin')) return '🎰';
-        if (key.includes('reroll')) return '🎲';
-        return '🪙';
-      }
-      return category === 'accessory' ? '👑' : '🎒';
-    }
-
     function numFmt(n) {
       if (n === undefined || n === null) return '0';
       return Number(n).toLocaleString('en-US');
+    }
+
+    function numCompact(num) {
+      if (num === undefined || num === null) return '0';
+      const n = Number(num);
+      if (isNaN(n)) return '0';
+      if (Math.abs(n) >= 1e9) return (n / 1e9).toFixed(1).replace(/\.0$/, '') + 'B';
+      if (Math.abs(n) >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+      if (Math.abs(n) >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K';
+      return n.toLocaleString('en-US');
     }
 
     function timeFmt(unix) {
@@ -1424,17 +2012,39 @@
       return `${s}s`;
     }
 
-    function switchTab(tabId) {
-      const tabs = document.querySelectorAll('.gh-tab');
-      tabs.forEach(t => t.classList.remove('active'));
-      const panes = document.querySelectorAll('.gh-pane');
-      panes.forEach(p => p.classList.remove('active'));
+    function getItemIconUrl(idOrName, category) {
+      const key = String(idOrName || '').toLowerCase().trim();
+      if (NAME_TO_ICON[key]) return NAME_TO_ICON[key];
+      if (/^\d+$/.test(key)) {
+        if (category === 'material') return `/icons/material_${key}.png`;
+        if (category === 'accessory') return `/icons/accessory_${key}.png`;
+      }
+      return null;
+    }
 
-      const pane = document.getElementById('pane-' + tabId);
-      if (pane) pane.classList.add('active');
+    // Resolve Rarity to match Ducky Host screenshot
+    function resolveRarity(item) {
+      const tier = String(item.tier || '1');
+      const r = (item.rarity || '').toLowerCase();
+      if (r === 'mythic' || tier === '4') return 'mythic';
+      if (r === 'legendary' || tier === '3') return 'legendary';
+      if (r === 'epic' || tier === '2') return 'epic';
+      if (r === 'rare') return 'rare';
+      return 'common';
+    }
 
-      const btn = Array.from(tabs).find(t => t.innerText.toLowerCase().includes(tabId));
+    function setMainTab(tabName, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
       if (btn) btn.classList.add('active');
+      const target = document.getElementById('tab-' + tabName);
+      if (target) target.classList.add('active');
+
+      const filters = document.getElementById('inventoryFilters');
+      if (filters) {
+        filters.style.display = (tabName === 'inventory') ? 'flex' : 'none';
+      }
     }
 
     async function fetchState() {
@@ -1445,11 +2055,13 @@
           cache: 'no-store',
           headers: pin ? { 'x-dashboard-pin': pin } : {}
         });
+
         if (res.status === 401) {
           showPinPrompt();
           return;
         }
         hidePinPrompt();
+
         if (!res.ok) throw new Error('Network error');
         state = await res.json();
         renderAll();
@@ -1476,10 +2088,10 @@
       }
     }
 
-    async function syncNow() {
-      const btn = event?.currentTarget;
+    async function triggerSync() {
+      const btn = document.getElementById('btnSyncNow');
       if (btn) {
-        btn.innerText = 'Syncing...';
+        btn.innerHTML = '<span>กำลังซิงค์...</span>';
         btn.disabled = true;
       }
       try {
@@ -1489,305 +2101,404 @@
           if (json.state) state = json.state;
           renderAll();
         }
-      } catch (err) {
-        console.error('Sync failed', err);
+      } catch (e) {
+        console.error('Sync failed:', e);
       } finally {
         if (btn) {
-          btn.innerHTML = `<svg height="14" viewBox="0 0 16 16" version="1.1" width="14" fill="currentColor"><path d="M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z"></path></svg> Sync Now`;
+          btn.innerHTML = `
+            <svg height="14" viewBox="0 0 16 16" width="14" fill="currentColor">
+              <path d="M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z"></path>
+            </svg>
+            <span>ซิงค์ข้อมูล</span>
+          `;
           btn.disabled = false;
         }
       }
     }
 
     function setOffline() {
-      const statusPill = document.getElementById('connStatus');
-      statusPill.className = 'gh-status-pill offline';
-      document.getElementById('connStatusText').innerText = 'Offline';
+      const t = I18N[currentLang] || I18N.th;
+      const badge = document.getElementById('botStatusBadge');
+      if (badge) {
+        badge.className = 'status-badge offline';
+        document.getElementById('botStatusText').innerText = t.statusOffline;
+      }
+    }
+
+    const activeFullToggles = {};
+
+    function toggleCurrencyVal(elementId, type) {
+      activeFullToggles[elementId] = !activeFullToggles[elementId];
+      renderAll();
+    }
+
+    function toggleLevelExp() {
+      const prog = state.playerProg || {};
+      const lvl = prog.level || state.player?.level || 451;
+      const curXp = Number(prog.currentXp) || 0;
+      const reqXp = Number(prog.requiredXp) || 1;
+      const pct = (Math.min(1, Math.max(0, prog.ratio || (curXp / reqXp))) * 100).toFixed(1) + '%';
+      if (currentLang === 'en') {
+        alert(`⚡ Level Details:\nLevel: Lv ${lvl}\nProgress: ${pct}\nEXP: ${numFmt(curXp)} / ${numFmt(reqXp)} XP\nTotal EXP: ${numFmt(prog.totalXp)} XP`);
+      } else {
+        alert(`⚡ ข้อมูลเลเวล:\nเลเวล: Lv ${lvl}\nความคืบหน้า: ${pct}\nEXP: ${numFmt(curXp)} / ${numFmt(reqXp)} XP\nEXP รวมทั้งหมด: ${numFmt(prog.totalXp)} XP`);
+      }
+    }
+
+    function toggleSpinsVal() {
+      const curr = state.currencies || {};
+      if (currentLang === 'en') {
+        alert(`🎲 All Spin Info:\n• Normal Rolls: ${numFmt(curr.rolls || 1078)}\n• Lucky Spins: ${numFmt(curr.luckySpins || 6847)}`);
+      } else {
+        alert(`🎲 ข้อมูลสปินทั้งหมด:\n• ROLLS ปกติ: ${numFmt(curr.rolls || 1078)}\n• LUCKY SPINS: ${numFmt(curr.luckySpins || 6847)}`);
+      }
     }
 
     function renderAll() {
-      // Online Status
-      const statusPill = document.getElementById('connStatus');
+      applyTranslations();
+      const t = I18N[currentLang] || I18N.th;
+
+      // 1. Bot Connection Status
+      const badge = document.getElementById('botStatusBadge');
       if (state.connected) {
-        statusPill.className = 'gh-status-pill';
-        document.getElementById('connStatusText').innerText = 'Passing';
+        badge.className = 'status-badge';
+        document.getElementById('botStatusText').innerText = t.statusOnline;
       } else {
-        statusPill.className = 'gh-status-pill offline';
-        document.getElementById('connStatusText').innerText = 'Offline';
+        badge.className = 'status-badge offline';
+        document.getElementById('botStatusText').innerText = t.statusOffline;
       }
 
-      // Player Profile
+      // 2. Player Info
       const p = state.player || {};
       const prog = state.playerProg || {};
-      const currentLevel = (prog.level && Number(prog.level) > 0) 
-        ? Number(prog.level) 
-        : ((p.level && Number(p.level) > 0) ? Number(p.level) : 439);
+      const curr = state.currencies || {};
+      const lvl = prog.level || p.level || 451;
 
-      document.getElementById('heroPlayerName').innerText = p.displayName || p.name || 'Unknown';
-      document.getElementById('heroPlayerHandle').innerText = '@' + (p.name || 'Liesajsor17919');
-      document.getElementById('repoOwnerLink').innerText = p.name || 'Liesajsor17919';
-      document.getElementById('heroGuildTag').innerText = p.guild && p.guild !== 'None' ? p.guild : 'No Guild';
-      document.getElementById('playerLevelBadge').innerText = 'LV. ' + currentLevel;
-      document.getElementById('starLevelCounter').innerText = 'Lv. ' + currentLevel;
-      document.getElementById('heroLastUpdate').innerText = timeFmt(state.lastUpdated);
-
-      // Dynamic Avatar URL update
-      if (p.userId) {
-        const img = document.getElementById('playerAvatarImg');
-        if (img && img.getAttribute('data-userid') !== String(p.userId)) {
-          img.setAttribute('data-userid', String(p.userId));
-          if (p.avatarUrl) img.src = p.avatarUrl;
-        }
+      document.getElementById('barUsername').innerText = p.name || 'Liesajsor17919';
+      document.getElementById('navUsername').innerText = p.displayName || p.name || 'Liesajsor17919';
+      if (p.avatarUrl) {
+        document.getElementById('navAvatarImg').src = p.avatarUrl;
       }
 
-      // Player EXP Bar
+      // 3. IMAGE 1: Account Currency Bar Values
+      const goldFull = numFmt(curr.money);
+      const gemsFull = numFmt(curr.gems);
+      const rerollsFull = numFmt(curr.traitRerolls);
+      const rollsFull = numFmt(curr.rolls || 1078);
+      const luckySpinsFull = numFmt(curr.luckySpins || 6847);
+
+      // Level EXP Tooltip & Progression
       const curXp = Number(prog.currentXp) || 0;
       const reqXp = Number(prog.requiredXp) || 1;
       const ratio = Math.min(1, Math.max(0, prog.ratio || (curXp / reqXp)));
       const pct = (ratio * 100).toFixed(1) + '%';
+      const levelTip = `Lv ${lvl} (${pct}) • ${numFmt(curXp)} / ${numFmt(reqXp)} XP`;
 
-      const expHeaderLabel = document.getElementById('expSectionTitle');
-      if (expHeaderLabel) expHeaderLabel.innerText = `⚡ Level ${currentLevel} Progression`;
-      document.getElementById('expPercent').innerText = `(${pct})`;
-      document.getElementById('expNumbers').innerText = `${numFmt(curXp)} / ${numFmt(reqXp)} XP`;
-      document.getElementById('expFillBar').style.width = pct;
+      // Update Player Profile Strip (User Requested)
+      const pDisplay = document.getElementById('pDisplayName');
+      if (pDisplay) pDisplay.innerText = p.displayName || p.name || 'フレーム';
+      const pUser = document.getElementById('pUsername');
+      if (pUser) pUser.innerText = '@' + (p.name || 'Liesajsor17919');
+      const pGuild = document.getElementById('pGuildBadge');
+      if (pGuild) pGuild.innerText = (p.guild && p.guild !== 'None') ? p.guild : 'Shinoko';
+      const pLvl = document.getElementById('pLevelBadge');
+      if (pLvl) pLvl.innerText = `LV. ${lvl}`;
+      const pTime = document.getElementById('pUpdatedTime');
+      if (pTime) pTime.innerText = timeFmt(state.lastUpdated);
 
-      // Session record
-      const ss = state.sessionStats || {};
-      document.getElementById('sessionWinLoss').innerText = `${ss.wins || 0}W - ${ss.losses || 0}L`;
+      const pExpTitle = document.getElementById('pExpTitle');
+      if (pExpTitle) pExpTitle.innerText = t.expProgTitle.replace('{lvl}', lvl);
+      const pExpPct = document.getElementById('pExpPct');
+      if (pExpPct) pExpPct.innerText = `(${pct})`;
+      const pExpNums = document.getElementById('pExpNums');
+      if (pExpNums) pExpNums.innerText = `${numFmt(curXp)} / ${numFmt(reqXp)} XP`;
+      const pExpBar = document.getElementById('pExpBar');
+      if (pExpBar) pExpBar.style.width = pct;
+      const pAvatar = document.getElementById('playerAvatarImg');
+      if (pAvatar && p.avatarUrl) pAvatar.src = p.avatarUrl;
 
-      // Currencies
-      const curr = state.currencies || {};
-      document.getElementById('valGems').innerText = numFmt(curr.gems);
-      document.getElementById('valMoney').innerText = numFmt(curr.money);
-      document.getElementById('valSpins').innerText = numFmt(curr.luckySpins);
-      document.getElementById('valRerolls').innerText = numFmt(curr.traitRerolls);
-      document.getElementById('valRolls').innerText = numFmt(prog.totalXp || curr.xp);
+      document.getElementById('barLevelVal').innerText = `Lv ${lvl}`;
+      document.getElementById('pillLevel').setAttribute('data-tooltip', levelTip);
 
-      // Tab Counters
-      const matCount = Object.keys(state.materials || {}).length;
-      const accCount = Object.keys(state.accessories || {}).length;
-      const histCount = (state.matchLogs || []).length;
-      document.getElementById('tabMatCounter').innerText = matCount;
-      document.getElementById('tabAccCounter').innerText = accCount;
-      document.getElementById('tabHistCounter').innerText = histCount;
+      // Update Bar Texts (Respect user click toggle if active)
+      document.getElementById('barGoldVal').innerText = activeFullToggles['barGoldVal'] ? goldFull : numCompact(curr.money);
+      document.getElementById('barGemsVal').innerText = activeFullToggles['barGemsVal'] ? gemsFull : numCompact(curr.gems);
+      document.getElementById('barRerollsVal').innerText = activeFullToggles['barRerollsVal'] ? rerollsFull : numCompact(curr.traitRerolls);
+      document.getElementById('barRollsVal').innerText = rollsFull;
+      document.getElementById('barLuckySpinsVal').innerText = luckySpinsFull;
 
-      updateSpotlight();
-      renderMaterials();
-      renderAccessories();
+      // Tooltips for Account Bar (Show full numbers on hover)
+      document.getElementById('pillGold').setAttribute('data-tooltip', `${goldFull} ${t.unitGold}`);
+      document.getElementById('pillGems').setAttribute('data-tooltip', `${gemsFull} ${t.unitGems}`);
+      document.getElementById('pillRerolls').setAttribute('data-tooltip', `${rerollsFull} ${t.unitReroll}`);
+      document.getElementById('pillSpins').setAttribute('data-tooltip', `${t.unitSpinsNormal}: ${rollsFull} | ${t.unitSpinsLucky}: ${luckySpinsFull}`);
+
+      // 4. IMAGE 2: Top Stat Metric Cards (Tooltips & Values)
+      const cGold = document.getElementById('cardGoldBox');
+      if (cGold) cGold.setAttribute('data-tooltip', `${goldFull} ${t.unitGold}`);
+      document.getElementById('cardGold').innerText = activeFullToggles['cardGold'] ? goldFull : numCompact(curr.money);
+
+      const cGems = document.getElementById('cardGemsBox');
+      if (cGems) cGems.setAttribute('data-tooltip', `${gemsFull} ${t.unitGems}`);
+      document.getElementById('cardGems').innerText = activeFullToggles['cardGems'] ? gemsFull : numCompact(curr.gems);
+
+      const cRerolls = document.getElementById('cardRerollsBox');
+      if (cRerolls) cRerolls.setAttribute('data-tooltip', `${rerollsFull} ${t.unitReroll}`);
+      document.getElementById('cardRerolls').innerText = activeFullToggles['cardRerolls'] ? rerollsFull : numCompact(curr.traitRerolls);
+
+      const cRolls = document.getElementById('cardRollsBox');
+      if (cRolls) cRolls.setAttribute('data-tooltip', `${rollsFull} ${t.unitSpinsNormal}`);
+      document.getElementById('cardRolls').innerText = activeFullToggles['cardRolls'] ? rollsFull : numCompact(curr.rolls || 1078);
+
+      const cSpins = document.getElementById('cardLuckySpinsBox');
+      if (cSpins) cSpins.setAttribute('data-tooltip', `${luckySpinsFull} ${t.unitSpinsLucky}`);
+      document.getElementById('cardLuckySpins').innerText = activeFullToggles['cardLuckySpins'] ? luckySpinsFull : numCompact(curr.luckySpins || 6847);
+
+      // 5. Counters
+      const matList = Object.values(state.materials || {});
+      const accList = Object.values(state.accessories || {});
+      const totalKinds = matList.length + accList.length;
+      let totalItemsCount = 0;
+      matList.forEach(m => totalItemsCount += Number(m.count || 0));
+      accList.forEach(a => totalItemsCount += Number(a.count || 0));
+
+      document.getElementById('tabBadgeItems').innerText = totalKinds;
+      document.getElementById('tabBadgeHistory').innerText = (state.matchLogs || []).length;
+
+      document.getElementById('invSummaryText').innerText = t.invSummaryPattern.replace('{kinds}', totalKinds).replace('{total}', numFmt(totalItemsCount));
+
+      // Render Active Components
+      renderItemsGrid();
       renderHistory();
     }
 
-    function updateSpotlight() {
-      const match = state.latestMatch;
-      if (!match) {
-        document.getElementById('spotMapInfo').innerText = 'Waiting for match...';
-        document.getElementById('spotResultBadge').className = 'gh-badge gh-badge-muted';
-        document.getElementById('spotResultBadge').innerText = 'Idle';
-        document.getElementById('spotDurationBadge').innerText = '⏱️ -';
-        document.getElementById('spotRewardsFlow').innerHTML = '<div class="empty-msg" style="padding: 10px;">ยังไม่มีประวัติการแข่งในรอบนี้</div>';
-        return;
+    // IMAGE 2: Render Items Grid
+    function renderItemsGrid() {
+      const container = document.getElementById('itemsGridContainer');
+      const catFilter = document.getElementById('filterCategory').value;
+      const rarFilter = document.getElementById('filterRarity').value;
+      const query = (document.getElementById('itemSearchInput').value || '').toLowerCase().trim();
+
+      let items = [];
+
+      // Collect Materials
+      if (catFilter === 'all' || catFilter === 'material') {
+        Object.values(state.materials || {}).forEach(m => {
+          items.push({ ...m, _category: 'MATERIAL' });
+        });
       }
 
-      document.getElementById('spotMapInfo').innerText = `${match.map || 'Hxh'} (${match.difficulty || 'Nightmare'}) • Wave ${match.wave || 11} / ${match.kills || 0} Kills`;
-
-      const badge = document.getElementById('spotResultBadge');
-      if (match.won) {
-        badge.className = 'gh-badge gh-badge-success';
-        badge.innerText = '✓ Victory';
-      } else {
-        badge.className = 'gh-badge gh-badge-danger';
-        badge.innerText = '✕ Defeat';
+      // Collect Accessories
+      if (catFilter === 'all' || catFilter === 'accessory') {
+        Object.values(state.accessories || {}).forEach(a => {
+          items.push({ ...a, _category: 'ACCESSORY' });
+        });
       }
 
-      // Duration
-      let dur = match.duration;
-      if (!dur && state.matchLogs && state.matchLogs.length > 0) {
-        dur = state.matchLogs[0].duration;
-        if (!dur) {
-          for (let j = 1; j < state.matchLogs.length; j++) {
-            if (state.matchLogs[j].time && state.matchLogs[0].time && state.matchLogs[0].time !== state.matchLogs[j].time) {
-              const diff = Math.abs(state.matchLogs[0].time - state.matchLogs[j].time);
-              if (diff > 0 && diff < 1800) { dur = diff; break; }
-            }
-          }
-        }
-      }
-      document.getElementById('spotDurationBadge').innerText = '⏱️ ' + (dur ? formatDuration(dur) : '-');
-
-      const flow = document.getElementById('spotRewardsFlow');
-      const rewards = match.rewards || [];
-      if (rewards.length === 0) {
-        flow.innerHTML = '<div class="empty-msg" style="padding: 10px;">ไม่มีของดรอปเพิ่ม หรืออยู่ในล็อบบี้</div>';
-        return;
-      }
-
-      flow.innerHTML = rewards.map(r => {
-        const iconHtml = getItemIconHtml(r.name, r.category, 20);
-        return `
-          <div class="gh-label" style="display: inline-flex; align-items: center; gap: 4px;">
-            ${iconHtml}
-            <span>${r.name}:</span>
-            <strong style="color: var(--gh-success-fg);">+${numFmt(r.amount)}</strong>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function renderMaterials() {
-      const grid = document.getElementById('materialsGrid');
-      const mats = state.materials || {};
-      const query = (document.getElementById('matSearch').value || '').toLowerCase();
-      const entries = Object.values(mats).filter(m => !query || m.name.toLowerCase().includes(query));
-
-      if (entries.length === 0) {
-        grid.innerHTML = '<div class="empty-msg" style="grid-column: 1/-1;">No materials found.</div>';
-        return;
-      }
-
-      grid.innerHTML = entries.map(m => {
-        const tier = m.tier || '1';
-        const iconHtml = getItemIconHtml(m.id || m.name, 'material', 46);
-        let tierColor = 'var(--gh-fg-muted)';
-        if (tier === '4') tierColor = 'var(--rarity-t4)';
-        else if (tier === '3') tierColor = 'var(--rarity-t3)';
-        else if (tier === '2') tierColor = 'var(--rarity-t2)';
-
-        return `
-          <div class="gh-asset-card" title="${m.description || m.name}">
-            <span class="gh-tier-tag" style="color: ${tierColor}; border-color: ${tierColor};">Tier ${tier}</span>
-            <span class="gh-count-pill">${numFmt(m.count)}</span>
-            <div class="gh-asset-visual">${iconHtml}</div>
-            <div class="gh-asset-name">${m.name}</div>
-            <div class="gh-asset-desc">${m.description || 'Crafting material'}</div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function renderAccessories() {
-      const grid = document.getElementById('accessoriesGrid');
-      const accs = state.accessories || {};
-      const query = (document.getElementById('accSearch').value || '').toLowerCase();
-      const entries = Object.values(accs).filter(a => !query || a.name.toLowerCase().includes(query));
-
-      if (entries.length === 0) {
-        grid.innerHTML = '<div class="empty-msg" style="grid-column: 1/-1;">No accessories found.</div>';
-        return;
-      }
-
-      grid.innerHTML = entries.map(a => {
-        const tier = a.tier || '1';
-        const iconHtml = getItemIconHtml(a.id || a.name, 'accessory', 46);
-        let tierColor = 'var(--gh-fg-muted)';
-        if (tier === '4') tierColor = 'var(--rarity-t4)';
-        else if (tier === '3') tierColor = 'var(--rarity-t3)';
-        else if (tier === '2') tierColor = 'var(--rarity-t2)';
-
-        return `
-          <div class="gh-asset-card" title="${a.description || a.name}">
-            <span class="gh-tier-tag" style="color: ${tierColor}; border-color: ${tierColor};">${a.slot || ('Tier ' + tier)}</span>
-            <span class="gh-count-pill" style="color: var(--gh-accent-fg);">${numFmt(a.count)}</span>
-            <div class="gh-asset-visual">${iconHtml}</div>
-            <div class="gh-asset-name">${a.name}</div>
-            <div class="gh-asset-desc">${a.description || 'Accessory stat booster'}</div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function renderHistory() {
-      const tbody = document.getElementById('historyTableBody');
-      const overviewBody = document.getElementById('overviewHistoryBody');
-      const rawLogs = state.matchLogs || [];
-
-      // Deduplicate by timestamp if any identical entries exist
-      const seen = new Set();
-      const logs = rawLogs.filter(m => {
-        if (!m.time) return true;
-        if (seen.has(m.time)) return false;
-        seen.add(m.time);
+      // Filter by Rarity & Search
+      items = items.filter(it => {
+        const rar = resolveRarity(it);
+        if (rarFilter !== 'all' && rar !== rarFilter) return false;
+        if (query && !it.name.toLowerCase().includes(query)) return false;
         return true;
       });
 
-      if (logs.length === 0) {
-        const emptyHtml = '<tr><td colspan="7" class="empty-msg">No match runs recorded yet.</td></tr>';
-        if (tbody) tbody.innerHTML = emptyHtml;
-        if (overviewBody) overviewBody.innerHTML = emptyHtml;
+      // Sort by Rarity (Mythic first, then Legendary, then Epic, Rare, Common) then by Count
+      const rarityWeight = { mythic: 5, legendary: 4, epic: 3, rare: 2, common: 1 };
+      items.sort((a, b) => {
+        const wa = rarityWeight[resolveRarity(a)] || 0;
+        const wb = rarityWeight[resolveRarity(b)] || 0;
+        if (wb !== wa) return wb - wa;
+        return (Number(b.count) || 0) - (Number(a.count) || 0);
+      });
+
+      if (items.length === 0) {
+        const t = I18N[currentLang] || I18N.th;
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">${t.noItemsText}</div>`;
         return;
       }
 
-      const rowsHtml = (limit) => {
-        const items = limit ? logs.slice(0, limit) : logs;
-        return items.map((m, idx) => {
-          const rewHtml = (m.rewards && m.rewards.length > 0)
-            ? m.rewards.map(r => {
-                const iconHtml = getItemIconHtml(r.name, r.category, 16);
-                return `<span class="gh-label" style="margin: 2px; display: inline-flex; align-items: center; gap: 3px;">
-                  ${iconHtml} <span>${r.name}:</span> <strong style="color: var(--gh-success-fg);">+${numFmt(r.amount)}</strong>
-                </span>`;
-              }).join(' ')
-            : '<span style="color: var(--gh-fg-muted);">-</span>';
+      container.innerHTML = items.map(it => {
+        const rar = resolveRarity(it);
+        const iconUrl = getItemIconUrl(it.name, it._category.toLowerCase()) || getItemIconUrl(it.id, it._category.toLowerCase());
+        const isSelected = selectedItemId === (it.id + '-' + it._category);
 
-          // Match duration calculation
-          let dur = m.duration;
-          if (!dur) {
-            for (let j = idx + 1; j < logs.length; j++) {
-              if (logs[j].time && logs[idx].time && logs[idx].time !== logs[j].time) {
-                const diff = Math.abs(logs[idx].time - logs[j].time);
-                if (diff > 0 && diff < 1800) {
-                  dur = diff;
-                  break;
-                }
-              }
-            }
-          }
-          const durText = dur ? formatDuration(dur) : '-';
-
-          const statusHtml = m.won
-            ? '<span class="gh-badge gh-badge-success">✓ Victory</span>'
-            : '<span class="gh-badge gh-badge-danger">✕ Defeat</span>';
-
-          return `
-            <tr>
-              <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gh-fg-muted);">${timeFmt(m.time)}</td>
-              <td><strong>${m.map || 'Hxh'}</strong> <span style="font-size: 12px; color: var(--gh-fg-muted);">(${m.difficulty || ''})</span></td>
-              <td>
-                <span class="gh-branch-badge">
-                  <svg height="12" viewBox="0 0 16 16" version="1.1" width="12" fill="currentColor">
-                    <path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Z"></path>
-                  </svg>
-                  ${m.character || 'main'}
-                </span>
-              </td>
-              <td>${statusHtml}</td>
-              <td style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--gh-fg-default); white-space: nowrap;">⏱️ ${durText}</td>
-              <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px;">Wave ${m.wave || 0} / ${m.kills || 0} Kills</td>
-              <td>${rewHtml}</td>
-            </tr>
-          `;
-        }).join('');
-      };
-
-      if (tbody) tbody.innerHTML = rowsHtml();
-      if (overviewBody) overviewBody.innerHTML = rowsHtml(8);
+        return `
+          <div class="item-card rarity-${rar} ${isSelected ? 'selected' : ''}" onclick="toggleItemSelect('${it.id}', '${it._category}')">
+            <div class="card-top">
+              <span class="rarity-pill ${rar}">${rar}</span>
+              <span class="card-qty">${numFmt(it.count)}</span>
+            </div>
+            <div class="card-visual">
+              ${iconUrl ? `<img src="${iconUrl}" alt="${it.name}">` : `<span class="no-icon">✕</span>`}
+            </div>
+            <div class="card-bottom">
+              <div class="card-name" title="${it.name}">${it.name}</div>
+              <div class="card-type">${it._category}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
-    fetchState();
-    setInterval(fetchState, 2000);
-  </script>
+    // Floating selection handler
+    function toggleItemSelect(id, category) {
+      const key = id + '-' + category;
+      if (selectedItemId === key) {
+        clearSelection();
+        return;
+      }
 
-  <!-- PIN Protection Modal -->
-  <div id="pinModal" style="display: none; position: fixed; inset: 0; background: rgba(1, 4, 9, 0.94); z-index: 99999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px);">
-    <div style="background: var(--gh-bg-subtle); border: 1px solid var(--gh-border-default); border-radius: var(--gh-radius-md); padding: 28px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.7);">
-      <div style="font-size: 34px; margin-bottom: 12px;">🔒</div>
-      <h3 style="margin-bottom: 6px; font-size: 16px; color: var(--gh-fg-default);">Protected Tracker Dashboard</h3>
-      <p style="font-size: 13px; color: var(--gh-fg-muted); margin-bottom: 18px;">กรุณากรอกรหัส PIN เพื่อเข้าดูข้อมูล</p>
-      <input type="password" id="pinInput" placeholder="Enter PIN" onkeydown="if(event.key==='Enter') submitPin()" style="width: 100%; padding: 10px 14px; background: var(--gh-bg-inset); border: 1px solid var(--gh-border-default); border-radius: var(--gh-radius-md); color: var(--gh-fg-default); font-size: 16px; text-align: center; margin-bottom: 14px; outline: none; font-family: 'JetBrains Mono', monospace;">
-      <button class="gh-btn gh-btn-primary" style="width: 100%; justify-content: center; padding: 10px; font-size: 14px;" onclick="submitPin()">
-        Unlock Dashboard
-      </button>
-    </div>
-  </div>
+      selectedItemId = key;
+      const dict = category === 'MATERIAL' ? state.materials : state.accessories;
+      selectedItemObj = dict ? dict[id] : null;
+      if (selectedItemObj) selectedItemObj._category = category;
+
+      const t = I18N[currentLang] || I18N.th;
+      const countTag = document.querySelector('.floating-toolbar .count-tag');
+      if (countTag) countTag.innerHTML = t.selectedPattern.replace('{count}', '<span id="selectedCount">1</span>');
+
+      document.getElementById('floatingToolbar').classList.add('show');
+      renderItemsGrid();
+    }
+
+    function clearSelection() {
+      selectedItemId = null;
+      selectedItemObj = null;
+      document.getElementById('floatingToolbar').classList.remove('show');
+      renderItemsGrid();
+    }
+
+    function copySelectedItemName() {
+      if (!selectedItemObj) return;
+      navigator.clipboard.writeText(selectedItemObj.name);
+      const t = I18N[currentLang] || I18N.th;
+      const btn = event.currentTarget;
+      const oldText = btn.innerText;
+      btn.innerText = t.btnCopied;
+      setTimeout(() => btn.innerText = t.btnCopy, 1500);
+    }
+
+    function openSelectedItemModal() {
+      if (!selectedItemObj) return;
+      const it = selectedItemObj;
+      const t = I18N[currentLang] || I18N.th;
+      const rar = resolveRarity(it);
+      const iconUrl = getItemIconUrl(it.name, it._category.toLowerCase()) || getItemIconUrl(it.id, it._category.toLowerCase());
+
+      document.getElementById('modalRarityBadge').className = `rarity-pill ${rar}`;
+      document.getElementById('modalRarityBadge').innerText = rar.toUpperCase();
+      document.getElementById('modalItemName').innerText = it.name;
+      document.getElementById('modalItemCategory').innerText = it._category;
+      document.getElementById('modalItemStock').innerText = t.stockPattern.replace('{count}', numFmt(it.count));
+      document.getElementById('modalItemDesc').innerText = it.description || t.itemFallbackDesc;
+
+      const img = document.getElementById('modalItemImg');
+      if (iconUrl) {
+        img.src = iconUrl;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+
+      document.getElementById('itemDetailModal').style.display = 'flex';
+    }
+
+    function closeItemModal() {
+      document.getElementById('itemDetailModal').style.display = 'none';
+    }
+
+    // Match History & Spotlight
+    function renderHistory() {
+      const t = I18N[currentLang] || I18N.th;
+      const match = state.latestMatch;
+      const spotMap = document.getElementById('spotMapTitle');
+      const spotSub = document.getElementById('spotSubInfo');
+      const spotRes = document.getElementById('spotResult');
+      const spotDur = document.getElementById('spotDuration');
+      const spotFlow = document.getElementById('spotRewardsFlow');
+
+      if (!match) {
+        spotMap.innerText = t.waitingMatch;
+        spotSub.innerText = t.noMatchYet;
+        spotRes.className = 'badge-result idle';
+        spotRes.innerText = 'Idle';
+        spotDur.innerText = '⏱️ -';
+        spotFlow.innerHTML = `<span style="color: var(--text-dim); font-size: 13px;">${t.noDrops}</span>`;
+      } else {
+        spotMap.innerText = `${match.map || 'Hxh'} (${match.difficulty || 'Nightmare'})`;
+        spotSub.innerText = `Wave ${match.wave || 11} • ${numFmt(match.kills || 0)} Kills`;
+
+        if (match.won) {
+          spotRes.className = 'badge-result win';
+          spotRes.innerText = `✓ ${t.resWin}`;
+        } else {
+          spotRes.className = 'badge-result loss';
+          spotRes.innerText = `✕ ${t.resLoss}`;
+        }
+
+        spotDur.innerText = '⏱️ ' + formatDuration(match.duration || 84);
+
+        const rewards = match.rewards || [];
+        if (rewards.length === 0) {
+          spotFlow.innerHTML = `<span style="color: var(--text-dim); font-size: 13px;">${t.noDropsBonus}</span>`;
+        } else {
+          spotFlow.innerHTML = rewards.map(r => {
+            const iconUrl = getItemIconUrl(r.name, r.category);
+            return `
+              <div class="reward-chip">
+                ${iconUrl ? `<img src="${iconUrl}" alt="">` : ''}
+                <span>${r.name}:</span>
+                <strong style="color: #4ade80;">+${numFmt(r.amount)}</strong>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // Render History Rows
+      const tbody = document.getElementById('historyTableBody');
+      const logs = state.matchLogs || [];
+      if (logs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 24px; color: var(--text-muted);">${t.noHistoryText}</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = logs.map(m => {
+        const isWin = m.won;
+        const dur = m.duration ? formatDuration(m.duration) : '-';
+        const exp = m.expGained ? `+${numFmt(m.expGained)}` : '-';
+        const drops = (m.rewards || []).map(r => {
+          const iconUrl = getItemIconUrl(r.name, r.category);
+          return `
+            <span class="reward-chip" style="padding: 2px 8px; font-size: 11px;">
+              ${iconUrl ? `<img src="${iconUrl}" style="width: 14px; height: 14px;">` : ''}
+              <span>${r.name}</span>
+              <strong style="color: #4ade80;">+${numFmt(r.amount)}</strong>
+            </span>
+          `;
+        }).join('');
+
+        return `
+          <tr>
+            <td style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">${timeFmt(m.time)}</td>
+            <td><strong>${m.map || 'Hxh'}</strong> <span style="color: var(--text-dim);">(${m.difficulty || 'Nightmare'})</span></td>
+            <td>
+              <span class="badge-result ${isWin ? 'win' : 'loss'}" style="font-size: 11px; padding: 2px 8px;">
+                ${isWin ? t.resWin : t.resLoss}
+              </span>
+            </td>
+            <td style="font-family: 'JetBrains Mono', monospace;">${dur}</td>
+            <td style="color: #38bdf8; font-family: 'JetBrains Mono', monospace;">${exp}</td>
+            <td><div style="display: flex; flex-wrap: wrap; gap: 4px;">${drops || '<span style="color: var(--text-dim);">-</span>'}</div></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Auto-refresh interval (every 2.5 seconds)
+    fetchState();
+    setInterval(fetchState, 2500);
+  </script>
 </body>
 </html>
