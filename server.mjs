@@ -1,3 +1,17 @@
+
+const DEFAULT_GLOBAL_LEADERBOARD = [];
+
+const FAKE_MOCK_NAMES = new Set([
+  'shadow_reaper99', 'kuroko_strike', 'ryu_demon7', 'zero_slayer', 'zenith_blade', 'phantom_jin',
+  'blaze_hunter', 'frost_monarch', 'valkyrie_x', 'nexus_warlord', 'tempest_kai', 'crimson_fang',
+  'viper_strike', 'abyssal_rex', 'solaris_prime', 'hyperion_zero', 'dread_knight', 'astral_weaver',
+  'void_walker9', 'lunar_eclipse', 'titan_breaker', 'blood_scythe', 'storm_caller', 'venom_edge',
+  'aurora_borealis', 'glacier_fang', 'pyro_maniac', 'omega_pulse', 'celestial_arc', 'iron_claws',
+  'shadow_step', 'raiden_blade', 'ember_soul', 'zen_master', 'nova_burst', 'draco_rex',
+  'silent_assassin', 'chaos_bringer', 'abyss_walker', 'flame_heart', 'frost_bite', 'lunar_blade',
+  'apex_predator', 'spirit_wolf', 'dark_matter', 'crimson_tide', 'solar_flare', 'void_whisper',
+  'phantom_blade'
+]);
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
@@ -38,17 +52,19 @@ let state = {
     name: "Liesajsor17919",
     displayName: "フレーム",
     userId: 9165405454,
-    level: 438,
+    level: 456,
     guild: "Shinoko"
   },
   playerProg: {
-    level: 438,
-    currentXp: 249307,
-    requiredXp: 403747,
-    ratio: 0.617,
-    totalXp: "48166059"
+    level: 456,
+    currentXp: 321007,
+    requiredXp: 445593,
+    ratio: 0.72,
+    totalXp: "55987056"
   },
   characters: [],
+  serverLeaderboard: [],
+  globalLeaderboard: [...DEFAULT_GLOBAL_LEADERBOARD],
   currencies: {},
   materials: {},
   accessories: {},
@@ -65,6 +81,101 @@ let state = {
   connected: false
 };
 
+// Function to keep Global Leaderboard synchronized with live player and server players
+function syncGlobalLeaderboard() {
+  if (!state.globalLeaderboard || !Array.isArray(state.globalLeaderboard)) {
+    state.globalLeaderboard = [];
+  }
+
+  const p = state.player;
+  const prog = state.playerProg;
+  if (!p) return;
+
+  const currentLevel = Number(prog?.level || p.level || 0);
+  const currentTotalXp = Number(prog?.totalXp || 0);
+
+  // Update or insert current user into global leaderboard
+  let userFound = false;
+  for (const entry of state.globalLeaderboard) {
+    if (entry.isLocal || (p.userId && entry.userId === p.userId) || entry.name === p.name) {
+      entry.level = currentLevel;
+      if (currentTotalXp > 0) entry.totalXp = currentTotalXp;
+      entry.name = p.name || entry.name;
+      entry.displayName = p.displayName || entry.displayName;
+      entry.guild = p.guild || entry.guild;
+      entry.guildTag = p.guildTag || entry.guildTag;
+      entry.avatarUrl = p.avatarUrl || entry.avatarUrl;
+      entry.isLocal = true;
+      userFound = true;
+      break;
+    }
+  }
+
+  if (!userFound && p.name) {
+    state.globalLeaderboard.push({
+      rank: 1,
+      name: p.name,
+      displayName: p.displayName || p.name,
+      level: currentLevel,
+      totalXp: currentTotalXp,
+      guild: p.guild || "Shinoko",
+      guildTag: p.guildTag || "7NO",
+      userId: p.userId || 9165405454,
+      isLocal: true,
+      avatarUrl: p.avatarUrl || `https://www.roblox.com/headshot-thumbnail/image?userId=${p.userId}&width=150&height=150&format=png`
+    });
+  }
+
+  // Integrate real server players into global leaderboard if they have higher or valid levels
+  if (state.serverLeaderboard && Array.isArray(state.serverLeaderboard)) {
+    for (const sp of state.serverLeaderboard) {
+      if (!sp.name || FAKE_MOCK_NAMES.has(sp.name)) continue;
+      const existing = state.globalLeaderboard.find(e => (sp.userId && e.userId === sp.userId) || e.name === sp.name);
+      if (existing) {
+        if ((sp.level || 0) > (existing.level || 0)) {
+          existing.level = sp.level;
+          existing.totalXp = sp.totalXp || existing.totalXp;
+        }
+        if (sp.displayName) existing.displayName = sp.displayName;
+        if (sp.guild && sp.guild !== 'None') existing.guild = sp.guild;
+        if (sp.guildTag) existing.guildTag = sp.guildTag;
+        if (sp.avatarUrl && !existing.avatarUrl) existing.avatarUrl = sp.avatarUrl;
+      } else if (sp.level && sp.level > 0) {
+        state.globalLeaderboard.push({
+          rank: 99,
+          name: sp.name,
+          displayName: sp.displayName || sp.name,
+          level: sp.level,
+          totalXp: sp.totalXp || 0,
+          guild: sp.guild || 'Shinoko',
+          guildTag: sp.guildTag || '',
+          userId: sp.userId,
+          isLocal: !!sp.isLocal,
+          avatarUrl: sp.avatarUrl || (sp.userId ? `https://www.roblox.com/headshot-thumbnail/image?userId=${sp.userId}&width=150&height=150&format=png` : '')
+        });
+      }
+    }
+  }
+
+  // Remove any leftover mock fake names
+  state.globalLeaderboard = state.globalLeaderboard.filter(e => !FAKE_MOCK_NAMES.has(e.name));
+  if (state.serverLeaderboard && Array.isArray(state.serverLeaderboard)) {
+    state.serverLeaderboard = state.serverLeaderboard.filter(e => !FAKE_MOCK_NAMES.has(e.name));
+  }
+
+  // Re-sort globalLeaderboard by Level DESC, then totalXp DESC
+  state.globalLeaderboard.sort((a, b) => {
+    const lvlDiff = (Number(b.level) || 0) - (Number(a.level) || 0);
+    if (lvlDiff !== 0) return lvlDiff;
+    return (Number(b.totalXp) || 0) - (Number(a.totalXp) || 0);
+  });
+
+  // Re-index ranks 1..N
+  state.globalLeaderboard.forEach((e, idx) => {
+    e.rank = idx + 1;
+  });
+}
+
 // Load persistent data
 try {
   if (fs.existsSync(DATA_FILE)) {
@@ -72,6 +183,9 @@ try {
     if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1);
     const loaded = JSON.parse(raw);
     state = { ...state, ...loaded, connected: false };
+    if (!state.globalLeaderboard || state.globalLeaderboard.length === 0) state.globalLeaderboard = [...DEFAULT_GLOBAL_LEADERBOARD];
+    if (!state.serverLeaderboard) state.serverLeaderboard = [];
+    syncGlobalLeaderboard();
     
     // Deduplicate matchLogs by time
     if (state.matchLogs && state.matchLogs.length > 0) {
@@ -242,36 +356,147 @@ if level == 0 and currencies.level then
     level = tonumber(currencies.level) or 0
 end
 
-return {
+-- Scan all players in server for real-time Server Leaderboard
+local serverPlayers = {}
+for _, p in ipairs(game:GetService("Players"):GetPlayers()) do
+    local pLvl = 0
+    local pCurXp = 0
+    local pReqXp = 0
+    local pTotXp = 0
+    local pRatio = 0
+
+    local pAcc = nil
+    pcall(function()
+        if accStore.getPlayerAccount then
+            pAcc = accStore.getPlayerAccount(p)
+        end
+        if not pAcc and accStore.namespace and accStore.namespace._stores then
+            pAcc = accStore.namespace._stores[tostring(p.UserId)]
+        end
+    end)
+
+    if pAcc and pAcc.state and pAcc.state.currencies and pAcc.state.currencies.xp then
+        local xpVal = pAcc.state.currencies.xp
+        if type(xpVal) == "table" and xpVal.current ~= nil then xpVal = xpVal.current end
+        pTotXp = tonumber(xpVal) or 0
+        local prog = levelProg.getProgress(tostring(xpVal))
+        if prog then
+            pLvl = tonumber(prog.level) or 0
+            pCurXp = tonumber(prog.currentXp) or 0
+            pReqXp = tonumber(prog.requiredXp) or 0
+            pRatio = prog.ratio or 0
+        end
+    end
+
+    if pLvl == 0 and p.Character then
+        local oh = p.Character:FindFirstChild("OverHead")
+        if oh and oh:FindFirstChild("Main") and oh.Main:FindFirstChild("Level") then
+            local txt = oh.Main.Level.TxtShadow and oh.Main.Level.TxtShadow.Text
+            if txt then
+                local num = txt:match("%d+")
+                if num then pLvl = tonumber(num) or 0 end
+            end
+        end
+    end
+
+    if pLvl == 0 then
+        local ls = p:FindFirstChild("leaderstats")
+        if ls and ls:FindFirstChild("Level") and ls.Level.Value > 0 then
+            pLvl = ls.Level.Value
+        elseif p:GetAttribute("Level") and tonumber(p:GetAttribute("Level")) > 0 then
+            pLvl = tonumber(p:GetAttribute("Level"))
+        end
+    end
+
+    local gName = p:GetAttribute("GuildName") or "None"
+    local gTag = p:GetAttribute("GuildTag") or ""
+
+    table.insert(serverPlayers, {
+        name = p.Name,
+        displayName = p.DisplayName,
+        userId = p.UserId,
+        level = pLvl,
+        currentXp = pCurXp,
+        requiredXp = pReqXp,
+        totalXp = pTotXp,
+        ratio = pRatio,
+        guild = gName,
+        guildTag = gTag,
+        isLocal = (p == player)
+    })
+end
+
+table.sort(serverPlayers, function(a, b)
+    if a.level == b.level then
+        return (a.totalXp or 0) > (b.totalXp or 0)
+    end
+    return (a.level or 0) > (b.level or 0)
+end)
+
+for i, sp in ipairs(serverPlayers) do
+    sp.rank = i
+end
+
+local snapshot = {
     player = {
         name = player.Name,
         displayName = player.DisplayName,
         userId = player.UserId,
         level = level,
-        guild = player:GetAttribute("GuildName") or "None"
+        guild = player:GetAttribute("GuildName") or "None",
+        guildTag = player:GetAttribute("GuildTag") or ""
     },
     playerProg = playerProg,
     characters = chars,
+    serverLeaderboard = serverPlayers,
     currencies = currencies,
     materials = materials,
     accessories = accessories,
     timestamp = os.time()
 }
+
+local req = request or http_request or (syn and syn.request)
+if req then
+    pcall(function()
+        req({
+            Url = "http://localhost:18888/api/report",
+            Method = "POST",
+            Headers = { ["Content-Type"] = "application/json" },
+            Body = HttpService:JSONEncode(snapshot)
+        })
+    end)
+end
 `;
 
   try {
     const res = await fetch(`http://127.0.0.1:${MCP_PORT}/api/tool`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "get-data-by-code", code: luaCode, maxOutputChars: 32000 }),
+      body: JSON.stringify({ type: "execute", code: luaCode }),
       signal: AbortSignal.timeout(8000)
     });
-    if (!res.ok) return null;
-    const json = await res.json();
-    return json.result;
+    return res.ok;
   } catch (err) {
-    return null;
+    return false;
   }
+}
+
+function parseMcpResult(raw) {
+  if (!raw) return null;
+  if (typeof raw === "object") return raw;
+  if (typeof raw === "string") {
+    const match = raw.match(/^\{\"([\s\S]*)\",n=\d+\}$/);
+    if (match) {
+      try {
+        const unescaped = match[1].replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+        return JSON.parse(unescaped);
+      } catch (e) {}
+    }
+    try {
+      return JSON.parse(raw);
+    } catch {}
+  }
+  return null;
 }
 
 // Background status poller & periodic live Roblox sync
@@ -340,6 +565,37 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Download Deployment ZIP Route
+  if ((url.pathname === "/cfame-tracker-deploy.zip" || url.pathname === "/download-zip") && req.method === "GET") {
+    const zipPath = path.join(__dirname, "cfame-tracker-deploy.zip");
+    if (fs.existsSync(zipPath)) {
+      res.writeHead(200, {
+        "Content-Type": "application/zip",
+        "Content-Disposition": 'attachment; filename="cfame-tracker-deploy.zip"'
+      });
+      fs.createReadStream(zipPath).pipe(res);
+      return;
+    }
+  }
+
+  // Download Luau Scripts
+  if (url.pathname === "/tracker.luau" && req.method === "GET") {
+    const p = path.join(__dirname, "tracker.luau");
+    if (fs.existsSync(p)) {
+      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+      fs.createReadStream(p).pipe(res);
+      return;
+    }
+  }
+  if (url.pathname === "/tracker.obf.luau" && req.method === "GET") {
+    const p = path.join(__dirname, "tracker.obf.luau");
+    if (fs.existsSync(p)) {
+      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+      fs.createReadStream(p).pipe(res);
+      return;
+    }
+  }
+
   // Dashboard Page
   if (url.pathname === "/" && req.method === "GET") {
     try {
@@ -368,15 +624,10 @@ const server = http.createServer(async (req, res) => {
 
   // API: Sync Now
   if (url.pathname === "/api/sync" && req.method === "POST") {
-    const raw = await pullFromRoblox();
-    if (raw) {
-      applySnapshot(raw);
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ ok: true, state }));
-      return;
-    }
-    res.writeHead(500, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ ok: false, error: "Failed to pull from Roblox" }));
+    await pullFromRoblox();
+    await new Promise(r => setTimeout(r, 400));
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ ok: true, state }));
     return;
   }
 
@@ -429,6 +680,14 @@ function applySnapshot(data) {
   if (d.currencies) state.currencies = d.currencies;
   if (d.materials) state.materials = d.materials;
   if (d.accessories) state.accessories = d.accessories;
+  if (d.serverLeaderboard && Array.isArray(d.serverLeaderboard)) {
+    state.serverLeaderboard = d.serverLeaderboard;
+    for (const p of state.serverLeaderboard) {
+      if (p.userId && !p.avatarUrl) {
+        p.avatarUrl = `https://www.roblox.com/headshot-thumbnail/image?userId=${p.userId}&width=150&height=150&format=png`;
+      }
+    }
+  }
 
   // Ensure player.level is valid and synced with progression
   const validLevel = (state.playerProg?.level && Number(state.playerProg.level) > 0)
@@ -441,11 +700,13 @@ function applySnapshot(data) {
     fetchRobloxAvatar(state.player.userId).then(url => {
       if (url && state.player) {
         state.player.avatarUrl = url;
+        syncGlobalLeaderboard();
         saveData();
       }
     });
   }
 
+  syncGlobalLeaderboard();
   state.lastUpdated = d.timestamp || Math.floor(Date.now() / 1000);
   state.connected = true;
   saveData();
@@ -458,6 +719,14 @@ function applyReport(payload) {
   if (payload.currencies) state.currencies = payload.currencies;
   if (payload.materials) state.materials = payload.materials;
   if (payload.accessories) state.accessories = payload.accessories;
+  if (payload.serverLeaderboard && Array.isArray(payload.serverLeaderboard)) {
+    state.serverLeaderboard = payload.serverLeaderboard;
+    for (const p of state.serverLeaderboard) {
+      if (p.userId && !p.avatarUrl) {
+        p.avatarUrl = `https://www.roblox.com/headshot-thumbnail/image?userId=${p.userId}&width=150&height=150&format=png`;
+      }
+    }
+  }
   if (payload.live) {
     state.live = payload.live;
   }
@@ -474,11 +743,13 @@ function applyReport(payload) {
     fetchRobloxAvatar(state.player.userId).then(url => {
       if (url && state.player) {
         state.player.avatarUrl = url;
+        syncGlobalLeaderboard();
         saveData();
       }
     });
   }
 
+  syncGlobalLeaderboard();
   state.lastUpdated = Math.floor(Date.now() / 1000);
   state.connected = true;
 

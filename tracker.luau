@@ -11,18 +11,29 @@ local player = Players.LocalPlayer
 local accStore = require(Rep.global.stores.accountNamespace)
 local matConfig = require(Rep.assets.config.materialConfig)
 local accConfig = require(Rep.assets.config.accessoryConfig)
+local levelProg = require(Rep.global.utils.levelProgression)
 
-local SERVER_URL = "http://localhost:18888/api/report"
+local LOCAL_SERVER_URL = "http://localhost:18888/api/report"
+local CLOUD_SERVER_URL = "https://anime-zero-tracker.onrender.com/api/report"
 
 local function requestHttp(payload)
     local fn = request or http_request or (syn and syn.request)
     if not fn then return end
+    local body = HttpService:JSONEncode(payload)
     pcall(function()
         fn({
-            Url = SERVER_URL,
+            Url = LOCAL_SERVER_URL,
             Method = "POST",
             Headers = { ["Content-Type"] = "application/json" },
-            Body = HttpService:JSONEncode(payload)
+            Body = body
+        })
+    end)
+    pcall(function()
+        fn({
+            Url = CLOUD_SERVER_URL,
+            Method = "POST",
+            Headers = { ["Content-Type"] = "application/json" },
+            Body = body
         })
     end)
 end
@@ -88,10 +99,100 @@ local function getSnapshot()
         end)
     end
 
-    local level = 0
-    local leaderstats = player:FindFirstChild("leaderstats")
-    if leaderstats and leaderstats:FindFirstChild("Level") then
-        level = leaderstats.Level.Value
+    -- Player Progression
+    local playerXp = currencies.xp or 0
+    local playerProg = levelProg and levelProg.getProgress(tostring(playerXp))
+
+    local level = (playerProg and tonumber(playerProg.level) and tonumber(playerProg.level) > 0 and tonumber(playerProg.level)) or 0
+    if level == 0 then
+        local leaderstats = player:FindFirstChild("leaderstats")
+        if leaderstats and leaderstats:FindFirstChild("Level") and leaderstats.Level.Value > 0 then
+            level = leaderstats.Level.Value
+        end
+    end
+    if level == 0 and currencies.level then
+        level = tonumber(currencies.level) or 0
+    end
+
+    -- Scan all players in server for real-time Server Leaderboard
+    local serverPlayers = {}
+    for _, p in ipairs(Players:GetPlayers()) do
+        local pLvl = 0
+        local pCurXp = 0
+        local pReqXp = 0
+        local pTotXp = 0
+        local pRatio = 0
+
+        local pAcc = nil
+        pcall(function()
+            if accStore.getPlayerAccount then
+                pAcc = accStore.getPlayerAccount(p)
+            end
+            if not pAcc and accStore.namespace and accStore.namespace._stores then
+                pAcc = accStore.namespace._stores[tostring(p.UserId)]
+            end
+        end)
+
+        if pAcc and pAcc.state and pAcc.state.currencies and pAcc.state.currencies.xp then
+            local xpVal = pAcc.state.currencies.xp
+            if type(xpVal) == "table" and xpVal.current ~= nil then xpVal = xpVal.current end
+            pTotXp = tonumber(xpVal) or 0
+            local prog = levelProg and levelProg.getProgress(tostring(xpVal))
+            if prog then
+                pLvl = tonumber(prog.level) or 0
+                pCurXp = tonumber(prog.currentXp) or 0
+                pReqXp = tonumber(prog.requiredXp) or 0
+                pRatio = prog.ratio or 0
+            end
+        end
+
+        if pLvl == 0 and p.Character then
+            local oh = p.Character:FindFirstChild("OverHead")
+            if oh and oh:FindFirstChild("Main") and oh.Main:FindFirstChild("Level") then
+                local txt = oh.Main.Level.TxtShadow and oh.Main.Level.TxtShadow.Text
+                if txt then
+                    local num = txt:match("%d+")
+                    if num then pLvl = tonumber(num) or 0 end
+                end
+            end
+        end
+
+        if pLvl == 0 then
+            local ls = p:FindFirstChild("leaderstats")
+            if ls and ls:FindFirstChild("Level") and ls.Level.Value > 0 then
+                pLvl = ls.Level.Value
+            elseif p:GetAttribute("Level") and tonumber(p:GetAttribute("Level")) > 0 then
+                pLvl = tonumber(p:GetAttribute("Level"))
+            end
+        end
+
+        local gName = p:GetAttribute("GuildName") or "None"
+        local gTag = p:GetAttribute("GuildTag") or ""
+
+        table.insert(serverPlayers, {
+            name = p.Name,
+            displayName = p.DisplayName,
+            userId = p.UserId,
+            level = pLvl,
+            currentXp = pCurXp,
+            requiredXp = pReqXp,
+            totalXp = pTotXp,
+            ratio = pRatio,
+            guild = gName,
+            guildTag = gTag,
+            isLocal = (p == player)
+        })
+    end
+
+    table.sort(serverPlayers, function(a, b)
+        if a.level == b.level then
+            return (a.totalXp or 0) > (b.totalXp or 0)
+        end
+        return (a.level or 0) > (b.level or 0)
+    end)
+
+    for i, sp in ipairs(serverPlayers) do
+        sp.rank = i
     end
 
     return {
@@ -102,6 +203,8 @@ local function getSnapshot()
             level = level,
             guild = player:GetAttribute("GuildName") or "None"
         },
+        playerProg = playerProg,
+        serverLeaderboard = serverPlayers,
         currencies = currencies,
         materials = materials,
         accessories = accessories,
@@ -123,11 +226,14 @@ task.spawn(function()
     end
 
     local lastMatchTime = baseline.latestMatch and baseline.latestMatch.time or 0
+    local lastHeartbeat = tick()
 
     -- Send initial state to dashboard
     requestHttp({
         type = "init",
         player = baseline.player,
+        playerProg = baseline.playerProg,
+        serverLeaderboard = baseline.serverLeaderboard,
         currencies = baseline.currencies,
         materials = baseline.materials,
         accessories = baseline.accessories,
@@ -210,6 +316,8 @@ task.spawn(function()
                 requestHttp({
                     type = "match_finish",
                     player = current.player,
+                    playerProg = current.playerProg,
+                    serverLeaderboard = current.serverLeaderboard,
                     match = currentLatest,
                     rewards = rewards,
                     currencies = current.currencies,
@@ -225,6 +333,22 @@ task.spawn(function()
                 baseline.materials = current.materials
                 baseline.accessories = current.accessories
                 baseline.player = current.player
+                baseline.playerProg = current.playerProg
+                baseline.serverLeaderboard = current.serverLeaderboard
+
+                -- Periodic heartbeat for 100% real-time leaderboard sync
+                if tick() - lastHeartbeat >= 8 then
+                    lastHeartbeat = tick()
+                    requestHttp({
+                        type = "heartbeat",
+                        player = current.player,
+                        playerProg = current.playerProg,
+                        serverLeaderboard = current.serverLeaderboard,
+                        currencies = current.currencies,
+                        materials = current.materials,
+                        accessories = current.accessories
+                    })
+                end
             end
         end
     end
