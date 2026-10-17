@@ -2,18 +2,18 @@
   "player": {
     "name": "Liesajsor17919",
     "guild": "Shinoko",
-    "level": 440,
+    "level": 441,
     "userId": 9165405454,
     "displayName": "フレーム",
     "avatarUrl": "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-D6503A306B66A0258D0C5C0C28E2C068-Png/150/150/AvatarHeadshot/Png/noFilter"
   },
   "playerProg": {
     "isMaxLevel": false,
-    "requiredXp": "408294",
-    "totalXp": "49035633",
-    "level": 440,
-    "ratio": 0.46928683742597244,
-    "currentXp": "191607"
+    "requiredXp": "410577",
+    "totalXp": "49258902",
+    "level": 441,
+    "ratio": 0.016031097699091765,
+    "currentXp": "6582"
   },
   "characters": [
     {
@@ -23,12 +23,12 @@
         "SPD": 5,
         "ATK": 5
       },
-      "ratio": 0.36308215199948374,
+      "ratio": 0.8433239400262439,
       "name": "Astra yao",
       "requiredXp": 232435,
       "id": "astra_yao",
       "level": 352,
-      "currentXp": 84393,
+      "currentXp": 196018,
       "rarity": "Zenless"
     },
     {
@@ -38,12 +38,12 @@
         "SPD": 5,
         "ATK": 5
       },
-      "ratio": 0.810383877244381,
+      "ratio": 0.302943518408538,
       "name": "Rin",
-      "requiredXp": 225619,
+      "requiredXp": 227313,
       "id": "rin",
-      "level": 348,
-      "currentXp": 182838,
+      "level": 349,
+      "currentXp": 68863,
       "rarity": "Zenless"
     },
     {
@@ -320,327 +320,1626 @@
   "currencies": {
     "zenlessPity": 109,
     "luckySpins": 6844,
-    "money": 277474339,
-    "gems": 3363141,
-    "xp": 49035633,
+    "money": 278056283,
+    "gems": 3369791,
+    "xp": 49258902,
     "traitExoticPity": 9,
     "mythicPity": 5,
     "arcanePity": 0,
-    "traitRerolls": 11470,
+    "traitRerolls": 11486,
     "rolls": 1078,
     "traitLegendaryPity": 9
   },
   "materials": {
     "101": {
+      "description": "The finest you can find!",
+      "name": "Fine Cloth",
+      "tier": "1",
       "id": "101",
       "rarity": "Common",
-      "name": "Fine Cloth",
+      "icon": "102816679609155",
       "count": 65534
     },
     "102": {
+      "description": "Maybe some ninja dropped this..",
+      "name": "Shinobi Scroll",
+      "tier": "1",
       "id": "102",
       "rarity": "Common",
-      "name": "Shinobi Scroll",
-      "count": 63283
+      "icon": "139900035439195",
+      "count": 63705
     },
     "103": {
-      "id": "103",
-      "rarity": "Common",
+      "description": "Gear light as a feather.",
       "name": "Mana Feather",
-      "count": 11657
+      "tier": "2",
+      "id": "103",
+      "rarity": "Rare",
+      "icon": "132113369360174",
+      "count": 11881
     },
     "104": {
-      "id": "104",
-      "rarity": "Common",
+      "description": "Not really the best in the menu.",
       "name": "Cursed Finger",
+      "tier": "3",
+      "id": "104",
+      "rarity": "Epic",
+      "icon": "109913321338481",
       "count": 5407
     },
     "105": {
-      "id": "105",
-      "rarity": "Common",
+      "description": "Best used for nerdy stuff!",
       "name": "Tech Component",
+      "tier": "3",
+      "id": "105",
+      "rarity": "Epic",
+      "icon": "137498955017283",
       "count": 4489
     },
     "106": {
-      "id": "106",
-      "rarity": "Common",
+      "description": "Really cool, wait.. did it move..?",
       "name": "Eyeball",
+      "tier": "2",
+      "id": "106",
+      "rarity": "Rare",
+      "icon": "106984976173853",
       "count": 14833
     },
     "107": {
-      "id": "107",
-      "rarity": "Common",
+      "description": "Too broke to get a new one.",
       "name": "Broken Blade",
+      "tier": "2",
+      "id": "107",
+      "rarity": "Rare",
+      "icon": "105954615720624",
       "count": 11867
     },
     "108": {
-      "id": "108",
-      "rarity": "Common",
+      "description": "Used to forge from within",
       "name": "Soul Fragment",
+      "tier": "3",
+      "id": "108",
+      "rarity": "Epic",
+      "icon": "132677360974573",
       "count": 5178
     },
     "109": {
-      "id": "109",
-      "rarity": "Common",
+      "description": "Is it getting hot in the room?",
       "name": "SunCore",
+      "tier": "4",
+      "id": "109",
+      "rarity": "Legendary",
+      "icon": "129315240126806",
       "count": 1048
     },
     "110": {
-      "id": "110",
-      "rarity": "Common",
+      "description": "Like in the fantasy storytellings!",
       "name": "Magic Pendant",
+      "tier": "4",
+      "id": "110",
+      "rarity": "Legendary",
+      "icon": "119252600098664",
       "count": 1238
     },
     "111": {
-      "id": "111",
-      "rarity": "Common",
+      "description": "i'd eat this if i was you",
       "name": "Forbidden Fruit",
-      "count": 1123
+      "tier": "4",
+      "id": "111",
+      "rarity": "Legendary",
+      "icon": "99397651593848",
+      "count": 1145
     },
     "112": {
-      "id": "112",
-      "rarity": "Common",
+      "description": "Normal waves in arizona.",
       "name": "Waves core",
-      "count": 4442
+      "tier": "3",
+      "id": "112",
+      "rarity": "Epic",
+      "icon": "121909246759003",
+      "count": 4512
     },
     "113": {
-      "id": "113",
-      "rarity": "Common",
+      "description": "It followed you home.. didn't it? Used to awaken Hu Tao.",
       "name": "Ghost",
+      "tier": "4",
+      "id": "113",
+      "rarity": "Legendary",
+      "icon": "99307813365665",
       "count": 2
     },
     "114": {
-      "id": "114",
-      "rarity": "Common",
+      "description": "Still warm from the funeral parlor. Used to awaken Hu Tao.",
       "name": "Staff of Homa",
+      "tier": "4",
+      "id": "114",
+      "rarity": "Legendary",
+      "icon": "102515695079682",
       "count": 6
     },
     "115": {
-      "id": "115",
-      "rarity": "Common",
+      "description": "Left behind when a shadow fades. Used to awaken Sung Jinwoo.",
       "name": "Shadow Essence",
+      "tier": "2",
+      "id": "115",
+      "rarity": "Rare",
+      "icon": "125168326880207",
       "count": 8528
     },
     "116": {
-      "id": "116",
-      "rarity": "Common",
+      "description": "The Blood-Red Commander's mark. Used to awaken Sung Jinwoo.",
       "name": "Igris' Crest",
+      "tier": "3",
+      "id": "116",
+      "rarity": "Epic",
+      "icon": "104998716462693",
       "count": 2403
     },
     "117": {
+      "description": "Zero calories somehow. Don't ask what's in it.",
+      "name": "Zero Calories Flour",
+      "tier": "1",
       "id": "117",
       "rarity": "Common",
-      "name": "Zero Calories Flour",
+      "icon": "81773153687520",
       "count": 11767
     },
     "118": {
-      "id": "118",
-      "rarity": "Common",
+      "description": "Zero calories, so the whole box is fine.",
       "name": "Zero Calories Doughnuts",
+      "tier": "2",
+      "id": "118",
+      "rarity": "Rare",
+      "icon": "99598523775917",
       "count": 4272
     },
     "119": {
-      "id": "119",
-      "rarity": "Common",
+      "description": "Still cold from the shadow that wore it.",
       "name": "Shadow's Cloak",
+      "tier": "3",
+      "id": "119",
+      "rarity": "Epic",
+      "icon": "70596224673115",
       "count": 1493
     },
     "120": {
-      "id": "120",
-      "rarity": "Common",
+      "description": "The Shadow Monarch's favor. Only the strongest walk out with one.",
       "name": "Monarch's Blessing",
+      "tier": "4",
+      "id": "120",
+      "rarity": "Legendary",
+      "icon": "125555218853069",
       "count": 391
     },
     "121": {
+      "description": "Trials food. Stands in for any missing tier 1 material when you awaken.",
+      "name": "Caprese",
+      "tier": "1",
       "id": "121",
       "rarity": "Common",
-      "name": "Caprese",
+      "icon": "111269245025211",
       "count": 1144
     },
     "122": {
-      "id": "122",
-      "rarity": "Common",
+      "description": "Trials food. Stands in for any missing tier 2 material when you awaken.",
       "name": "Ham",
+      "tier": "2",
+      "id": "122",
+      "rarity": "Rare",
+      "icon": "138199229130273",
       "count": 503
     },
     "123": {
-      "id": "123",
-      "rarity": "Common",
+      "description": "Trials food. Stands in for any missing tier 3 material when you awaken.",
       "name": "Omurice",
+      "tier": "3",
+      "id": "123",
+      "rarity": "Epic",
+      "icon": "78497914687710",
       "count": 136
     },
     "124": {
-      "id": "124",
-      "rarity": "Common",
+      "description": "Trials food. Stands in for any missing tier 4 material when you awaken.",
       "name": "Burger",
+      "tier": "4",
+      "id": "124",
+      "rarity": "Legendary",
+      "icon": "101954484954876",
       "count": 31
     }
   },
   "accessories": {
     "101": {
+      "description": "Tied on tight. Believe it.",
+      "slot": "Head",
+      "name": "Leaf Shinobi Headband",
+      "tier": "1",
       "id": "101",
       "rarity": "Common",
-      "name": "Leaf Shinobi Headband",
+      "icon": "106882402493279",
       "count": 1
     },
     "102": {
+      "description": "A proper hat for a proper fight.",
+      "slot": "Head",
+      "name": "Gentleman's Top Hat",
+      "tier": "1",
       "id": "102",
       "rarity": "Common",
-      "name": "Gentleman's Top Hat",
+      "icon": "113407991049346",
       "count": 1
     },
     "103": {
+      "description": "Warm, light, and it somehow fits in a capsule.",
+      "slot": "Neck",
+      "name": "Capsule Scarf",
+      "tier": "1",
       "id": "103",
       "rarity": "Common",
-      "name": "Capsule Scarf",
+      "icon": "128603966698061",
       "count": 1
     },
     "104": {
+      "description": "Still smells like smoke from the last call.",
+      "slot": "Head",
+      "name": "8th Brigade Fire Hat",
+      "tier": "1",
       "id": "104",
       "rarity": "Common",
-      "name": "8th Brigade Fire Hat",
+      "icon": "91063289812002",
       "count": 1
     },
     "105": {
-      "id": "105",
-      "rarity": "Common",
+      "description": "Too cool to miss a crit.",
+      "slot": "Face",
       "name": "SunGlasses",
+      "tier": "2",
+      "id": "105",
+      "rarity": "Rare",
+      "icon": "114653657419256",
       "count": 1
     },
     "106": {
-      "id": "106",
-      "rarity": "Common",
+      "description": "The fox grins so you don't have to.",
+      "slot": "Face",
       "name": "Kitsune Mask",
+      "tier": "2",
+      "id": "106",
+      "rarity": "Rare",
+      "icon": "118928443538720",
       "count": 1
     },
     "107": {
-      "id": "107",
-      "rarity": "Common",
+      "description": "Plays the same song on loop. Nobody complains.",
+      "slot": "Head",
       "name": "Diva Headphones",
+      "tier": "2",
+      "id": "107",
+      "rarity": "Rare",
+      "icon": "121495467431567",
       "count": 1
     },
     "108": {
-      "id": "108",
-      "rarity": "Common",
+      "description": "A hollow's bone mask, still a little feral.",
+      "slot": "Face",
       "name": "Panther Hollow Mask",
+      "tier": "2",
+      "id": "108",
+      "rarity": "Rare",
+      "icon": "72312321722385",
       "count": 1
     },
     "109": {
-      "id": "109",
-      "rarity": "Common",
+      "description": "Justice, worn over the shoulders.",
+      "slot": "Back",
       "name": "Light Admiral Cloak",
+      "tier": "3",
+      "id": "109",
+      "rarity": "Epic",
+      "icon": "74150690260165",
       "count": 1
     },
     "110": {
-      "id": "110",
-      "rarity": "Common",
+      "description": "Catches every breeze, even indoors.",
+      "slot": "Back",
       "name": "Wind Spirit Wing",
+      "tier": "3",
+      "id": "110",
+      "rarity": "Epic",
+      "icon": "113316087610639",
       "count": 1
     },
     "111": {
-      "id": "111",
-      "rarity": "Common",
+      "description": "Black wings for a captain who never lost a duel.",
+      "slot": "Back",
       "name": "Dark Captain Wings",
+      "tier": "3",
+      "id": "111",
+      "rarity": "Epic",
+      "icon": "99889331743267",
       "count": 1
     },
     "112": {
-      "id": "112",
-      "rarity": "Common",
+      "description": "Hot to the touch. The fire never went out.",
+      "slot": "Head",
       "name": "Flame Pirate Hat",
+      "tier": "3",
+      "id": "112",
+      "rarity": "Epic",
+      "icon": "115737382195945",
       "count": 1
     },
     "113": {
-      "id": "113",
-      "rarity": "Common",
+      "description": "Worn by the king of blasts and bows.",
+      "slot": "Head",
       "name": "Blast Archer Crown",
+      "tier": "4",
+      "id": "113",
+      "rarity": "Legendary",
+      "icon": "93077148505154",
       "count": 1
     },
     "114": {
-      "id": "114",
-      "rarity": "Common",
+      "description": "The archer's wings. Every arrow lands harder.",
+      "slot": "Back",
       "name": "Blast Archer Wings",
+      "tier": "4",
+      "id": "114",
+      "rarity": "Legendary",
+      "icon": "76476396112464",
       "count": 1
     },
     "116": {
-      "id": "116",
-      "rarity": "Common",
+      "description": "Frozen bone wings that glow like starlight.",
+      "slot": "Back",
       "name": "Astral Wings",
+      "tier": "4",
+      "id": "116",
+      "rarity": "Legendary",
+      "icon": "90395945997313",
       "count": 1
     },
     "117": {
-      "id": "117",
-      "rarity": "Common",
+      "description": "Icy claw wings that drift like a ghost.",
+      "slot": "Back",
       "name": "Spectral Wings",
+      "tier": "4",
+      "id": "117",
+      "rarity": "Legendary",
+      "icon": "98741945520313",
       "count": 1
     },
     "118": {
-      "id": "118",
-      "rarity": "Common",
+      "description": "The funeral parlor director's hat. Business is booming.",
+      "slot": "Head",
       "name": "Wangsheng Director's Hat",
+      "tier": "2",
+      "id": "118",
+      "rarity": "Rare",
+      "icon": "89410492490398",
       "count": 1
     },
     "119": {
-      "id": "119",
-      "rarity": "Common",
+      "description": "The Shadow Monarch's long coat. Arise.",
+      "slot": "Back",
       "name": "Shadow Monarch Coat",
+      "tier": "4",
+      "id": "119",
+      "rarity": "Legendary",
+      "icon": "74150690260165",
       "count": 1
     },
     "120": {
-      "id": "120",
-      "rarity": "Common",
+      "description": "A floating eye that never blinks.",
+      "slot": "Face",
       "name": "Void Hunter's Eye",
+      "tier": "2",
+      "id": "120",
+      "rarity": "Rare",
+      "icon": "104640105675226",
       "count": 1
     },
     "121": {
-      "id": "121",
-      "rarity": "Common",
+      "description": "The red-haired emperor's cloak. One look and they back down.",
+      "slot": "Back",
       "name": "Red Emperor's Cloak",
+      "tier": "3",
+      "id": "121",
+      "rarity": "Epic",
+      "icon": "125736341802288",
       "count": 1
     },
     "122": {
-      "id": "122",
-      "rarity": "Common",
+      "description": "Marked by the King of Curses.",
+      "slot": "Neck",
       "name": "Cursed King's Collar",
+      "tier": "3",
+      "id": "122",
+      "rarity": "Epic",
+      "icon": "76643366609813",
       "count": 1
     },
     "123": {
-      "id": "123",
-      "rarity": "Common",
+      "description": "Tinted for a vampire who hates the sun.",
+      "slot": "Face",
       "name": "No-Life King's Shades",
+      "tier": "3",
+      "id": "123",
+      "rarity": "Epic",
+      "icon": "108199213238206",
       "count": 1
     },
     "124": {
+      "description": "Neat, sharp and always on the job.",
+      "slot": "Neck",
+      "name": "Order Assassin's Tie",
+      "tier": "1",
       "id": "124",
       "rarity": "Common",
-      "name": "Order Assassin's Tie",
+      "icon": "97090308752380",
       "count": 1
     },
     "125": {
-      "id": "125",
-      "rarity": "Common",
+      "description": "Assassin family issue. Comes with a little static.",
+      "slot": "Neck",
       "name": "Zoldyck Collar",
+      "tier": "2",
+      "id": "125",
+      "rarity": "Rare",
+      "icon": "79873953380414",
       "count": 1
     },
     "126": {
-      "id": "126",
-      "rarity": "Common",
+      "description": "The captain's treasure. Don't lose it.",
+      "slot": "Head",
       "name": "Strawhat Captain's Hat",
+      "tier": "2",
+      "id": "126",
+      "rarity": "Rare",
+      "icon": "114845957553437",
       "count": 1
     },
     "127": {
-      "id": "127",
-      "rarity": "Common",
+      "description": "A halo from the other world. Training never stops.",
+      "slot": "Head",
       "name": "Otherworld Halo",
+      "tier": "3",
+      "id": "127",
+      "rarity": "Epic",
+      "icon": "97265775720666",
       "count": 1
     },
     "128": {
-      "id": "128",
-      "rarity": "Common",
+      "description": "Mahoraga's wheel. It turns, and it adapts.",
+      "slot": "Head",
       "name": "Divine General's Wheel",
+      "tier": "3",
+      "id": "128",
+      "rarity": "Epic",
+      "icon": "95952228911110",
       "count": 1
     }
   },
   "matchLogs": [
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792197459,
+      "duration": 70,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30639,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 4
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 4
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 26
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792197457,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30639,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 4
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 4
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 26
+        }
+      ],
+      "duration": 178
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792197279,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30810,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 16
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 2
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 18
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/99397651593848",
+          "amount": 4
+        }
+      ],
+      "duration": 85
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792197194,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30477,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 4
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 8
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 26
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 4
+        }
+      ],
+      "duration": 89
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792197105,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30493,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 10
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 2
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 22
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/99397651593848",
+          "amount": 2
+        }
+      ],
+      "duration": 94
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792197011,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30418,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 12
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 16
+        }
+      ],
+      "duration": 89
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196922,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30885,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 12
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 2
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 32
+        }
+      ],
+      "duration": 92
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196830,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30165,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 18
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 28
+        }
+      ],
+      "duration": 83
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196747,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30591,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 12
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 2
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 28
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/99397651593848",
+          "amount": 2
+        }
+      ],
+      "duration": 102
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196645,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30802,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 12
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 4
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 20
+        }
+      ],
+      "duration": 84
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196561,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30959,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 14
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 6
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 18
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/99397651593848",
+          "amount": 2
+        }
+      ],
+      "duration": 88
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196473,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30746,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 14
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 6
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 22
+        }
+      ],
+      "duration": 90
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196383,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30279,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 8
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 4
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 26
+        }
+      ],
+      "duration": 90
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196293,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30803,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 8
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 20
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/99397651593848",
+          "amount": 4
+        }
+      ],
+      "duration": 100
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196193,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30835,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 14
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 6
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 26
+        }
+      ],
+      "duration": 86
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196107,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30353,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 14
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 6
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 20
+        }
+      ],
+      "duration": 89
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792196018,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30557,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 6
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 2
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 24
+        }
+      ],
+      "duration": 95
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195923,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30705,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 24
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 6
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 10
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 2
+        }
+      ],
+      "duration": 93
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195830,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30975,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 16
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 4
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 18
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 2
+        }
+      ],
+      "duration": 91
+    },
     {
       "map": "Hxh",
       "character": "rin",
@@ -2427,1154 +3726,28 @@
         }
       ],
       "duration": 177
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192802,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30272,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 14
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 2
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 22
-        }
-      ],
-      "duration": 90
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192712,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30599,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 18
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 8
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 10
-        }
-      ],
-      "duration": 90
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192622,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30738,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 4
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 10
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 18
-        },
-        {
-          "name": "Forbidden Fruit",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/99397651593848",
-          "amount": 2
-        }
-      ],
-      "duration": 86
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192536,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30647,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 4
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 6
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 18
-        }
-      ],
-      "duration": 90
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192446,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30591,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 20
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 2
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 20
-        }
-      ],
-      "duration": 82
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192364,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30289,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 14
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 6
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 14
-        }
-      ],
-      "duration": 84
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192280,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30369,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 16
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 2
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 16
-        },
-        {
-          "name": "Forbidden Fruit",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 2
-        }
-      ],
-      "duration": 90
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192190,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30673,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 14
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 8
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 6
-        }
-      ],
-      "duration": 94
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192096,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30696,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 14
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 8
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 18
-        },
-        {
-          "name": "Forbidden Fruit",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/99397651593848",
-          "amount": 4
-        }
-      ],
-      "duration": 89
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792192007,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30689,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 14
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 6
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 30
-        },
-        {
-          "name": "Forbidden Fruit",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/99397651593848",
-          "amount": 2
-        }
-      ],
-      "duration": 90
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792191917,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30403,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 16
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 2
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 14
-        }
-      ],
-      "duration": 90
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792191827,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30338,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 10
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 14
-        }
-      ],
-      "duration": 83
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792191744,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30403,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 12
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 4
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 26
-        },
-        {
-          "name": "Forbidden Fruit",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/99397651593848",
-          "amount": 2
-        }
-      ],
-      "duration": 94
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792191650,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 31269,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 6
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 2
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 24
-        },
-        {
-          "name": "Forbidden Fruit",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/99397651593848",
-          "amount": 6
-        }
-      ],
-      "duration": 93
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792191557,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30704,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 10
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 8
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 6
-        },
-        {
-          "name": "Forbidden Fruit",
-          "category": "material",
-          "rarity": "Legendary",
-          "icon": "http://localhost:18888/api/icon/99397651593848",
-          "amount": 2
-        }
-      ],
-      "duration": 83
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792191474,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 31145,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 16
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 2
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 16
-        },
-        {
-          "name": "Forbidden Fruit",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 2
-        }
-      ],
-      "duration": 82
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792191392,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 31073,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 14
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 2
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 14
-        }
-      ],
-      "duration": 101
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792191291,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30934,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Rare",
-          "icon": "http://localhost:18888/api/icon/132113369360174",
-          "amount": 14
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Epic",
-          "icon": "http://localhost:18888/api/icon/121909246759003",
-          "amount": 4
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "http://localhost:18888/api/icon/139900035439195",
-          "amount": 20
-        }
-      ],
-      "duration": 86
-    },
-    {
-      "map": "Hxh",
-      "character": "rin",
-      "time": 1792191205,
-      "difficulty": "Nightmare",
-      "won": true,
-      "mode": "Story",
-      "kills": 106,
-      "wave": 11,
-      "rewards": [
-        {
-          "icon": "💎",
-          "amount": 350,
-          "name": "Gems",
-          "category": "currency"
-        },
-        {
-          "icon": "🪙",
-          "amount": 30983,
-          "name": "Gold",
-          "category": "currency"
-        },
-        {
-          "icon": "🔄",
-          "amount": 1,
-          "name": "Trait Rerolls",
-          "category": "currency"
-        },
-        {
-          "icon": "⚡",
-          "amount": 11751,
-          "name": "XP",
-          "category": "currency"
-        },
-        {
-          "name": "Mana Feather",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 12
-        },
-        {
-          "name": "Waves core",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 4
-        },
-        {
-          "name": "Shinobi Scroll",
-          "category": "material",
-          "rarity": "Common",
-          "icon": "🎒",
-          "amount": 24
-        }
-      ],
-      "duration": 86
     }
   ],
   "sessionStats": {
-    "totalMatches": 144,
-    "wins": 142,
+    "totalMatches": 163,
+    "wins": 161,
     "losses": 2,
-    "gemsGained": 46900,
-    "goldGained": 4118935,
-    "itemsGained": 4890
+    "gemsGained": 53550,
+    "goldGained": 4701066,
+    "itemsGained": 5628
   },
-  "lastUpdated": 1792195740,
+  "lastUpdated": 1792197517,
   "connected": true,
   "latestMatch": {
     "map": "Hxh",
-    "character": "rin",
-    "time": 1792195739,
-    "difficulty": "Nightmare",
     "won": true,
-    "mode": "Story",
-    "kills": 106,
+    "difficulty": "Nightmare",
     "wave": 11,
+    "time": 1792197459,
+    "duration": 70,
+    "mode": "Story",
+    "character": "rin",
+    "kills": 106,
     "rewards": [
       {
         "icon": "💎",
@@ -3584,7 +3757,7 @@
       },
       {
         "icon": "🪙",
-        "amount": 30786,
+        "amount": 30639,
         "name": "Gold",
         "category": "currency"
       },
@@ -3605,7 +3778,7 @@
         "category": "material",
         "rarity": "Rare",
         "icon": "http://localhost:18888/api/icon/132113369360174",
-        "amount": 18
+        "amount": 4
       },
       {
         "name": "Waves core",
@@ -3619,9 +3792,14 @@
         "category": "material",
         "rarity": "Common",
         "icon": "http://localhost:18888/api/icon/139900035439195",
-        "amount": 18
+        "amount": 26
       }
-    ],
-    "duration": 88
+    ]
+  },
+  "live": {
+    "inMatch": true,
+    "wave": "Wave 1/2",
+    "info": "Nightmare · Area 4/5 · 9 left",
+    "timer": "00:54"
   }
 }

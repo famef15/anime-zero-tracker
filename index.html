@@ -671,6 +671,32 @@
       margin-bottom: 2px;
     }
 
+    .gh-asset-visual img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.45));
+    }
+
+    .gh-item-img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      vertical-align: -3px;
+      margin-right: 5px;
+      image-rendering: -webkit-optimize-contrast;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+    }
+
+    .gh-metric-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+    }
+
     .gh-asset-name {
       font-size: 13px;
       font-weight: 600;
@@ -1086,28 +1112,28 @@
     <!-- Quick Metrics (Currencies) -->
     <div class="gh-metrics-grid">
       <div class="gh-metric-card">
-        <div class="gh-metric-icon">💎</div>
+        <div class="gh-metric-icon"><img src="/icons/currency_gems.png" class="gh-metric-img" alt="Gems" onerror="this.onerror=null; this.src=''; this.innerText='💎';"></div>
         <div class="gh-metric-data">
           <div class="title">Gems</div>
           <div class="number" id="valGems" style="color: #58a6ff;">-</div>
         </div>
       </div>
       <div class="gh-metric-card">
-        <div class="gh-metric-icon">🪙</div>
+        <div class="gh-metric-icon"><img src="/icons/currency_gold.png" class="gh-metric-img" alt="Gold" onerror="this.onerror=null; this.src=''; this.innerText='🪙';"></div>
         <div class="gh-metric-data">
           <div class="title">Gold / Money</div>
           <div class="number" id="valMoney" style="color: #d29922;">-</div>
         </div>
       </div>
       <div class="gh-metric-card">
-        <div class="gh-metric-icon">🎰</div>
+        <div class="gh-metric-icon"><img src="/icons/currency_spins.png" class="gh-metric-img" alt="Lucky Spins" onerror="this.onerror=null; this.src=''; this.innerText='🎰';"></div>
         <div class="gh-metric-data">
           <div class="title">Lucky Spins</div>
           <div class="number" id="valSpins" style="color: #e3b341;">-</div>
         </div>
       </div>
       <div class="gh-metric-card">
-        <div class="gh-metric-icon">🎲</div>
+        <div class="gh-metric-icon"><img src="/icons/currency_rerolls.png" class="gh-metric-img" alt="Trait Rerolls" onerror="this.onerror=null; this.src=''; this.innerText='🎲';"></div>
         <div class="gh-metric-data">
           <div class="title">Trait Rerolls</div>
           <div class="number" id="valRerolls" style="color: #bc8cff;">-</div>
@@ -1240,7 +1266,88 @@
   <script>
     let state = {};
 
-    // Specific Item Emoji Mapping
+    // Real in-game icon map matching game assets 1:1
+    const NAME_TO_ICON = {
+      // Currencies
+      'gems': '/icons/currency_gems.png',
+      'gem': '/icons/currency_gems.png',
+      'gold': '/icons/currency_gold.png',
+      'money': '/icons/currency_gold.png',
+      'lucky spins': '/icons/currency_spins.png',
+      'spins': '/icons/currency_spins.png',
+      'trait rerolls': '/icons/currency_rerolls.png',
+      'rerolls': '/icons/currency_rerolls.png',
+      
+      // Materials
+      'fine cloth': '/icons/material_101.png',
+      'shinobi scroll': '/icons/material_102.png',
+      'mana feather': '/icons/material_103.png',
+      'cursed finger': '/icons/material_104.png',
+      'tech component': '/icons/material_105.png',
+      'eyeball': '/icons/material_106.png',
+      'broken blade': '/icons/material_107.png',
+      'soul fragment': '/icons/material_108.png',
+      'suncore': '/icons/material_109.png',
+      'magic pendant': '/icons/material_110.png',
+      'forbidden fruit': '/icons/material_111.png',
+      'waves core': '/icons/material_112.png',
+      'ghost': '/icons/material_113.png',
+      'staff of homa': '/icons/material_114.png',
+      'shadow essence': '/icons/material_115.png',
+      "igris' crest": '/icons/material_116.png',
+      'zero calories flour': '/icons/material_117.png',
+      'zero calories doughnuts': '/icons/material_118.png',
+      "shadow's cloak": '/icons/material_119.png',
+      "monarch's blessing": '/icons/material_120.png',
+      'caprese': '/icons/material_121.png',
+      'ham': '/icons/material_122.png',
+      'omurice': '/icons/material_123.png',
+      'burger': '/icons/material_124.png',
+
+      // Accessories
+      'leaf shinobi headband': '/icons/accessory_101.png',
+      "gentleman's top hat": '/icons/accessory_102.png',
+      'capsule scarf': '/icons/accessory_103.png',
+      '8th brigade fire hat': '/icons/accessory_104.png',
+      'sunglasses': '/icons/accessory_105.png',
+      'kitsune mask': '/icons/accessory_106.png',
+      'diva headphones': '/icons/accessory_107.png',
+      'panther hollow mask': '/icons/accessory_108.png',
+      'wind spirit wing': '/icons/accessory_110.png',
+      'dark captain wings': '/icons/accessory_111.png',
+      'flame pirate hat': '/icons/accessory_112.png',
+      'blast archer crown': '/icons/accessory_113.png',
+      'solar wings': '/icons/accessory_115.png',
+      'astral wings': '/icons/accessory_116.png',
+      'spectral wings': '/icons/accessory_117.png',
+      "wangsheng director's hat": '/icons/accessory_118.png',
+      'shadow monarch coat': '/icons/accessory_119.png',
+      "void hunter's eye": '/icons/accessory_120.png',
+      "red emperor's cloak": '/icons/accessory_121.png',
+      "cursed king's collar": '/icons/accessory_122.png',
+      "no-life king's shades": '/icons/accessory_123.png',
+      "order assassin's tie": '/icons/accessory_124.png',
+      'zoldyck collar': '/icons/accessory_125.png',
+      "strawhat captain's hat": '/icons/accessory_126.png',
+      'otherworld halo': '/icons/accessory_127.png',
+      "divine general's wheel": '/icons/accessory_128.png'
+    };
+
+    function getItemIconHtml(nameOrId, category, size = 20) {
+      const key = String(nameOrId || '').toLowerCase().trim();
+      let iconUrl = NAME_TO_ICON[key];
+      if (!iconUrl) {
+        if (category === 'material' && /^\d+$/.test(key)) iconUrl = `/icons/material_${key}.png`;
+        else if (category === 'accessory' && /^\d+$/.test(key)) iconUrl = `/icons/accessory_${key}.png`;
+      }
+      const emojiFallback = getItemEmoji(nameOrId, category);
+      if (iconUrl) {
+        return `<img src="${iconUrl}" class="gh-item-img" style="width: ${size}px; height: ${size}px;" alt="${nameOrId}" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"><span style="display:none;">${emojiFallback}</span>`;
+      }
+      return `<span>${emojiFallback}</span>`;
+    }
+
+    // Specific Item Emoji Mapping (Fallback)
     const ITEM_MAP = {
       '101': { emoji: '🧶', name: 'Fine Cloth' },
       '102': { emoji: '📜', name: 'Shinobi Scroll' },
@@ -1516,10 +1623,10 @@
       }
 
       flow.innerHTML = rewards.map(r => {
-        const icon = getItemEmoji(r.name, r.category);
+        const iconHtml = getItemIconHtml(r.name, r.category, 20);
         return `
-          <div class="gh-label">
-            <span>${icon}</span>
+          <div class="gh-label" style="display: inline-flex; align-items: center; gap: 4px;">
+            ${iconHtml}
             <span>${r.name}:</span>
             <strong style="color: var(--gh-success-fg);">+${numFmt(r.amount)}</strong>
           </div>
@@ -1540,7 +1647,7 @@
 
       grid.innerHTML = entries.map(m => {
         const tier = m.tier || '1';
-        const emoji = getItemEmoji(m.id || m.name, 'material');
+        const iconHtml = getItemIconHtml(m.id || m.name, 'material', 46);
         let tierColor = 'var(--gh-fg-muted)';
         if (tier === '4') tierColor = 'var(--rarity-t4)';
         else if (tier === '3') tierColor = 'var(--rarity-t3)';
@@ -1550,7 +1657,7 @@
           <div class="gh-asset-card" title="${m.description || m.name}">
             <span class="gh-tier-tag" style="color: ${tierColor}; border-color: ${tierColor};">Tier ${tier}</span>
             <span class="gh-count-pill">${numFmt(m.count)}</span>
-            <div class="gh-asset-visual">${emoji}</div>
+            <div class="gh-asset-visual">${iconHtml}</div>
             <div class="gh-asset-name">${m.name}</div>
             <div class="gh-asset-desc">${m.description || 'Crafting material'}</div>
           </div>
@@ -1571,7 +1678,7 @@
 
       grid.innerHTML = entries.map(a => {
         const tier = a.tier || '1';
-        const emoji = getItemEmoji(a.name || a.id, 'accessory');
+        const iconHtml = getItemIconHtml(a.id || a.name, 'accessory', 46);
         let tierColor = 'var(--gh-fg-muted)';
         if (tier === '4') tierColor = 'var(--rarity-t4)';
         else if (tier === '3') tierColor = 'var(--rarity-t3)';
@@ -1581,7 +1688,7 @@
           <div class="gh-asset-card" title="${a.description || a.name}">
             <span class="gh-tier-tag" style="color: ${tierColor}; border-color: ${tierColor};">${a.slot || ('Tier ' + tier)}</span>
             <span class="gh-count-pill" style="color: var(--gh-accent-fg);">${numFmt(a.count)}</span>
-            <div class="gh-asset-visual">${emoji}</div>
+            <div class="gh-asset-visual">${iconHtml}</div>
             <div class="gh-asset-name">${a.name}</div>
             <div class="gh-asset-desc">${a.description || 'Accessory stat booster'}</div>
           </div>
@@ -1615,9 +1722,9 @@
         return items.map((m, idx) => {
           const rewHtml = (m.rewards && m.rewards.length > 0)
             ? m.rewards.map(r => {
-                const icon = getItemEmoji(r.name, r.category);
-                return `<span class="gh-label" style="margin: 2px;">
-                  <span>${icon}</span> ${r.name}: <strong style="color: var(--gh-success-fg);">+${numFmt(r.amount)}</strong>
+                const iconHtml = getItemIconHtml(r.name, r.category, 16);
+                return `<span class="gh-label" style="margin: 2px; display: inline-flex; align-items: center; gap: 3px;">
+                  ${iconHtml} <span>${r.name}:</span> <strong style="color: var(--gh-success-fg);">+${numFmt(r.amount)}</strong>
                 </span>`;
               }).join(' ')
             : '<span style="color: var(--gh-fg-muted);">-</span>';

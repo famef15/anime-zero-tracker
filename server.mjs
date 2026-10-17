@@ -12,6 +12,26 @@ const MCP_PORT = process.env.MCP_PORT || 16384;
 const DASHBOARD_PIN = process.env.DASHBOARD_PIN || "";
 const TRACKER_SECRET = process.env.TRACKER_SECRET || "";
 
+// Ensure icons directory and unpack bundle if needed
+const ICONS_DIR = path.join(__dirname, "icons");
+const BUNDLE_FILE = path.join(__dirname, "icons_bundle.json");
+if (!fs.existsSync(ICONS_DIR)) {
+  try { fs.mkdirSync(ICONS_DIR, { recursive: true }); } catch {}
+}
+if (fs.existsSync(BUNDLE_FILE)) {
+  try {
+    const bundle = JSON.parse(fs.readFileSync(BUNDLE_FILE, "utf-8"));
+    for (const [filename, b64] of Object.entries(bundle)) {
+      const target = path.join(ICONS_DIR, filename);
+      if (!fs.existsSync(target)) {
+        fs.writeFileSync(target, Buffer.from(b64, "base64"));
+      }
+    }
+  } catch (e) {
+    console.error("Failed to unpack icons_bundle.json:", e.message);
+  }
+}
+
 // Default initial state
 let state = {
   player: {
@@ -299,6 +319,27 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Static Icons Route
+  if (url.pathname.startsWith("/icons/") && (req.method === "GET" || req.method === "HEAD")) {
+    const filename = path.basename(url.pathname);
+    const iconPath = path.join(__dirname, "icons", filename);
+    if (fs.existsSync(iconPath)) {
+      res.writeHead(200, {
+        "Content-Type": "image/png",
+        "Cache-Control": "public, max-age=604800, immutable"
+      });
+      if (req.method === "HEAD") {
+        res.end();
+        return;
+      }
+      fs.createReadStream(iconPath).pipe(res);
+      return;
+    }
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Icon Not Found");
+    return;
+  }
+
   // Dashboard Page
   if (url.pathname === "/" && req.method === "GET") {
     try {
@@ -353,6 +394,17 @@ const server = http.createServer(async (req, res) => {
       try {
         const payload = JSON.parse(body);
         applyReport(payload);
+
+        // Auto-forward to Render Cloud if running on local server
+        const cloudUrl = process.env.CLOUD_FORWARD_URL || "https://anime-zero-tracker.onrender.com/api/report";
+        if (!process.env.RENDER && cloudUrl) {
+          fetch(cloudUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: body
+          }).catch(() => {});
+        }
+
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ ok: true }));
       } catch (err) {
