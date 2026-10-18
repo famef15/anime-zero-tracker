@@ -1,30 +1,49 @@
+// [LISTN] Language: JavaScript (ESM) | File: server.mjs | Runtime: Node.js >= 18
+// Dedicated Discord OAuth2 Isolated Cloud Tracker Server for Anime Zero
 
-const DEFAULT_GLOBAL_LEADERBOARD = [];
-
-const FAKE_MOCK_NAMES = new Set([
-  'shadow_reaper99', 'kuroko_strike', 'ryu_demon7', 'zero_slayer', 'zenith_blade', 'phantom_jin',
-  'blaze_hunter', 'frost_monarch', 'valkyrie_x', 'nexus_warlord', 'tempest_kai', 'crimson_fang',
-  'viper_strike', 'abyssal_rex', 'solaris_prime', 'hyperion_zero', 'dread_knight', 'astral_weaver',
-  'void_walker9', 'lunar_eclipse', 'titan_breaker', 'blood_scythe', 'storm_caller', 'venom_edge',
-  'aurora_borealis', 'glacier_fang', 'pyro_maniac', 'omega_pulse', 'celestial_arc', 'iron_claws',
-  'shadow_step', 'raiden_blade', 'ember_soul', 'zen_master', 'nova_burst', 'draco_rex',
-  'silent_assassin', 'chaos_bringer', 'abyss_walker', 'flame_heart', 'frost_bite', 'lunar_blade',
-  'apex_predator', 'spirit_wolf', 'dark_matter', 'crimson_tide', 'solar_flare', 'void_whisper',
-  'phantom_blade'
-]);
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_FILE = path.join(__dirname, "data.json");
 const HTML_FILE = path.join(__dirname, "index.html");
+const ENV_FILE = path.join(__dirname, ".env");
+
+// Built-in .env parser (zero external dependencies)
+if (fs.existsSync(ENV_FILE)) {
+  try {
+    const envLines = fs.readFileSync(ENV_FILE, "utf-8").split(/\r?\n/);
+    for (const line of envLines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const idx = trimmed.indexOf("=");
+      if (idx !== -1) {
+        const key = trimmed.slice(0, idx).trim();
+        let val = trimmed.slice(idx + 1).trim();
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
+        process.env[key] = val;
+      }
+    }
+  } catch (e) {
+    console.error("Failed to parse .env:", e.message);
+  }
+}
+
 const PORT = process.env.PORT || 18888;
 const MCP_PORT = process.env.MCP_PORT || 16384;
 const DASHBOARD_PIN = process.env.DASHBOARD_PIN || "";
 const TRACKER_SECRET = process.env.TRACKER_SECRET || "";
+
+// Discord OAuth2 App Configuration (Loaded from .env or system environment)
+const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID || "";
+const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET || "";
+const DISCORD_REDIRECT_URI = process.env.DISCORD_REDIRECT_URI || "";
 
 // Ensure icons directory and unpack bundle if needed
 const ICONS_DIR = path.join(__dirname, "icons");
@@ -46,25 +65,27 @@ if (fs.existsSync(BUNDLE_FILE)) {
   }
 }
 
-// Default initial state
+// Initial state container
 let state = {
   player: {
     name: "Liesajsor17919",
     displayName: "フレーム",
     userId: 9165405454,
-    level: 456,
-    guild: "Shinoko"
+    level: 457,
+    guild: "Shinoko",
+    guildTag: "7NO",
+    avatarUrl: "/icons/default_avatar.png"
   },
   playerProg: {
-    level: 456,
-    currentXp: 321007,
-    requiredXp: 445593,
-    ratio: 0.72,
-    totalXp: "55987056"
+    level: 457,
+    currentXp: "439462",
+    requiredXp: "447979",
+    ratio: 0.98,
+    totalXp: "56539353"
   },
   characters: [],
   serverLeaderboard: [],
-  globalLeaderboard: [...DEFAULT_GLOBAL_LEADERBOARD],
+  globalLeaderboard: [],
   currencies: {},
   materials: {},
   accessories: {},
@@ -78,103 +99,14 @@ let state = {
     itemsGained: 0
   },
   lastUpdated: Math.floor(Date.now() / 1000),
-  connected: false
+  connected: false,
+
+  // Discord Accounts Store (Isolated per Discord Snowflake ID)
+  discordAccounts: {},
+  sessions: {},
+  // Roblox Multi-User Store
+  robloxUsers: {}
 };
-
-// Function to keep Global Leaderboard synchronized with live player and server players
-function syncGlobalLeaderboard() {
-  if (!state.globalLeaderboard || !Array.isArray(state.globalLeaderboard)) {
-    state.globalLeaderboard = [];
-  }
-
-  const p = state.player;
-  const prog = state.playerProg;
-  if (!p) return;
-
-  const currentLevel = Number(prog?.level || p.level || 0);
-  const currentTotalXp = Number(prog?.totalXp || 0);
-
-  // Update or insert current user into global leaderboard
-  let userFound = false;
-  for (const entry of state.globalLeaderboard) {
-    if (entry.isLocal || (p.userId && entry.userId === p.userId) || entry.name === p.name) {
-      entry.level = currentLevel;
-      if (currentTotalXp > 0) entry.totalXp = currentTotalXp;
-      entry.name = p.name || entry.name;
-      entry.displayName = p.displayName || entry.displayName;
-      entry.guild = p.guild || entry.guild;
-      entry.guildTag = p.guildTag || entry.guildTag;
-      entry.avatarUrl = p.avatarUrl || entry.avatarUrl;
-      entry.isLocal = true;
-      userFound = true;
-      break;
-    }
-  }
-
-  if (!userFound && p.name) {
-    state.globalLeaderboard.push({
-      rank: 1,
-      name: p.name,
-      displayName: p.displayName || p.name,
-      level: currentLevel,
-      totalXp: currentTotalXp,
-      guild: p.guild || "Shinoko",
-      guildTag: p.guildTag || "7NO",
-      userId: p.userId || 9165405454,
-      isLocal: true,
-      avatarUrl: p.avatarUrl || `https://www.roblox.com/headshot-thumbnail/image?userId=${p.userId}&width=150&height=150&format=png`
-    });
-  }
-
-  // Integrate real server players into global leaderboard if they have higher or valid levels
-  if (state.serverLeaderboard && Array.isArray(state.serverLeaderboard)) {
-    for (const sp of state.serverLeaderboard) {
-      if (!sp.name || FAKE_MOCK_NAMES.has(sp.name)) continue;
-      const existing = state.globalLeaderboard.find(e => (sp.userId && e.userId === sp.userId) || e.name === sp.name);
-      if (existing) {
-        if ((sp.level || 0) > (existing.level || 0)) {
-          existing.level = sp.level;
-          existing.totalXp = sp.totalXp || existing.totalXp;
-        }
-        if (sp.displayName) existing.displayName = sp.displayName;
-        if (sp.guild && sp.guild !== 'None') existing.guild = sp.guild;
-        if (sp.guildTag) existing.guildTag = sp.guildTag;
-        if (sp.avatarUrl && !existing.avatarUrl) existing.avatarUrl = sp.avatarUrl;
-      } else if (sp.level && sp.level > 0) {
-        state.globalLeaderboard.push({
-          rank: 99,
-          name: sp.name,
-          displayName: sp.displayName || sp.name,
-          level: sp.level,
-          totalXp: sp.totalXp || 0,
-          guild: sp.guild || 'Shinoko',
-          guildTag: sp.guildTag || '',
-          userId: sp.userId,
-          isLocal: !!sp.isLocal,
-          avatarUrl: sp.avatarUrl || (sp.userId ? `https://www.roblox.com/headshot-thumbnail/image?userId=${sp.userId}&width=150&height=150&format=png` : '')
-        });
-      }
-    }
-  }
-
-  // Remove any leftover mock fake names
-  state.globalLeaderboard = state.globalLeaderboard.filter(e => !FAKE_MOCK_NAMES.has(e.name));
-  if (state.serverLeaderboard && Array.isArray(state.serverLeaderboard)) {
-    state.serverLeaderboard = state.serverLeaderboard.filter(e => !FAKE_MOCK_NAMES.has(e.name));
-  }
-
-  // Re-sort globalLeaderboard by Level DESC, then totalXp DESC
-  state.globalLeaderboard.sort((a, b) => {
-    const lvlDiff = (Number(b.level) || 0) - (Number(a.level) || 0);
-    if (lvlDiff !== 0) return lvlDiff;
-    return (Number(b.totalXp) || 0) - (Number(a.totalXp) || 0);
-  });
-
-  // Re-index ranks 1..N
-  state.globalLeaderboard.forEach((e, idx) => {
-    e.rank = idx + 1;
-  });
-}
 
 // Load persistent data
 try {
@@ -183,61 +115,55 @@ try {
     if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1);
     const loaded = JSON.parse(raw);
     state = { ...state, ...loaded, connected: false };
-    if (!state.globalLeaderboard || state.globalLeaderboard.length === 0) state.globalLeaderboard = [...DEFAULT_GLOBAL_LEADERBOARD];
-    if (!state.serverLeaderboard) state.serverLeaderboard = [];
-    syncGlobalLeaderboard();
-    
-    // Deduplicate matchLogs by time
-    if (state.matchLogs && state.matchLogs.length > 0) {
-      const seenTimes = new Set();
-      state.matchLogs = state.matchLogs.filter(m => {
-        if (!m.time) return true;
-        if (seenTimes.has(m.time)) return false;
-        seenTimes.add(m.time);
-        return true;
-      });
 
-      // Backfill duration for logs
-      for (let i = 0; i < state.matchLogs.length; i++) {
-        if (!state.matchLogs[i].duration && i + 1 < state.matchLogs.length) {
-          const tCurrent = state.matchLogs[i].time;
-          const tNext = state.matchLogs[i + 1].time;
-          if (tCurrent && tNext) {
-            const diff = Math.abs(tCurrent - tNext);
-            if (diff > 0 && diff < 1800) {
-              state.matchLogs[i].duration = diff;
-            }
-          }
-        }
-      }
+    if (!state.robloxUsers || typeof state.robloxUsers !== "object") {
+      state.robloxUsers = {};
     }
 
-    if (!state.latestMatch && state.matchLogs && state.matchLogs.length > 0) {
-      state.latestMatch = state.matchLogs[0];
-    }
-
-    // Initialize Multi-User Store
-    if (!state.users || typeof state.users !== "object") {
-      state.users = {};
-    }
+    // Seed initial Roblox user from default player if not already present
     if (state.player && (state.player.userId || state.player.name)) {
-      const defaultUid = String(state.player.userId || state.player.name);
-      if (!state.users[defaultUid]) {
-        state.users[defaultUid] = {
+      const defUid = String(state.player.userId || state.player.name);
+      if (!state.robloxUsers[defUid]) {
+        state.robloxUsers[defUid] = {
           player: { ...state.player },
           playerProg: state.playerProg || {},
           characters: state.characters || [],
           currencies: state.currencies || {},
           materials: state.materials || {},
           accessories: state.accessories || {},
-          matchLogs: state.matchLogs || [],
-          latestMatch: state.latestMatch || null,
-          sessionStats: state.sessionStats || { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 },
-          lastUpdated: state.lastUpdated || Math.floor(Date.now() / 1000),
-          connected: state.connected || false
+          matchLogs: (defUid === "9165405454" ? (state.matchLogs || []) : []),
+          latestMatch: (defUid === "9165405454" ? (state.latestMatch || null) : null),
+          sessionStats: (defUid === "9165405454" ? (state.sessionStats || { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 }) : { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 }),
+          lastUpdated: state.lastUpdated || Math.floor(Date.now() / 1000)
         };
       }
-      state.lastActiveUserId = defaultUid;
+    }
+
+    if (!state.discordAccounts || typeof state.discordAccounts !== "object") {
+      state.discordAccounts = {};
+    }
+    state.sessions = {};
+
+    // Seed default verified Discord account if empty
+    if (Object.keys(state.discordAccounts).length === 0) {
+      state.discordAccounts["discord_zerox7"] = {
+        id: "discord_zerox7",
+        username: "zerox7_xm",
+        displayName: "zerox7",
+        discordId: "zerox7_xm",
+        avatarUrl: "/icons/default_avatar.png",
+        apiKey: "key_dc_zerox7_master",
+        linkedRoblox: [
+          {
+            userId: 9165405454,
+            name: "Liesajsor17919",
+            displayName: "フレーム",
+            avatarUrl: "/icons/default_avatar.png"
+          }
+        ],
+        createdAt: Math.floor(Date.now() / 1000)
+      };
+      saveData();
     }
   }
 } catch (e) {
@@ -252,6 +178,52 @@ function saveData() {
   }
 }
 
+function parseJsonBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = "";
+    req.on("data", chunk => {
+      body += chunk;
+      if (body.length > 3e6) {
+        req.destroy();
+        reject(new Error("Payload too large"));
+      }
+    });
+    req.on("end", () => {
+      if (!body) return resolve({});
+      try {
+        resolve(JSON.parse(body));
+      } catch (err) {
+        reject(err);
+      }
+    });
+    req.on("error", reject);
+  });
+}
+
+function getAuthDiscordUser(req, url) {
+  const authHeader = req.headers["authorization"] || "";
+  let token = "";
+  if (authHeader.startsWith("Bearer ")) {
+    token = authHeader.slice(7).trim();
+  }
+  if (!token) {
+    token = req.headers["x-auth-token"] || url.searchParams.get("token") || "";
+  }
+  if (!token) return null;
+
+  if (!state.sessions) state.sessions = {};
+  const session = state.sessions[token];
+  if (!session) return null;
+  if (session.expiresAt && Date.now() > session.expiresAt) {
+    delete state.sessions[token];
+    return null;
+  }
+
+  if (!state.discordAccounts) state.discordAccounts = {};
+  const acc = state.discordAccounts[session.accountId];
+  return acc || null;
+}
+
 async function fetchRobloxAvatar(userId) {
   if (!userId) return null;
   try {
@@ -263,6 +235,53 @@ async function fetchRobloxAvatar(userId) {
       return json.data?.[0]?.imageUrl || null;
     }
   } catch {}
+  return null;
+}
+
+async function lookupRobloxUser(identifier) {
+  if (!identifier) return null;
+  const cleanId = String(identifier).trim();
+  try {
+    // If numeric userId
+    if (/^\d+$/.test(cleanId)) {
+      const avatarUrl = await fetchRobloxAvatar(cleanId);
+      const res = await fetch(`https://users.roblox.com/v1/users/${cleanId}`, {
+        signal: AbortSignal.timeout(4000)
+      });
+      if (res.ok) {
+        const u = await res.json();
+        return {
+          userId: u.id,
+          name: u.name,
+          displayName: u.displayName || u.name,
+          avatarUrl: avatarUrl || `/api/avatar?userId=${u.id}`
+        };
+      }
+    }
+
+    // By username
+    const res = await fetch("https://users.roblox.com/v1/usernames/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usernames: [cleanId], excludeBannedUsers: false }),
+      signal: AbortSignal.timeout(4000)
+    });
+    if (res.ok) {
+      const json = await res.json();
+      const u = json.data?.[0];
+      if (u) {
+        const avatarUrl = await fetchRobloxAvatar(u.id);
+        return {
+          userId: u.id,
+          name: u.name,
+          displayName: u.displayName || u.name,
+          avatarUrl: avatarUrl || `/api/avatar?userId=${u.id}`
+        };
+      }
+    }
+  } catch (e) {
+    console.error("Roblox lookup error:", e.message);
+  }
   return null;
 }
 
@@ -326,139 +345,51 @@ if acc.state.accessory and acc.state.accessory.entries then
                 name = info.Name or info.name or ("Accessory " .. id),
                 count = count,
                 tier = tostring(info.Tier or "1"),
-                rarity = (info.Tier == "4" and "Legendary") or (info.Tier == "3" and "Epic") or (info.Tier == "2" and "Rare") or "Common",
-                slot = tostring(info.Slot or ""),
+                rarity = (info.Tier == "4" and "Mythic") or (info.Tier == "3" and "Legendary") or (info.Tier == "2" and "Epic") or "Rare",
                 description = info.Description or ""
             }
         end
     end
 end
 
--- Characters Progression
+-- Characters
 local chars = {}
-if acc.state.CharactersData then
-    for charName, charData in pairs(acc.state.CharactersData) do
-        if type(charData) == "table" and charData.Progression and charData.Progression.Xp then
-            local xpVal = charData.Progression.Xp.current or "0"
-            local prog = levelProg.getProgress(xpVal)
-            local skills = {}
-            if charData.Progression.Skills then
-                for sk, sv in pairs(charData.Progression.Skills) do
-                    if type(sv) == "number" or (type(sv) == "table" and sv.current) then
-                        skills[sk] = type(sv) == "table" and sv.current or sv
-                    end
-                end
-            end
-            table.insert(chars, {
-                id = charName,
-                name = charName:gsub("_", " "):gsub("^%l", string.upper),
-                rarity = charRoll.rarityByCharacter[charName] or "Common",
-                level = prog and prog.level or 0,
-                currentXp = prog and tonumber(prog.currentXp) or 0,
-                requiredXp = prog and tonumber(prog.requiredXp) or 100,
-                ratio = prog and prog.ratio or 0,
-                skills = skills,
-                trait = (charData.TraitData and charData.TraitData.Trait) or 0
-            })
-        end
+if acc.state.character and acc.state.character.entries then
+    for id, v in pairs(acc.state.character.entries) do
+        local cinfo = charRoll.rolls and charRoll.rolls[id] or {}
+        local cLvl = tonumber(getVal(v.level)) or 1
+        local cCurXp = tonumber(getVal(v.currentXp)) or 0
+        local cReqXp = tonumber(getVal(v.requiredXp)) or 1000
+        table.insert(chars, {
+            id = id,
+            name = cinfo.Name or id,
+            level = cLvl,
+            currentXp = cCurXp,
+            requiredXp = cReqXp,
+            ratio = math.clamp(cCurXp / math.max(1, cReqXp), 0, 1),
+            skills = v.skills or {}
+        })
     end
 end
-table.sort(chars, function(a, b) return a.level > b.level end)
 
 -- Player Progression
-local playerXp = currencies.xp or 0
-local playerProg = levelProg.getProgress(tostring(playerXp))
-
-local level = (playerProg and tonumber(playerProg.level) and tonumber(playerProg.level) > 0 and tonumber(playerProg.level)) or 0
-if level == 0 then
-    local leaderstats = player:FindFirstChild("leaderstats")
-    if leaderstats and leaderstats:FindFirstChild("Level") and leaderstats.Level.Value > 0 then
-        level = leaderstats.Level.Value
+local level = 0
+local playerProg = {}
+if acc.state.playerProgression then
+    local xpVal = acc.state.playerProgression.currentXp
+    if type(xpVal) == "table" and xpVal.current ~= nil then xpVal = xpVal.current end
+    local prog = levelProg.getProgress(tostring(xpVal))
+    if prog then
+        level = tonumber(prog.level) or 0
+        playerProg = {
+            level = level,
+            currentXp = tonumber(prog.currentXp) or 0,
+            requiredXp = tonumber(prog.requiredXp) or 0,
+            ratio = prog.ratio or 0,
+            isMaxLevel = prog.isMaxLevel or false,
+            totalXp = tostring(xpVal)
+        }
     end
-end
-if level == 0 and currencies.level then
-    level = tonumber(currencies.level) or 0
-end
-
--- Scan all players in server for real-time Server Leaderboard
-local serverPlayers = {}
-for _, p in ipairs(game:GetService("Players"):GetPlayers()) do
-    local pLvl = 0
-    local pCurXp = 0
-    local pReqXp = 0
-    local pTotXp = 0
-    local pRatio = 0
-
-    local pAcc = nil
-    pcall(function()
-        if accStore.getPlayerAccount then
-            pAcc = accStore.getPlayerAccount(p)
-        end
-        if not pAcc and accStore.namespace and accStore.namespace._stores then
-            pAcc = accStore.namespace._stores[tostring(p.UserId)]
-        end
-    end)
-
-    if pAcc and pAcc.state and pAcc.state.currencies and pAcc.state.currencies.xp then
-        local xpVal = pAcc.state.currencies.xp
-        if type(xpVal) == "table" and xpVal.current ~= nil then xpVal = xpVal.current end
-        pTotXp = tonumber(xpVal) or 0
-        local prog = levelProg.getProgress(tostring(xpVal))
-        if prog then
-            pLvl = tonumber(prog.level) or 0
-            pCurXp = tonumber(prog.currentXp) or 0
-            pReqXp = tonumber(prog.requiredXp) or 0
-            pRatio = prog.ratio or 0
-        end
-    end
-
-    if pLvl == 0 and p.Character then
-        local oh = p.Character:FindFirstChild("OverHead")
-        if oh and oh:FindFirstChild("Main") and oh.Main:FindFirstChild("Level") then
-            local txt = oh.Main.Level.TxtShadow and oh.Main.Level.TxtShadow.Text
-            if txt then
-                local num = txt:match("%d+")
-                if num then pLvl = tonumber(num) or 0 end
-            end
-        end
-    end
-
-    if pLvl == 0 then
-        local ls = p:FindFirstChild("leaderstats")
-        if ls and ls:FindFirstChild("Level") and ls.Level.Value > 0 then
-            pLvl = ls.Level.Value
-        elseif p:GetAttribute("Level") and tonumber(p:GetAttribute("Level")) > 0 then
-            pLvl = tonumber(p:GetAttribute("Level"))
-        end
-    end
-
-    local gName = p:GetAttribute("GuildName") or "None"
-    local gTag = p:GetAttribute("GuildTag") or ""
-
-    table.insert(serverPlayers, {
-        name = p.Name,
-        displayName = p.DisplayName,
-        userId = p.UserId,
-        level = pLvl,
-        currentXp = pCurXp,
-        requiredXp = pReqXp,
-        totalXp = pTotXp,
-        ratio = pRatio,
-        guild = gName,
-        guildTag = gTag,
-        isLocal = (p == player)
-    })
-end
-
-table.sort(serverPlayers, function(a, b)
-    if a.level == b.level then
-        return (a.totalXp or 0) > (b.totalXp or 0)
-    end
-    return (a.level or 0) > (b.level or 0)
-end)
-
-for i, sp in ipairs(serverPlayers) do
-    sp.rank = i
 end
 
 local snapshot = {
@@ -472,59 +403,32 @@ local snapshot = {
     },
     playerProg = playerProg,
     characters = chars,
-    serverLeaderboard = serverPlayers,
     currencies = currencies,
     materials = materials,
     accessories = accessories,
     timestamp = os.time()
 }
-
-local req = request or http_request or (syn and syn.request)
-if req then
-    pcall(function()
-        req({
-            Url = "http://localhost:18888/api/report",
-            Method = "POST",
-            Headers = { ["Content-Type"] = "application/json" },
-            Body = HttpService:JSONEncode(snapshot)
-        })
-    end)
-end
+return HttpService:JSONEncode(snapshot)
 `;
 
   try {
-    const res = await fetch(`http://127.0.0.1:${MCP_PORT}/api/tool`, {
+    const res = await fetch(`http://127.0.0.1:${MCP_PORT}/api/execute`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "execute", code: luaCode }),
-      signal: AbortSignal.timeout(8000)
+      body: JSON.stringify({ script: luaCode }),
+      signal: AbortSignal.timeout(3000)
     });
-    return res.ok;
-  } catch (err) {
-    return false;
-  }
-}
-
-function parseMcpResult(raw) {
-  if (!raw) return null;
-  if (typeof raw === "object") return raw;
-  if (typeof raw === "string") {
-    const match = raw.match(/^\{\"([\s\S]*)\",n=\d+\}$/);
-    if (match) {
-      try {
-        const unescaped = match[1].replace(/\\"/g, '"').replace(/\\\\/g, '\\');
-        return JSON.parse(unescaped);
-      } catch (e) {}
+    if (res.ok) {
+      const data = await res.json();
+      if (data.result) {
+        return JSON.parse(data.result);
+      }
     }
-    try {
-      return JSON.parse(raw);
-    } catch {}
-  }
+  } catch {}
   return null;
 }
 
-// Background status poller & periodic live Roblox sync
-let pollerTick = 0;
+// Background poller
 setInterval(async () => {
   try {
     const res = await fetch(`http://127.0.0.1:${MCP_PORT}/api/server-info`, {
@@ -539,25 +443,16 @@ setInterval(async () => {
   } catch {
     state.connected = false;
   }
-
-  // Periodic pull straight from Roblox every 6 seconds to keep Level and EXP in 100% sync
-  pollerTick++;
-  if (state.connected && pollerTick % 2 === 0) {
-    try {
-      const snap = await pullFromRoblox();
-      if (snap) applySnapshot(snap);
-    } catch {}
-  }
 }, 3000);
 
 // HTTP Server
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
-  // CORS & Anti-Cache (Zero delay, pure real-time)
+  // CORS & Anti-Cache
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, x-dashboard-pin, x-tracker-secret");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, x-auth-token, x-dashboard-pin, x-tracker-secret");
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0");
   res.setHeader("Pragma", "no-cache");
   res.setHeader("Expires", "0");
@@ -566,6 +461,29 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(204);
     res.end();
     return;
+  }
+
+  // Static Root Images & Game Assets Route
+  if ((url.pathname === "/anime_zero_cover.png" || 
+       url.pathname === "/anime_zero_icon.png" || 
+       url.pathname === "/user_avatar.png" || 
+       url.pathname === "/cover.png" || 
+       url.pathname === "/favicon.ico" ||
+       (url.pathname.endsWith(".png") && !url.pathname.includes(".."))) && 
+      (req.method === "GET" || req.method === "HEAD")) {
+    const filename = path.basename(url.pathname);
+    const candidatePath = path.join(__dirname, filename);
+    const iconCandidatePath = path.join(__dirname, "icons", filename);
+    const filePath = fs.existsSync(candidatePath) ? candidatePath : (fs.existsSync(iconCandidatePath) ? iconCandidatePath : null);
+    if (filePath) {
+      res.writeHead(200, {
+        "Content-Type": filename.endsWith(".ico") ? "image/x-icon" : "image/png",
+        "Cache-Control": "public, max-age=604800, immutable"
+      });
+      if (req.method === "HEAD") { res.end(); return; }
+      fs.createReadStream(filePath).pipe(res);
+      return;
+    }
   }
 
   // Static Icons Route
@@ -589,31 +507,51 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Download Deployment ZIP Routes (Clean & OBF)
-  if ((url.pathname === "/cfame-tracker-clean.zip" || url.pathname === "/cfame-tracker-deploy.zip" || url.pathname === "/download-zip") && req.method === "GET") {
-    const zipPath = path.join(__dirname, "cfame-tracker-deploy.zip");
-    if (fs.existsSync(zipPath)) {
-      res.writeHead(200, {
-        "Content-Type": "application/zip",
-        "Content-Disposition": 'attachment; filename="cfame-tracker-clean.zip"'
-      });
-      fs.createReadStream(zipPath).pipe(res);
+  // Roblox Avatar Proxy (CORS, Hotlink & CDN Cache Safe)
+  if (url.pathname === "/api/avatar" && (req.method === "GET" || req.method === "HEAD")) {
+    const uid = url.searchParams.get("userId") || url.searchParams.get("id") || url.searchParams.get("u");
+    if (!uid) {
+      res.writeHead(400, { "Content-Type": "text/plain" });
+      res.end("Missing userId");
       return;
     }
-  }
-  if ((url.pathname === "/cfame-tracker-obf.zip" || url.pathname === "/download-obf") && req.method === "GET") {
-    const zipPath = path.join(__dirname, "cfame-tracker-obf.zip");
-    if (fs.existsSync(zipPath)) {
+    try {
+      const cdnUrl = await fetchRobloxAvatar(uid);
+      if (cdnUrl) {
+        const imgRes = await fetch(cdnUrl, { signal: AbortSignal.timeout(4000) });
+        if (imgRes.ok) {
+          res.writeHead(200, {
+            "Content-Type": "image/png",
+            "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800"
+          });
+          if (req.method === "HEAD") { res.end(); return; }
+          const buf = Buffer.from(await imgRes.arrayBuffer());
+          res.end(buf);
+          return;
+        }
+      }
+    } catch (e) {
+      // Offline / sandbox fallback
+    }
+    // Safe Local Fallback: Always returns HTTP 200 with local avatar PNG (immune to CDN expiry/adblockers)
+    const fallbackAvatar = path.join(__dirname, "icons", "default_avatar.png");
+    const userAvatar = path.join(__dirname, "user_avatar.png");
+    const safePath = fs.existsSync(fallbackAvatar) ? fallbackAvatar : (fs.existsSync(userAvatar) ? userAvatar : null);
+    if (safePath) {
       res.writeHead(200, {
-        "Content-Type": "application/zip",
-        "Content-Disposition": 'attachment; filename="cfame-tracker-obf.zip"'
+        "Content-Type": "image/png",
+        "Cache-Control": "public, max-age=86400"
       });
-      fs.createReadStream(zipPath).pipe(res);
+      if (req.method === "HEAD") { res.end(); return; }
+      fs.createReadStream(safePath).pipe(res);
       return;
     }
+    res.writeHead(302, { Location: "/icons/default_avatar.png" });
+    res.end();
+    return;
   }
 
-  // Download Luau Scripts
+  // Luau Scripts Download Routes
   if (url.pathname === "/tracker.luau" && req.method === "GET") {
     const p = path.join(__dirname, "tracker.luau");
     if (fs.existsSync(p)) {
@@ -631,11 +569,12 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Dashboard Page
-  if (url.pathname === "/" && req.method === "GET") {
+  // Dashboard Page & Direct Clean User Route
+  if ((url.pathname === "/" || url.pathname.startsWith("/u/")) && (req.method === "GET" || req.method === "HEAD")) {
     try {
       const html = fs.readFileSync(HTML_FILE, "utf-8");
       res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      if (req.method === "HEAD") { res.end(); return; }
       res.end(html);
     } catch (err) {
       res.writeHead(500, { "Content-Type": "text/plain" });
@@ -644,7 +583,329 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // API: Get State (Multi-User)
+  // ========================================================
+  // DISCORD OAUTH2 AUTHORIZATION API
+  // ========================================================
+
+  // Discord Config Status
+  if (url.pathname === "/api/auth/discord/status" && req.method === "GET") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({
+      ok: true,
+      configured: !!(DISCORD_CLIENT_ID && DISCORD_CLIENT_SECRET),
+      clientId: DISCORD_CLIENT_ID || null
+    }));
+    return;
+  }
+
+  // Discord OAuth2 Login Redirect (Official Flow)
+  if (url.pathname === "/api/auth/discord/login" && req.method === "GET") {
+    if (DISCORD_CLIENT_ID && DISCORD_CLIENT_SECRET) {
+      const redirectUri = DISCORD_REDIRECT_URI || `http://${req.headers.host}/api/auth/discord/callback`;
+      const discordUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify`;
+      res.writeHead(302, { Location: discordUrl });
+      res.end();
+      return;
+    } else {
+      // Local / Dev Fallback: Open interactive Discord Authorize Modal matching reference
+      res.writeHead(302, { Location: "/?open_discord_auth=1" });
+      res.end();
+      return;
+    }
+  }
+
+  // Discord OAuth2 Callback (Exchange Code with Discord Token Endpoint)
+  if (url.pathname === "/api/auth/discord/callback" && req.method === "GET") {
+    const code = url.searchParams.get("code");
+    if (!code) {
+      res.writeHead(302, { Location: "/?auth_error=no_code" });
+      res.end();
+      return;
+    }
+    try {
+      const redirectUri = DISCORD_REDIRECT_URI || `http://${req.headers.host}/api/auth/discord/callback`;
+      const tokenRes = await fetch("https://discord.com/api/oauth2/token", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          client_id: DISCORD_CLIENT_ID,
+          client_secret: DISCORD_CLIENT_SECRET,
+          grant_type: "authorization_code",
+          code,
+          redirect_uri: redirectUri
+        })
+      });
+      if (!tokenRes.ok) throw new Error("Discord token exchange failed");
+      const tokenData = await tokenRes.json();
+      const userRes = await fetch("https://discord.com/api/users/@me", {
+        headers: { Authorization: `Bearer ${tokenData.access_token}` }
+      });
+      if (!userRes.ok) throw new Error("Discord user profile fetch failed");
+      const dUser = await userRes.json();
+
+      const accountId = "discord_" + dUser.id;
+      if (!state.discordAccounts) state.discordAccounts = {};
+      if (!state.discordAccounts[accountId]) {
+        state.discordAccounts[accountId] = {
+          id: accountId,
+          username: dUser.username,
+          displayName: dUser.global_name || dUser.username,
+          discordId: dUser.id,
+          avatarUrl: dUser.avatar ? `https://cdn.discordapp.com/avatars/${dUser.id}/${dUser.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/0.png`,
+          apiKey: "key_dc_" + crypto.randomBytes(16).toString("hex"),
+          linkedRoblox: [],
+          createdAt: Math.floor(Date.now() / 1000)
+        };
+      } else {
+        state.discordAccounts[accountId].username = dUser.username;
+        state.discordAccounts[accountId].displayName = dUser.global_name || dUser.username;
+        if (dUser.avatar) {
+          state.discordAccounts[accountId].avatarUrl = `https://cdn.discordapp.com/avatars/${dUser.id}/${dUser.avatar}.png`;
+        }
+      }
+
+      const acc = state.discordAccounts[accountId];
+      const token = crypto.randomBytes(32).toString("hex");
+      if (!state.sessions) state.sessions = {};
+      state.sessions[token] = {
+        accountId: acc.id,
+        username: acc.username,
+        expiresAt: Date.now() + 30 * 24 * 3600 * 1000
+      };
+      saveData();
+
+      res.writeHead(302, { Location: `/?token=${token}&discord_auth=success` });
+      res.end();
+      return;
+    } catch (err) {
+      res.writeHead(302, { Location: `/?auth_error=${encodeURIComponent(err.message)}` });
+      res.end();
+      return;
+    }
+  }
+
+  // Interactive 1-Click Discord Authorize Modal (Instant Local / Sandbox Auth)
+  if (url.pathname === "/api/auth/discord/authorize" && req.method === "POST") {
+    try {
+      const body = await parseJsonBody(req);
+      const discordTag = String(body.username || "zerox7_xm").trim();
+      const displayName = String(body.displayName || (discordTag.toLowerCase() === "zerox7_xm" ? "frxmz_.q" : discordTag)).trim();
+      const avatarUrl = String(body.avatarUrl || (discordTag.toLowerCase() === "zerox7_xm" ? "https://cdn.discordapp.com/avatars/1107270583093317772/c3a0dec24aebee5fbc5965d2b75d2945.png" : "https://cdn.discordapp.com/embed/avatars/0.png"));
+      const robloxUser = String(body.roblox || "").trim();
+
+      const accountId = "discord_" + discordTag.toLowerCase().replace(/[^a-z0-9_]/g, "");
+      if (!state.discordAccounts) state.discordAccounts = {};
+      if (!state.discordAccounts[accountId]) {
+        state.discordAccounts[accountId] = {
+          id: accountId,
+          username: discordTag,
+          displayName: displayName,
+          discordId: discordTag,
+          avatarUrl: avatarUrl,
+          apiKey: "key_dc_" + crypto.randomBytes(16).toString("hex"),
+          linkedRoblox: [],
+          createdAt: Math.floor(Date.now() / 1000)
+        };
+      } else {
+        if (displayName) state.discordAccounts[accountId].displayName = displayName;
+        if (avatarUrl) state.discordAccounts[accountId].avatarUrl = avatarUrl;
+      }
+
+      const acc = state.discordAccounts[accountId];
+
+      if (robloxUser) {
+        const rbx = await lookupRobloxUser(robloxUser);
+        if (rbx) {
+          const already = acc.linkedRoblox.some(r => String(r.userId) === String(rbx.userId));
+          if (!already) {
+            acc.linkedRoblox.push(rbx);
+          }
+        }
+      }
+
+
+
+      const token = crypto.randomBytes(32).toString("hex");
+      if (!state.sessions) state.sessions = {};
+      state.sessions[token] = {
+        accountId: acc.id,
+        username: acc.username,
+        expiresAt: Date.now() + 30 * 24 * 3600 * 1000
+      };
+      saveData();
+
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({
+        ok: true,
+        token,
+        user: {
+          id: acc.id,
+          username: acc.username,
+          displayName: acc.displayName,
+          avatarUrl: acc.avatarUrl,
+          linkedRoblox: acc.linkedRoblox,
+          apiKey: acc.apiKey
+        }
+      }));
+      return;
+    } catch (err) {
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ ok: false, error: err.message }));
+      return;
+    }
+  }
+
+  // Get Current Authenticated Profile
+  if (url.pathname === "/api/auth/me" && req.method === "GET") {
+    const acc = getAuthDiscordUser(req, url);
+    if (!acc) {
+      res.writeHead(401, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ ok: false, authenticated: false, error: "Not logged in" }));
+      return;
+    }
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({
+      ok: true,
+      authenticated: true,
+      user: {
+        id: acc.id,
+        username: acc.username,
+        displayName: acc.displayName,
+        avatarUrl: acc.avatarUrl,
+        linkedRoblox: acc.linkedRoblox || [],
+        apiKey: acc.apiKey
+      }
+    }));
+    return;
+  }
+
+  // Link a Roblox Account (Main or Alt)
+  if (url.pathname === "/api/auth/link-roblox" && req.method === "POST") {
+    const acc = getAuthDiscordUser(req, url);
+    if (!acc) {
+      res.writeHead(401, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ ok: false, error: "กรุณาเข้าสู่ระบบด้วย Discord ก่อน" }));
+      return;
+    }
+
+    try {
+      const body = await parseJsonBody(req);
+      const target = String(body.roblox || "").trim();
+      if (!target) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ ok: false, error: "กรุณาระบุชื่อ Roblox Username หรือ User ID" }));
+        return;
+      }
+
+      const rbx = await lookupRobloxUser(target);
+      if (!rbx) {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ ok: false, error: `ไม่พบบัญชี Roblox: "${target}"` }));
+        return;
+      }
+
+      if (!acc.linkedRoblox) acc.linkedRoblox = [];
+      const already = acc.linkedRoblox.some(r => String(r.userId) === String(rbx.userId) || r.name.toLowerCase() === rbx.name.toLowerCase());
+      if (!already) {
+        acc.linkedRoblox.push({
+          userId: rbx.userId,
+          name: rbx.name,
+          displayName: rbx.displayName,
+          avatarUrl: rbx.avatarUrl
+        });
+      }
+
+      const uid = String(rbx.userId);
+      if (!state.robloxUsers[uid]) {
+        state.robloxUsers[uid] = {
+          player: {
+            name: rbx.name,
+            displayName: rbx.displayName,
+            userId: rbx.userId,
+            level: 0,
+            guild: "รอสคริปต์ในเกม",
+            guildTag: "",
+            avatarUrl: rbx.avatarUrl
+          },
+          playerProg: { level: 0, currentXp: 0, requiredXp: 1, ratio: 0, totalXp: 0 },
+          characters: [],
+          currencies: { gold: 0, money: 0, gems: 0, rolls: 0, luckySpins: 0, traitRerolls: 0 },
+          materials: {},
+          accessories: {},
+          matchLogs: [],
+          latestMatch: null,
+          sessionStats: { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 },
+          lastUpdated: 0,
+          connected: false,
+          waitingForScript: true
+        };
+      }
+
+      saveData();
+
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({
+        ok: true,
+        linked: rbx,
+        linkedRoblox: acc.linkedRoblox
+      }));
+      return;
+    } catch (err) {
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ ok: false, error: err.message }));
+      return;
+    }
+  }
+
+  // Unlink a Roblox Account
+  if (url.pathname === "/api/auth/unlink-roblox" && req.method === "POST") {
+    const acc = getAuthDiscordUser(req, url);
+    if (!acc) {
+      res.writeHead(401, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ ok: false, error: "กรุณาเข้าสู่ระบบก่อน" }));
+      return;
+    }
+
+    try {
+      const body = await parseJsonBody(req);
+      const userIdOrName = String(body.userId || "").trim().toLowerCase();
+      if (!userIdOrName) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ ok: false, error: "Missing userId" }));
+        return;
+      }
+
+      if (acc.linkedRoblox) {
+        acc.linkedRoblox = acc.linkedRoblox.filter(r => String(r.userId).toLowerCase() !== userIdOrName && r.name.toLowerCase() !== userIdOrName);
+      }
+      saveData();
+
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ ok: true, linkedRoblox: acc.linkedRoblox }));
+      return;
+    } catch (err) {
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ ok: false, error: err.message }));
+      return;
+    }
+  }
+
+  // Logout
+  if (url.pathname === "/api/auth/logout" && req.method === "POST") {
+    const authHeader = req.headers["authorization"] || "";
+    const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7).trim() : (req.headers["x-auth-token"] || url.searchParams.get("token"));
+    if (token && state.sessions && state.sessions[token]) {
+      delete state.sessions[token];
+    }
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ ok: true }));
+    return;
+  }
+
+  // ========================================================
+  // STATE & DATA API (AUTHENTICATED & ISOLATED)
+  // ========================================================
+
   if (url.pathname === "/api/data" && req.method === "GET") {
     const pin = req.headers["x-dashboard-pin"] || url.searchParams.get("pin");
     if (DASHBOARD_PIN && pin !== DASHBOARD_PIN) {
@@ -653,12 +914,36 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    const target = url.searchParams.get("u") || url.searchParams.get("user") || url.searchParams.get("id");
-    let foundUser = null;
+    const acc = getAuthDiscordUser(req, url);
+    if (!acc) {
+      // Unauthenticated -> Show Clean Discord OAuth Landing
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        authenticated: false,
+        isPrivateGateway: true,
+        connected: false
+      }));
+      return;
+    }
 
-    if (target && state.users) {
+    // Authenticated Discord user -> Resolve targeted Roblox account
+    const linked = acc.linkedRoblox || [];
+    let target = url.searchParams.get("u") || url.searchParams.get("user") || url.searchParams.get("id");
+    if (!target && url.pathname.startsWith("/u/")) {
+      const parts = url.pathname.split("/").filter(Boolean);
+      if (parts.length >= 2) {
+        target = decodeURIComponent(parts[1]);
+      }
+    }
+
+    if (!target && linked.length > 0) {
+      target = String(linked[0].name || linked[0].userId);
+    }
+
+    let foundUser = null;
+    if (target && state.robloxUsers) {
       const targetLower = target.trim().toLowerCase();
-      for (const [uid, u] of Object.entries(state.users)) {
+      for (const [uid, u] of Object.entries(state.robloxUsers)) {
         if (
           uid.toLowerCase() === targetLower ||
           (u.player?.userId && String(u.player.userId) === target.trim()) ||
@@ -671,57 +956,45 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
-    if (!foundUser && state.users) {
-      if (state.lastActiveUserId && state.users[state.lastActiveUserId]) {
-        foundUser = state.users[state.lastActiveUserId];
-      } else {
-        const firstKey = Object.keys(state.users)[0];
-        if (firstKey) foundUser = state.users[firstKey];
-      }
+    // If user has not linked any account or no script reported yet
+    if (!foundUser || linked.length === 0) {
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        authenticated: true,
+        hasLinked: false,
+        waitingForScript: true,
+        accountUser: {
+          id: acc.id,
+          username: acc.username,
+          displayName: acc.displayName,
+          discordId: acc.discordId,
+          avatarUrl: acc.avatarUrl,
+          linkedRoblox: acc.linkedRoblox || [],
+          apiKey: acc.apiKey
+        },
+        connected: false
+      }));
+      return;
     }
 
-    const nowSec = Math.floor(Date.now() / 1000);
-    const activeUsersList = Object.values(state.users || {}).map(u => ({
-      userId: u.player?.userId,
-      name: u.player?.name || "Player",
-      displayName: u.player?.displayName || u.player?.name || "Player",
-      avatarUrl: u.player?.avatarUrl || (u.player?.userId ? `https://www.roblox.com/headshot-thumbnail/image?userId=${u.player.userId}&width=150&height=150&format=png` : ''),
-      level: u.playerProg?.level || u.player?.level || 1,
-      guild: u.player?.guild || "None",
-      lastUpdated: u.lastUpdated || 0,
-      connected: (nowSec - (u.lastUpdated || 0)) < 45
-    }));
-
-    const responseData = foundUser ? {
+    const responseData = {
       ...foundUser,
-      activeUsers: activeUsersList,
-      serverLeaderboard: state.serverLeaderboard || [],
-      globalLeaderboard: state.globalLeaderboard || []
-    } : {
-      ...state,
-      activeUsers: activeUsersList
+      authenticated: true,
+      hasLinked: linked.length > 0,
+      accountUser: {
+        id: acc.id,
+        username: acc.username,
+        displayName: acc.displayName,
+        avatarUrl: acc.avatarUrl,
+        linkedRoblox: acc.linkedRoblox || [],
+        apiKey: acc.apiKey
+      },
+      isPrivateGateway: false,
+      connected: state.connected
     };
 
     res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
     res.end(JSON.stringify(responseData));
-    return;
-  }
-
-  // API: Get All Active Users
-  if (url.pathname === "/api/users" && req.method === "GET") {
-    const nowSec = Math.floor(Date.now() / 1000);
-    const activeUsersList = Object.values(state.users || {}).map(u => ({
-      userId: u.player?.userId,
-      name: u.player?.name || "Player",
-      displayName: u.player?.displayName || u.player?.name || "Player",
-      avatarUrl: u.player?.avatarUrl || (u.player?.userId ? `https://www.roblox.com/headshot-thumbnail/image?userId=${u.player.userId}&width=150&height=150&format=png` : ''),
-      level: u.playerProg?.level || u.player?.level || 1,
-      guild: u.player?.guild || "None",
-      lastUpdated: u.lastUpdated || 0,
-      connected: (nowSec - (u.lastUpdated || 0)) < 45
-    }));
-    res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-    res.end(JSON.stringify(activeUsersList));
     return;
   }
 
@@ -749,7 +1022,7 @@ const server = http.createServer(async (req, res) => {
         const payload = JSON.parse(body);
         applyReport(payload);
 
-        // Auto-forward to Render Cloud if running on local server
+        // Auto-forward to cloud if running locally
         const cloudUrl = process.env.CLOUD_FORWARD_URL || "https://anime-zero-tracker.onrender.com/api/report";
         if (!process.env.RENDER && cloudUrl) {
           fetch(cloudUrl, {
@@ -777,80 +1050,298 @@ function applySnapshot(data) {
   if (!data) return;
   const d = Array.isArray(data) ? data[0] : data;
   if (!d) return;
-  applyReport(d);
+  if (d.player) state.player = { ...state.player, ...d.player };
+  if (d.playerProg) state.playerProg = d.playerProg;
+  if (d.characters) state.characters = d.characters;
+  if (d.currencies) state.currencies = d.currencies;
+  if (d.materials) state.materials = d.materials;
+  if (d.accessories) state.accessories = d.accessories;
+
+  const validLevel = (state.playerProg?.level && Number(state.playerProg.level) > 0)
+    ? Number(state.playerProg.level)
+    : (state.player?.level && Number(state.player.level) > 0 ? Number(state.player.level) : null);
+  if (validLevel && state.player) {
+    state.player.level = validLevel;
+  }
+
+  // Update in robloxUsers store
+  if (state.player && (state.player.userId || state.player.name)) {
+    const uid = String(state.player.userId || state.player.name);
+    const prevUser = state.robloxUsers[uid] || {};
+    state.robloxUsers[uid] = {
+      ...prevUser,
+      player: { ...state.player },
+      playerProg: state.playerProg,
+      characters: state.characters,
+      currencies: state.currencies,
+      materials: state.materials,
+      accessories: state.accessories,
+      matchLogs: prevUser.matchLogs || (uid === "9165405454" ? (state.matchLogs || []) : []),
+      latestMatch: prevUser.latestMatch || (uid === "9165405454" ? (state.latestMatch || null) : null),
+      sessionStats: prevUser.sessionStats || (uid === "9165405454" ? (state.sessionStats || { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 }) : { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 }),
+      lastUpdated: Math.floor(Date.now() / 1000)
+    };
+  }
+
+  state.lastUpdated = d.timestamp || Math.floor(Date.now() / 1000);
+  state.connected = true;
+  saveData();
+}
+
+const KNOWN_ITEM_RARITIES_SERVER = {
+  // Materials - Common (Tier 1)
+  "fine cloth": "Common",
+  "shinobi scroll": "Common",
+  "zero calories flour": "Common",
+  "caprese": "Common",
+
+  // Materials - Epic (Tier 2)
+  "mana feather": "Epic",
+  "eyeball": "Epic",
+  "broken blade": "Epic",
+  "shadow essence": "Epic",
+  "zero calories doughnuts": "Epic",
+  "zero calories donut": "Epic",
+  "zero calories donuts": "Epic",
+  "ham": "Epic",
+
+  // Materials - Legendary (Tier 3)
+  "cursed finger": "Legendary",
+  "tech component": "Legendary",
+  "soul fragment": "Legendary",
+  "waves core": "Legendary",
+  "wave core": "Legendary",
+  "igris' crest": "Legendary",
+  "igris crest": "Legendary",
+  "shadow's cloak": "Legendary",
+  "shadows cloak": "Legendary",
+  "omurice": "Legendary",
+
+  // Materials - Mythic (Tier 4)
+  "suncore": "Mythic",
+  "sun core": "Mythic",
+  "magic pendant": "Mythic",
+  "forbidden fruit": "Mythic",
+  "ghost": "Mythic",
+  "staff of homa": "Mythic",
+  "monarch's blessing": "Mythic",
+  "monarchs blessing": "Mythic",
+  "burger": "Mythic",
+
+  // Accessories - Common (Tier 1)
+  "leaf shinobi headband": "Common",
+  "gentleman's top hat": "Common",
+  "gentlemans top hat": "Common",
+  "capsule scarf": "Common",
+  "8th brigade fire hat": "Common",
+  "order assassin's tie": "Common",
+  "order assassins tie": "Common",
+
+  // Accessories - Rare (Tier 1/2)
+  "sunglasses": "Rare",
+  "sun glasses": "Rare",
+
+  // Accessories - Epic (Tier 2/3)
+  "kitsune mask": "Epic",
+  "panther hollow mask": "Epic",
+  "diva headphones": "Epic",
+  "void hunter's eye": "Epic",
+  "void hunters eye": "Epic",
+  "wangsheng director's hat": "Epic",
+  "wangsheng directors hat": "Epic",
+  "strawhat captain's hat": "Epic",
+  "strawhat captains hat": "Epic",
+  "zoldyck collar": "Epic",
+
+  // Accessories - Legendary (Tier 3/4)
+  "light admiral cloak": "Legendary",
+  "wind spirit wing": "Legendary",
+  "wind spirit wings": "Legendary",
+  "dark captain wings": "Legendary",
+  "dark captain wing": "Legendary",
+  "flame pirate hat": "Legendary",
+  "red emperor's cloak": "Legendary",
+  "red emperors cloak": "Legendary",
+  "cursed king's collar": "Legendary",
+  "cursed kings collar": "Legendary",
+  "no-life king's shades": "Legendary",
+  "no life king's shades": "Legendary",
+  "otherworld halo": "Legendary",
+  "divine general's wheel": "Legendary",
+  "divine generals wheel": "Legendary",
+
+  // Accessories - Mythic (Tier 4/5)
+  "blast archer crown": "Mythic",
+  "blast archer wings": "Mythic",
+  "solar wings": "Mythic",
+  "astral wings": "Mythic",
+  "spectral wings": "Mythic",
+  "shadow monarch coat": "Mythic"
+};
+
+const AUTHENTIC_MAT_ID_RARITIES = {
+  // Tier 1: Common
+  "101": "Common", "102": "Common", "117": "Common", "121": "Common",
+  // Tier 2: Epic
+  "103": "Epic", "106": "Epic", "107": "Epic", "115": "Epic", "118": "Epic", "122": "Epic",
+  // Tier 3: Legendary
+  "104": "Legendary", "105": "Legendary", "108": "Legendary", "112": "Legendary", "116": "Legendary", "119": "Legendary", "123": "Legendary",
+  // Tier 4: Mythic
+  "109": "Mythic", "110": "Mythic", "111": "Mythic", "113": "Mythic", "114": "Mythic", "120": "Mythic", "124": "Mythic"
+};
+
+const AUTHENTIC_ACC_ID_RARITIES = {
+  // Tier 1: Common
+  "101": "Common", "102": "Common", "103": "Common", "104": "Common", "124": "Common",
+  // Tier 2: Rare
+  "105": "Rare",
+  // Tier 3: Epic
+  "106": "Epic", "107": "Epic", "108": "Epic", "118": "Epic", "120": "Epic", "125": "Epic", "126": "Epic",
+  // Tier 4: Legendary
+  "109": "Legendary", "110": "Legendary", "111": "Legendary", "112": "Legendary",
+  "121": "Legendary", "122": "Legendary", "123": "Legendary", "127": "Legendary", "128": "Legendary",
+  // Tier 5: Mythic
+  "113": "Mythic", "114": "Mythic", "115": "Mythic", "116": "Mythic", "117": "Mythic", "119": "Mythic"
+};
+
+function normalizeItemRarity(item, category) {
+  if (!item) return;
+  const nameLower = String(item.name || "").toLowerCase().trim();
+  if (KNOWN_ITEM_RARITIES_SERVER[nameLower]) {
+    item.rarity = KNOWN_ITEM_RARITIES_SERVER[nameLower];
+    return;
+  }
+  const idStr = String(item.id || "").trim();
+  if (category === "material") {
+    if (AUTHENTIC_MAT_ID_RARITIES[idStr]) {
+      item.rarity = AUTHENTIC_MAT_ID_RARITIES[idStr];
+      return;
+    }
+  } else if (category === "accessory") {
+    if (AUTHENTIC_ACC_ID_RARITIES[idStr]) {
+      item.rarity = AUTHENTIC_ACC_ID_RARITIES[idStr];
+      return;
+    }
+  }
+  // Check tier fallback
+  const tier = String(item.tier || "");
+  if (tier) {
+    if (category === "accessory") {
+      if (tier === "4") item.rarity = "Mythic";
+      else if (tier === "3") item.rarity = "Legendary";
+      else if (tier === "2") item.rarity = "Epic";
+      else item.rarity = "Rare";
+    } else {
+      if (tier === "4") item.rarity = "Legendary";
+      else if (tier === "3") item.rarity = "Epic";
+      else if (tier === "2") item.rarity = "Rare";
+      else item.rarity = "Common";
+    }
+  }
 }
 
 function applyReport(payload) {
-  if (!payload) return;
+  const discordId = payload.discord_id ? String(payload.discord_id).trim() : null;
+  const pcName = payload.pc_name || "PC-001";
   const p = payload.player || {};
-  const uid = String(p.userId || p.name || state.lastActiveUserId || "default");
+  const uid = String(p.userId || p.name || "").trim();
 
-  if (!state.users) state.users = {};
-  if (!state.users[uid]) {
-    state.users[uid] = {
+  if (!uid) return;
+
+  if (!state.robloxUsers) state.robloxUsers = {};
+  if (!state.robloxUsers[uid]) {
+    state.robloxUsers[uid] = {
       player: {
-        name: p.name || "Player",
-        displayName: p.displayName || p.name || "Player",
-        userId: p.userId,
-        level: Number(payload.playerProg?.level || p.level || 1),
-        guild: p.guild || "None",
+        name: p.name || "",
+        displayName: p.displayName || p.name || "",
+        userId: p.userId || uid,
+        level: p.level || 0,
+        guild: (p.guild && p.guild !== "None" && p.guild !== "none") ? p.guild : "",
         guildTag: p.guildTag || "",
-        avatarUrl: p.avatarUrl || (p.userId ? `https://www.roblox.com/headshot-thumbnail/image?userId=${p.userId}&width=150&height=150&format=png` : '')
+        avatarUrl: p.userId ? `/api/avatar?userId=${p.userId}` : ""
       },
-      playerProg: payload.playerProg || {},
+      playerProg: payload.playerProg || { level: 0, currentXp: 0, requiredXp: 1, ratio: 0, totalXp: 0 },
       characters: payload.characters || [],
-      currencies: payload.currencies || {},
+      currencies: payload.currencies || { gold: 0, money: 0, gems: 0, rolls: 0, luckySpins: 0, traitRerolls: 0 },
       materials: payload.materials || {},
       accessories: payload.accessories || {},
       matchLogs: [],
-      latestMatch: payload.latestMatch || null,
+      latestMatch: null,
       sessionStats: { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 },
+      pcName: pcName,
+      discordId: discordId,
       lastUpdated: Math.floor(Date.now() / 1000),
       connected: true
     };
   }
 
-  const u = state.users[uid];
+  const userRecord = state.robloxUsers[uid];
 
-  if (payload.player) u.player = { ...u.player, ...payload.player };
-  if (payload.playerProg) u.playerProg = payload.playerProg;
-  if (payload.characters) u.characters = payload.characters;
-  if (payload.currencies) u.currencies = payload.currencies;
-  if (payload.materials) u.materials = payload.materials;
-  if (payload.accessories) u.accessories = payload.accessories;
-  if (payload.latestMatch && !u.latestMatch) u.latestMatch = payload.latestMatch;
+  const realAvatarUrl = p.userId
+    ? `/api/avatar?userId=${p.userId}`
+    : (p.avatarUrl || userRecord.player?.avatarUrl || "");
 
-  // Ensure player.level is valid and synced with progression
-  const validLevel = (u.playerProg?.level && Number(u.playerProg.level) > 0)
-    ? Number(u.playerProg.level)
-    : (u.player?.level && Number(u.player.level) > 0 ? Number(u.player.level) : null);
-  if (validLevel && u.player) {
-    u.player.level = validLevel;
+  userRecord.player = {
+    ...userRecord.player,
+    ...p,
+    avatarUrl: realAvatarUrl
+  };
+
+  // Clean guild name if 'None' or empty
+  if (userRecord.player.guild === "None" || userRecord.player.guild === "none") {
+    userRecord.player.guild = "";
   }
 
-  if (u.player && u.player.userId && !u.player.avatarUrl) {
-    fetchRobloxAvatar(u.player.userId).then(url => {
-      if (url && u.player) {
-        u.player.avatarUrl = url;
-        syncGlobalLeaderboard();
-        saveData();
-      }
-    });
+  if (payload.playerProg) userRecord.playerProg = payload.playerProg;
+  if (payload.characters) userRecord.characters = payload.characters;
+  if (payload.currencies) userRecord.currencies = payload.currencies;
+
+  // Normalize material rarities
+  if (payload.materials) {
+    for (const [id, m] of Object.entries(payload.materials)) {
+      normalizeItemRarity(m, "material");
+    }
+    userRecord.materials = payload.materials;
   }
 
-  u.lastUpdated = payload.timestamp || Math.floor(Date.now() / 1000);
-  u.connected = true;
-  state.lastActiveUserId = uid;
+  // Normalize accessory rarities
+  if (payload.accessories) {
+    for (const [id, a] of Object.entries(payload.accessories)) {
+      normalizeItemRarity(a, "accessory");
+    }
+    userRecord.accessories = payload.accessories;
+  }
+
+  const validLevel = (userRecord.playerProg?.level && Number(userRecord.playerProg.level) > 0)
+    ? Number(userRecord.playerProg.level)
+    : (userRecord.player?.level && Number(userRecord.player.level) > 0 ? Number(userRecord.player.level) : null);
+  if (validLevel) {
+    userRecord.player.level = validLevel;
+  }
+
+  userRecord.lastUpdated = Math.floor(Date.now() / 1000);
+  userRecord.connected = true;
+  userRecord.pcName = pcName;
+  if (discordId) userRecord.discordId = discordId;
+
+  // Normalize reward rarities if present
+  if (payload.rewards && Array.isArray(payload.rewards)) {
+    for (const r of payload.rewards) {
+      if (r.category === "material") normalizeItemRarity(r, "material");
+      else if (r.category === "accessory") normalizeItemRarity(r, "accessory");
+    }
+  }
 
   if (payload.type === "reward_update") {
-    if (u.latestMatch && payload.rewards && payload.rewards.length > 0) {
-      u.latestMatch.rewards = u.latestMatch.rewards || [];
+    if (userRecord.latestMatch && payload.rewards && payload.rewards.length > 0) {
+      userRecord.latestMatch.rewards = userRecord.latestMatch.rewards || [];
       for (const r of payload.rewards) {
-        if (!u.latestMatch.rewards.some(er => er.name === r.name && er.amount === r.amount)) {
-          u.latestMatch.rewards.push(r);
-          if (r.name === "Gems") u.sessionStats.gemsGained += r.amount;
-          if (r.name === "Money" || r.name === "Gold") u.sessionStats.goldGained += r.amount;
-          if (r.category === "material" || r.category === "accessory") u.sessionStats.itemsGained += r.amount;
+        if (!userRecord.latestMatch.rewards.some(er => er.name === r.name && er.amount === r.amount)) {
+          userRecord.latestMatch.rewards.push(r);
+          userRecord.sessionStats = userRecord.sessionStats || { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 };
+          if (r.name === "Gems") userRecord.sessionStats.gemsGained += (r.amount || 0);
+          if (r.name === "Money" || r.name === "Gold") userRecord.sessionStats.goldGained += (r.amount || 0);
+          if (r.category === "material" || r.category === "accessory") userRecord.sessionStats.itemsGained += (r.amount || 0);
         }
       }
     }
@@ -862,63 +1353,86 @@ function applyReport(payload) {
       rewards: payload.rewards || []
     };
 
-    const existing = u.matchLogs.find(m => m.time && m.time === matchRecord.time);
+    userRecord.matchLogs = userRecord.matchLogs || [];
+    const existing = userRecord.matchLogs.find(m => m.time && m.time === matchRecord.time);
     if (existing) {
       if (matchRecord.rewards && matchRecord.rewards.length > 0) {
         existing.rewards = existing.rewards || [];
         for (const r of matchRecord.rewards) {
           if (!existing.rewards.some(er => er.name === r.name && er.amount === r.amount)) {
             existing.rewards.push(r);
-            if (r.name === "Gems") u.sessionStats.gemsGained += r.amount;
-            if (r.name === "Money" || r.name === "Gold") u.sessionStats.goldGained += r.amount;
-            if (r.category === "material" || r.category === "accessory") u.sessionStats.itemsGained += r.amount;
+            userRecord.sessionStats = userRecord.sessionStats || { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 };
+            if (r.name === "Gems") userRecord.sessionStats.gemsGained += (r.amount || 0);
+            if (r.name === "Money" || r.name === "Gold") userRecord.sessionStats.goldGained += (r.amount || 0);
+            if (r.category === "material" || r.category === "accessory") userRecord.sessionStats.itemsGained += (r.amount || 0);
           }
         }
       }
     } else {
       if (!matchRecord.duration || matchRecord.duration <= 0) {
-        if (u.matchLogs.length > 0 && u.matchLogs[0].time && matchRecord.time) {
-          const diff = Math.abs(matchRecord.time - u.matchLogs[0].time);
+        if (userRecord.matchLogs.length > 0 && userRecord.matchLogs[0].time && matchRecord.time) {
+          const diff = Math.abs(matchRecord.time - userRecord.matchLogs[0].time);
           if (diff > 0 && diff < 1800) {
             matchRecord.duration = diff;
           }
         }
       }
 
-      u.matchLogs.unshift(matchRecord);
-      if (u.matchLogs.length > 50) u.matchLogs.pop();
-      u.latestMatch = matchRecord;
+      userRecord.matchLogs.unshift(matchRecord);
+      if (userRecord.matchLogs.length > 50) userRecord.matchLogs.pop();
+      userRecord.latestMatch = matchRecord;
 
-      u.sessionStats.totalMatches++;
-      if (matchRecord.won) u.sessionStats.wins++;
-      else u.sessionStats.losses++;
+      userRecord.sessionStats = userRecord.sessionStats || { totalMatches: 0, wins: 0, losses: 0, gemsGained: 0, goldGained: 0, itemsGained: 0 };
+      userRecord.sessionStats.totalMatches = (userRecord.sessionStats.totalMatches || 0) + 1;
+      if (matchRecord.won) userRecord.sessionStats.wins = (userRecord.sessionStats.wins || 0) + 1;
+      else userRecord.sessionStats.losses = (userRecord.sessionStats.losses || 0) + 1;
 
       for (const r of (matchRecord.rewards || [])) {
-        if (r.name === "Gems") u.sessionStats.gemsGained += r.amount;
-        if (r.name === "Money" || r.name === "Gold") u.sessionStats.goldGained += r.amount;
-        if (r.category === "material" || r.category === "accessory") u.sessionStats.itemsGained += r.amount;
+        if (r.name === "Gems") userRecord.sessionStats.gemsGained = (userRecord.sessionStats.gemsGained || 0) + (r.amount || 0);
+        if (r.name === "Money" || r.name === "Gold") userRecord.sessionStats.goldGained = (userRecord.sessionStats.goldGained || 0) + (r.amount || 0);
+        if (r.category === "material" || r.category === "accessory") userRecord.sessionStats.itemsGained = (userRecord.sessionStats.itemsGained || 0) + (r.amount || 0);
       }
     }
   }
 
-  // Also mirror to global state for legacy fallback
-  state.player = u.player;
-  state.playerProg = u.playerProg;
-  state.characters = u.characters;
-  state.currencies = u.currencies;
-  state.materials = u.materials;
-  state.accessories = u.accessories;
-  state.matchLogs = u.matchLogs;
-  state.latestMatch = u.latestMatch;
-  state.sessionStats = u.sessionStats;
-  state.lastUpdated = u.lastUpdated;
-  state.connected = true;
-
-  if (payload.serverLeaderboard && Array.isArray(payload.serverLeaderboard)) {
-    state.serverLeaderboard = payload.serverLeaderboard;
+  // Alias by lowercase name if different
+  if (p.name && String(p.name).toLowerCase() !== uid.toLowerCase()) {
+    state.robloxUsers[String(p.name).toLowerCase()] = userRecord;
   }
 
-  syncGlobalLeaderboard();
+  // Auto-link to Discord Account if discordId provided in script loader
+  if (discordId && state.discordAccounts) {
+    for (const [accId, acc] of Object.entries(state.discordAccounts)) {
+      if (
+        String(acc.discordId) === discordId ||
+        acc.id === "discord_" + discordId ||
+        String(acc.username).toLowerCase() === discordId.toLowerCase()
+      ) {
+        if (!acc.linkedRoblox) acc.linkedRoblox = [];
+        const existing = acc.linkedRoblox.find(
+          r => String(r.userId) === uid || String(r.name).toLowerCase() === String(p.name).toLowerCase()
+        );
+        if (!existing) {
+          acc.linkedRoblox.push({
+            userId: p.userId || uid,
+            name: p.name,
+            displayName: p.displayName || p.name,
+            avatarUrl: realAvatarUrl,
+            pcName: pcName,
+            lastSeen: Math.floor(Date.now() / 1000)
+          });
+        } else {
+          existing.displayName = p.displayName || p.name;
+          existing.avatarUrl = realAvatarUrl || existing.avatarUrl;
+          existing.pcName = pcName;
+          existing.lastSeen = Math.floor(Date.now() / 1000);
+        }
+        break;
+      }
+    }
+  }
+
+  state.connected = true;
   saveData();
 }
 

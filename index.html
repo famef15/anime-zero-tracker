@@ -80,9 +80,12 @@
     body {
       background-color: var(--bg-base);
       background-image: 
-        radial-gradient(circle at 10% 8%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 90% 12%, rgba(168, 85, 247, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 50% 60%, rgba(16, 185, 129, 0.04) 0%, transparent 60%);
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
+        radial-gradient(circle at 10% 25%, rgba(168, 85, 247, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 90% 75%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
       background-attachment: fixed;
       color: var(--text-main);
       font-family: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -213,66 +216,316 @@
     .top-nav-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      position: relative;
     }
 
-    /* Modern Buttons */
-    .nav-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border-card);
-      color: var(--text-main);
-      padding: 7px 15px;
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      font-weight: 600;
+    /* 1. White Pill Button: </> รับสคริปต์ */
+    .nav-btn-white {
       display: inline-flex;
       align-items: center;
       gap: 7px;
+      background: #ffffff;
+      color: #090d16;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       font-family: inherit;
-      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     }
-
-    .nav-btn:hover {
-      background: var(--bg-card-hover);
-      border-color: #38bdf8;
-      color: #ffffff;
+    .nav-btn-white:hover {
+      background: #f1f5f9;
       transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2);
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
     }
 
-    .nav-btn.primary {
-      background: linear-gradient(135deg, #0284c7, #2563eb);
-      border: 1px solid #38bdf8;
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-    }
-    .nav-btn.primary:hover {
-      background: linear-gradient(135deg, #0369a1, #1d4ed8);
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
-    }
-
-    .nav-user {
-      display: flex;
+    /* 2. Dark Pill Button: 🧰 เครื่องมือ ▾ */
+    .nav-btn-dark {
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 4px 12px 4px 5px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-pill);
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 8px;
       font-size: 13px;
       font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
       backdrop-filter: blur(10px);
     }
+    .nav-btn-dark:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.22);
+      transform: translateY(-1px);
+    }
 
-    .nav-user img {
-      width: 26px;
-      height: 26px;
+    /* 3. Discord Icon Button */
+    .nav-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    .nav-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #5865F2;
+      transform: translateY(-1px);
+    }
+
+    /* 4. Heartbeat Pulse Button */
+    .heartbeat-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      cursor: default;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+    }
+    .heartbeat-btn.offline {
+      background: rgba(239, 68, 68, 0.14);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #f87171;
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+    }
+
+    /* 5. Segmented Language Switcher [ EN | TH ] */
+    .lang-segment-wrap {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 3px;
+    }
+    .lang-segment-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .lang-segment-btn:hover {
+      color: #ffffff;
+    }
+    .lang-segment-btn.active {
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.25);
+    }
+
+    /* 6. Profile User Pill in Navbar */
+    .nav-popover-container {
+      position: relative;
+    }
+    .nav-user-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 10px 3px 4px;
+      border-radius: 9999px;
+      cursor: pointer;
+      background: transparent;
+      transition: background 0.2s ease;
+      user-select: none;
+    }
+    .nav-user-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .nav-user-pill img {
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       object-fit: cover;
       background: #1e2430;
-      border: 1px solid rgba(56, 189, 248, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .nav-user-pill span {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* 7. Profile Dropdown Popover Card */
+    .profile-popover-card {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 260px;
+      background: #181b24;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1000;
+      animation: popoverFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popoverFadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .popover-title-sub {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .popover-user-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .popover-user-row img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #1e2430;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .popover-user-meta {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .popover-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .popover-handle {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .popover-card-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      margin: 14px 0 10px;
+    }
+    .popover-logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 8px 10px;
+      background: transparent;
+      border: none;
+      color: #fb7185;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .popover-logout-btn:hover {
+      background: rgba(244, 63, 94, 0.12);
+      color: #f43f5e;
+    }
+
+    /* Tools Dropdown Card */
+    .nav-dropdown-card {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      min-width: 260px;
+      background: #181b24;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 6px;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1000;
+      animation: popoverFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+    .dropdown-item .item-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .dropdown-item .item-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .dropdown-item .item-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .dropdown-item .item-desc {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* Nav Discord Login Button */
+    .nav-btn-discord-login {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #5865F2;
+      border: 1px solid #5865F2;
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(88, 101, 242, 0.35);
+    }
+    .nav-btn-discord-login:hover {
+      background: #4752c4;
+      transform: translateY(-1px);
     }
 
     /* Main Container */
@@ -1320,12 +1573,71 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: var(--radius-lg);
       padding: 26px;
-      max-width: 440px;
-      width: 90%;
+      max-width: 520px;
+      width: 92%;
+      max-height: 88vh;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      gap: 16px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 240, 255, 0.12);
+      position: relative;
+    }
+    .modal-slot-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #94a3b8;
+    }
+    .modal-section-box {
+      background: rgba(11, 15, 26, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+    }
+    .modal-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .modal-buff-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .modal-buff-tag {
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: #e0f2fe;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.08);
+    }
+    .modal-buff-tag .buff-val {
+      color: #22c55e;
+      font-weight: 800;
     }
 
     /* Language Toggle Pill */
@@ -1969,6 +2281,540 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    /* ========================================================
+       DISCORD OAUTH2 AUTHORIZATION & MODAL STYLING
+       ======================================================== */
+    .discord-hero-card {
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto 20px;
+      background: rgba(17, 23, 37, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 26px 30px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      text-align: center;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .discord-hero-card:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 189, 248, 0.2);
+    }
+    .discord-connector-bridge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .discord-avatar-pill {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #1e1f22;
+      border: 2.5px solid #5865f2;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(88, 101, 242, 0.45);
+      transition: transform 0.2s ease;
+    }
+    .discord-avatar-pill:hover {
+      transform: scale(1.06);
+    }
+    .discord-avatar-pill.user {
+      border-color: #00f0ff;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.45);
+    }
+    .discord-avatar-pill img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .bridge-dots {
+      color: #94a3b8;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 3px;
+    }
+    .connector-brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+    .connector-brand-sub {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .discord-login-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #5865F2 0%, #4752c4 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 13px 20px;
+      font-size: 15px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4);
+      transition: all 0.2s ease;
+    }
+    .discord-login-btn:hover {
+      background: linear-gradient(135deg, #4752c4 0%, #3c45a5 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(88, 101, 242, 0.55);
+    }
+    .connector-footnote {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 14px;
+      font-weight: 500;
+    }
+
+
+    /* Discord Authorization Modal (1:1 with reference image) */
+    .discord-modal-box {
+      background: #313338;
+      color: #dbdee1;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 14px;
+      padding: 28px 26px 22px;
+      box-shadow: 0 24px 65px rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      text-align: left;
+      position: relative;
+      animation: discordPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes discordPop {
+      0% { opacity: 0; transform: scale(0.96) translateY(10px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .discord-avatar-bridge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .discord-avatar-circle {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: #1e1f22;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+    .discord-avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .discord-bridge-dots {
+      color: #949ba4;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 2px;
+    }
+    .discord-app-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f2f3f5;
+      text-align: center;
+      margin: 8px 0 2px;
+    }
+    .discord-app-subtitle {
+      font-size: 14px;
+      color: #949ba4;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .discord-login-as {
+      font-size: 13px;
+      color: #949ba4;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .discord-link-btn {
+      background: transparent;
+      border: none;
+      color: #5865f2;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+      padding: 0 4px;
+    }
+    .discord-link-btn:hover {
+      text-decoration: underline;
+    }
+    .discord-scope-card {
+      background: #2b2d31;
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 13px;
+      color: #dbdee1;
+      line-height: 1.5;
+    }
+    .discord-scope-header {
+      font-size: 13px;
+      font-weight: 700;
+      color: #f2f3f5;
+      margin-bottom: 14px;
+    }
+    .discord-scope-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .discord-scope-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: #dbdee1;
+    }
+    .discord-scope-item.muted {
+      color: #949ba4;
+    }
+    .discord-scope-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .discord-scope-icon.check {
+      background: #4e5058;
+      color: #f2f3f5;
+    }
+    .discord-scope-icon.cross {
+      background: #3b3e45;
+      color: #949ba4;
+    }
+    .discord-divider {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin: 14px 0 12px;
+    }
+    .discord-meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 12px;
+      color: #949ba4;
+    }
+    .discord-meta-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.45;
+    }
+    .discord-meta-item .meta-icon {
+      font-size: 14px;
+      opacity: 0.85;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .discord-actions-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .discord-btn-cancel {
+      flex: 1;
+      background: #4e5058;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease;
+    }
+    .discord-btn-cancel:hover {
+      background: #6d6f78;
+    }
+    .discord-btn-auth {
+      flex: 1;
+      background: #5865F2;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease;
+      box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+    }
+    .discord-btn-auth:hover {
+      background: #4752c4;
+    }
+    /* Ambient Anime Zero Map Cover Backdrop */
+    .hub-backdrop-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 560px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hub-backdrop-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.18;
+      filter: blur(28px) saturate(1.5);
+      transform: scale(1.12);
+    }
+    .hub-backdrop-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(6, 8, 14, 0.4) 0%, rgba(6, 8, 14, 0.85) 65%, #06080e 100%);
+    }
+
+    .hub-hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 36px 16px 24px 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hub-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: var(--radius-pill);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+      margin-bottom: 20px;
+    }
+
+    /* Anime Zero Map Cover Card Showcase */
+    .anime-zero-cover-card {
+      position: relative;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto 28px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.22);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      background: #090d16;
+    }
+    .anime-zero-cover-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 28px 75px rgba(0, 0, 0, 0.9), 0 0 55px rgba(56, 189, 248, 0.38);
+      border-color: rgba(56, 189, 248, 0.7);
+    }
+    .cover-media-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #090c14;
+    }
+    .anime-zero-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .anime-zero-cover-card:hover .anime-zero-banner-img {
+      transform: scale(1.03);
+    }
+    .cover-glass-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 14px 20px;
+      background: linear-gradient(180deg, transparent 0%, rgba(6, 8, 14, 0.8) 35%, rgba(6, 8, 14, 0.98) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .cover-game-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+    .game-icon-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(56, 189, 248, 0.45);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.3);
+      object-fit: cover;
+    }
+    .game-badge-meta {
+      display: flex;
+      flex-direction: column;
+    }
+    .game-badge-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.4px;
+    }
+    .game-badge-sub {
+      font-size: 11px;
+      font-weight: 700;
+      color: #34d399;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+    .cover-stats-pill {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #38bdf8;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .hub-title {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.25;
+      background: linear-gradient(135deg, #ffffff 40%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+    .hub-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Dashboard Anime Zero Cover Hero Banner */
+    .dashboard-hero-banner {
+      position: relative;
+      width: 100%;
+      margin-bottom: 18px;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.15);
+      background: #090d16;
+    }
+    .dash-cover-backdrop {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .dash-backdrop-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.22;
+      filter: blur(20px) saturate(1.4);
+      transform: scale(1.1);
+    }
+    .dash-backdrop-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(11, 15, 25, 0.95) 0%, rgba(11, 15, 25, 0.75) 50%, rgba(11, 15, 25, 0.92) 100%);
+    }
+    .dash-banner-card {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 20px;
+      flex-wrap: wrap;
+    }
+    .dash-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .dash-cover-thumb-wrap {
+      width: 120px;
+      height: 68px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+      flex-shrink: 0;
+      background: #05070c;
+    }
+    .dash-cover-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .dash-banner-card:hover .dash-cover-thumb {
+      transform: scale(1.08);
+    }
+    .dash-banner-pills {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
   </style>
 </head>
 <body>
@@ -1987,85 +2833,274 @@
     </div>
 
     <div class="top-nav-actions">
-      <!-- Language Toggle TH / EN -->
-      <button class="lang-toggle" id="btnLangToggle" onclick="toggleLanguage()" title="เปลี่ยนภาษา / Switch Language">
-        <span id="langFlag">🇹🇭</span>
-        <span id="langLabel" style="font-family: 'JetBrains Mono', monospace;">TH</span>
-      </button>
-
-      <!-- Copy Personal Link Button -->
-      <button class="nav-btn" onclick="copyPersonalLink()" title="คัดลอกลิงก์ส่วนตัวของคุณเพื่อเปิดดูในเบราว์เซอร์หรือเครื่องอื่น">
-        <svg height="14" viewBox="0 0 16 16" width="14" fill="currentColor">
-          <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path>
-          <path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+      <!-- 1. White Pill Button: </> รับสคริปต์ -->
+      <button class="nav-btn-white" id="btnGetScriptNav" onclick="openGetScriptModal()" title="รับสคริปต์ไปรันใน Executor">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#090d16" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
         </svg>
-        <span id="labelCopyLink">ลิงก์ส่วนตัว</span>
+        <span id="btnGetScriptNavText">รับสคริปต์</span>
       </button>
 
-      <!-- Switch Player / Search Button -->
-      <button class="nav-btn" onclick="openUserModal()" title="สลับดูข้อมูลผู้เล่นอื่น หรือค้นหาตามชื่อ/UserId">
-        <svg height="14" viewBox="0 0 16 16" width="14" fill="currentColor">
-          <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+      <!-- 2. Dark Pill Button: 🧰 เครื่องมือ ▾ -->
+      <div class="nav-popover-container" id="toolsPopoverWrap">
+        <button class="nav-btn-dark" id="btnToolsMenu" onclick="toggleToolsPopover(event)" title="เครื่องมือเพิ่มเติม">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          <span id="btnToolsMenuText">เครื่องมือ</span>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+
+        <!-- Tools Dropdown Menu -->
+        <div class="nav-dropdown-card" id="toolsDropdownMenu" style="display: none;">
+          <div class="dropdown-item" onclick="openMyAccountsModal(); closeAllNavPopovers();">
+            <span class="item-icon">🎮</span>
+            <div class="item-text">
+              <div class="item-title" id="toolsItemAccountsTitle">บัญชีของฉัน</div>
+              <div class="item-desc" id="toolsItemAccountsDesc">สลับไอดี / จัดการ Roblox Accounts</div>
+            </div>
+          </div>
+          <div class="dropdown-item" onclick="triggerSync(); closeAllNavPopovers();">
+            <span class="item-icon">🔄</span>
+            <div class="item-text">
+              <div class="item-title" id="toolsItemSyncTitle">ซิงค์ข้อมูล Real-time</div>
+              <div class="item-desc" id="toolsItemSyncDesc">อัปเดตสถานะล่าสุดจากเซิร์ฟเวอร์</div>
+            </div>
+          </div>
+          <div class="dropdown-item" onclick="copyLoaderScript(); closeAllNavPopovers();">
+            <span class="item-icon">⚡</span>
+            <div class="item-text">
+              <div class="item-title" id="toolsItemCopyTitle">คัดลอก Loader Script</div>
+              <div class="item-desc" id="toolsItemCopyDesc">Loadstring สำเร็จรูปพร้อมรันใน Executor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Discord Icon Button -->
+      <button class="nav-icon-btn" onclick="openDiscordOAuthModal()" title="เข้าสู่ระบบด้วย Discord / ชุมชน">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
         </svg>
-        <span id="labelSwitchUser">สลับผู้เล่น</span>
       </button>
 
-      <button class="nav-btn primary" id="btnSyncNow" onclick="triggerSync()">
-        <svg height="14" viewBox="0 0 16 16" width="14" fill="currentColor">
-          <path d="M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z"></path>
+      <!-- 4. Heartbeat Pulse Button -->
+      <div class="heartbeat-btn" id="navHeartbeatBtn" title="สถานะบอท: ออนไลน์ / Realtime Active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+          <path d="M3 13h4l2 -3l3 6l2 -3h7"></path>
         </svg>
-        <span>ซิงค์ข้อมูล</span>
+      </div>
+
+      <!-- 5. Segmented Language Switcher [ EN | TH ] -->
+      <div class="lang-segment-wrap" id="langSegmentPill">
+        <button class="lang-segment-btn" id="langSegEn" onclick="setLanguage('en')">EN</button>
+        <button class="lang-segment-btn active" id="langSegTh" onclick="setLanguage('th')">TH</button>
+      </div>
+
+      <!-- 6. Unauthenticated: Discord Login Button -->
+      <button class="nav-btn-discord-login" id="btnNavLogin" onclick="openDiscordOAuthModal()" style="display: none;">
+        <span id="btnNavLoginText">เข้าสู่ระบบด้วย Discord</span>
       </button>
 
-      <div class="nav-user" onclick="openUserModal()" style="cursor: pointer;" title="คลิกเพื่อสลับผู้เล่น">
-        <img id="navAvatarImg" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-D6503A306B66A0258D0C5C0C28E2C068-Png/150/150/AvatarHeadshot/Png/noFilter" alt="User">
-        <span id="navUsername">Liesajsor17919</span>
+      <!-- 7. Authenticated: Profile Pill with Popover (Exactly matching reference UI) -->
+      <div class="nav-popover-container" id="userPopoverWrap">
+        <div class="nav-user-pill" id="navUserPill" onclick="toggleProfilePopover(event)" style="display: none;">
+          <img id="navAvatarImg" src="/icons/default_avatar.png" alt="User">
+          <span id="navDisplayName">frxmz_.q</span>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: #94a3b8;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+
+        <!-- Profile Dropdown Popover Card -->
+        <div class="profile-popover-card" id="profileDropdownMenu" style="display: none;">
+          <div class="popover-title-sub" id="popoverLoggedInTitle">เข้าสู่ระบบแล้ว</div>
+          <div class="popover-user-row">
+            <img id="dropdownAvatarImg" src="/icons/default_avatar.png" alt="Avatar">
+            <div class="popover-user-meta">
+              <div class="popover-name" id="dropdownDisplayName">frxmz_.q</div>
+              <div class="popover-handle" id="dropdownHandle">@zerox7_xm</div>
+            </div>
+          </div>
+          <div class="popover-card-divider"></div>
+          <button class="popover-logout-btn" onclick="logoutAccount()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fb7185" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span id="popoverLogoutBtnText">ออกจากระบบ</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- User Switcher Modal -->
-  <div class="item-modal" id="userSwitcherModal" onclick="if(event.target===this) closeUserModal()">
-    <div class="item-modal-card" style="max-width: 520px; text-align: left; background: rgba(15, 23, 42, 0.98); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 18px; padding: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 30px rgba(56, 189, 248, 0.2);">
-      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 14px; margin-bottom: 16px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <span style="font-size: 24px;">👥</span>
-          <div>
-            <h3 style="margin: 0; font-size: 17px; color: #fff; font-weight: 800;">สลับผู้เล่น / ค้นหาแดชบอร์ด</h3>
-            <span style="font-size: 12px; color: #94a3b8;">เลือกดูข้อมูลส่วนตัวของแต่ละคน</span>
-          </div>
-        </div>
-        <button onclick="closeUserModal()" style="background: transparent; border: none; color: #94a3b8; font-size: 22px; cursor: pointer; padding: 4px; line-height: 1;">✕</button>
-      </div>
-
-      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
-        <input type="text" id="userSearchInput" placeholder="พิมพ์ชื่อ Roblox หรือ UserId..." style="flex: 1; background: rgba(10, 14, 24, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 8px; padding: 11px 16px; color: #fff; font-family: inherit; font-size: 14px; outline: none;" onkeydown="if(event.key==='Enter') searchAndSwitchUser()">
-        <button onclick="searchAndSwitchUser()" style="background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 8px; padding: 11px 20px; color: #fff; font-weight: 700; cursor: pointer; font-size: 14px; font-family: inherit;">ค้นหา</button>
-      </div>
-
-      <div style="font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; display: flex; justify-content: space-between;">
-        <span>ผู้เล่นที่เปิดใช้งานระบบ</span>
-        <span id="userCountBadge" style="color: #38bdf8;">0 คน</span>
-      </div>
-      <div style="max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;" id="userModalList">
-        <!-- Rendered dynamically -->
-      </div>
-    </div>
-  </div>
-
   <!-- Main Container -->
   <main class="app-container">
 
-    <!-- Player Profile & EXP Progression Card (User Requested Style) -->
-    <section class="player-profile-strip">
-      <div class="player-avatar-box">
-        <img id="playerAvatarImg" src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-D6503A306B66A0258D0C5C0C28E2C068-Png/150/150/AvatarHeadshot/Png/noFilter" alt="Avatar">
+    <!-- 100% PRIVATE DISCORD OAUTH2 GATEWAY VIEW (GAMING DARK MODE + ANIME ZERO COVER) -->
+    <div id="hubView">
+      <!-- Game Cover Ambient Backdrop -->
+      <div class="hub-backdrop-layer">
+        <img src="/anime_zero_cover.png" alt="Anime Zero Cover" class="hub-backdrop-img">
+        <div class="hub-backdrop-overlay"></div>
       </div>
+
+      <section class="hub-hero">
+        <div class="hub-badge" id="hubPrivateBadge">
+          <span>🔒</span>
+          <span id="hubPrivateBadgeText">100% PRIVATE & ISOLATED CLOUD TRACKER</span>
+        </div>
+
+        <!-- Anime Zero Map Cover Card Showcase -->
+        <div class="anime-zero-cover-card">
+          <div class="cover-media-wrap">
+            <img src="/anime_zero_cover.png" alt="Anime Zero Map Cover" class="anime-zero-banner-img">
+            <div class="cover-glass-overlay">
+              <div class="cover-game-badge">
+                <img src="/anime_zero_icon.png" alt="Anime Zero Icon" class="game-icon-thumb" onerror="this.onerror=null;this.src='/anime_zero_cover.png';">
+                <div class="game-badge-meta">
+                  <div class="game-badge-title">Anime Zero</div>
+                  <div class="game-badge-sub"><span class="badge-dot"></span> <span id="hubLiveBadgeText">Live Tracker Online</span></div>
+                </div>
+              </div>
+              <div class="cover-stats-pill">
+                <span id="hubUniverseBadgeText">⚡ Universe 10512942223</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="hub-title" id="hubMainTitle">Anime Zero Private Cloud Tracker</h1>
+        <p class="hub-subtitle" id="hubMainSubtitle">
+          ระบบติดตามคลังไอเทม สถิติแมตช์ และบันทึกข้อมูลส่วนบุคคลแบบ Real-time<br>
+          ข้อมูลทั้งหมดแยกอิสระเฉพาะบัญชี Discord ของคุณ ปลอดภัย 100% โดยไม่ต้องกรอกรหัสผ่าน
+        </p>
+
+        <!-- Discord OAuth2 Login Hero Card (Matching Reference media_1792284960197_9101d356.png) -->
+        <div class="discord-hero-card">
+          <div class="discord-connector-bridge">
+            <div class="discord-avatar-pill service">
+              <img src="/icons/default_avatar.png" alt="Service Logo">
+            </div>
+            <span class="bridge-dots">•••</span>
+            <div class="discord-avatar-pill user">
+              <img src="/icons/default_avatar.png" alt="Discord User" id="heroUserDiscordAvatar">
+            </div>
+          </div>
+
+          <div class="connector-brand-title" id="hubConnectorTitle">
+            Shino Services / CFame Cloud
+          </div>
+          <div class="connector-brand-sub" id="hubConnectorSubtitle">
+            กดปุ่มด้านล่างเพื่ออนุญาตเชื่อมต่อบัญชี Discord<br>
+            ระบบจะสร้างพื้นที่จัดเก็บคลังไอเทมส่วนตัวให้คุณทันที
+          </div>
+
+          <button class="discord-login-btn" id="btnHubDiscordAuth" onclick="openDiscordOAuthModal()">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.893a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            <span id="btnHubDiscordAuthText">เข้าสู่ระบบด้วย Discord (Authorize)</span>
+          </button>
+
+          <div class="connector-footnote" id="hubFootnote">
+            🔒 ไม่ต้องกรอกรหัสผ่าน Discord • ข้อมูลของคุณจะถูกแยกเป็นส่วนตัว 100%
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- WAITING FOR IN-GAME SCRIPT SCREEN (FOR NEW DISCORD USERS WHO HAVEN'T RUN SCRIPT YET) -->
+    <div id="waitingScriptView" style="display: none; padding: 48px 16px; max-width: 720px; margin: 0 auto; text-align: center;">
+      <div style="background: rgba(18, 24, 38, 0.88); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 20px; padding: 44px 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 30px rgba(56, 189, 248, 0.15); backdrop-filter: blur(20px);">
+        
+        <!-- Game Icon Thumb & Pulse Icon Circle -->
+        <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px;">
+          <img src="/anime_zero_icon.png" alt="Anime Zero" style="width: 58px; height: 58px; border-radius: 14px; border: 2px solid rgba(56, 189, 248, 0.5); box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);" onerror="this.onerror=null;this.src='/anime_zero_cover.png';">
+          <div style="width: 58px; height: 58px; border-radius: 50%; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 24px rgba(56, 189, 248, 0.25);">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+        </div>
+
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 700; color: #fbbf24; margin-bottom: 14px;">
+          <span id="waitBadgeText">⏳ รอการเชื่อมต่อจากสคริปต์ในเกม (Awaiting In-Game Script)</span>
+        </div>
+
+        <h2 style="font-size: 24px; font-weight: 800; color: #ffffff; margin: 0 0 10px;" id="waitMainHeading">ยังไม่พบข้อมูลบัญชี Roblox</h2>
+        <p style="font-size: 14px; color: #94a3b8; max-width: 540px; margin: 0 auto 26px; line-height: 1.6;" id="waitMainDesc">
+          คุณเข้าสู่ระบบ Discord ในชื่อ <strong id="waitDiscordTag" style="color: #38bdf8;">@user</strong> เรียบร้อยแล้ว<br>
+          ขณะนี้ระบบยังไม่ได้รับข้อมูลจากเกม Anime Zero กรุณานำโหลดเดอร์ไปรันใน Executor เพื่อเชื่อมต่อข้อมูลคลังและสถิติเข้าสู่หน้านี้
+        </p>
+
+        <!-- Big CTA Button to open Get Script Modal -->
+        <button onclick="openGetScriptModal()" style="background: linear-gradient(135deg, #0284c7, #0369a1); border: 1px solid #38bdf8; border-radius: 12px; padding: 14px 32px; color: #ffffff; font-size: 15px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(2, 132, 199, 0.4); transition: transform 0.15s, box-shadow 0.15s;">
+          <span style="font-size: 18px;">⚡</span>
+          <span id="waitGetScriptBtnText">รับสคริปต์ไปรัน (Get Script)</span>
+        </button>
+
+        <!-- Step Instructions -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 36px; text-align: left;">
+          <div style="background: rgba(11, 15, 25, 0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px;">
+            <div style="font-weight: 800; color: #38bdf8; font-size: 13px; margin-bottom: 6px;" id="waitStep1Title">1. รับสคริปต์</div>
+            <div style="font-size: 12px; color: #94a3b8; line-height: 1.5;" id="waitStep1Desc">กดปุ่มด้านบน ระบุชื่อเครื่อง (PC) แล้วกดคัดลอกโค้ด</div>
+          </div>
+          <div style="background: rgba(11, 15, 25, 0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px;">
+            <div style="font-weight: 800; color: #38bdf8; font-size: 13px; margin-bottom: 6px;" id="waitStep2Title">2. รันในเกม</div>
+            <div style="font-size: 12px; color: #94a3b8; line-height: 1.5;" id="waitStep2Desc">เปิด Roblox เกม Anime Zero วางโค้ดใน Executor แล้วกด Execute</div>
+          </div>
+          <div style="background: rgba(11, 15, 25, 0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px;">
+            <div style="font-weight: 800; color: #38bdf8; font-size: 13px; margin-bottom: 6px;" id="waitStep3Title">3. ซิงค์อัตโนมัติ</div>
+            <div style="font-size: 12px; color: #94a3b8; line-height: 1.5;" id="waitStep3Desc">หน้านี้จะตรวจจับและสลับเป็น Dashboard ของคุณทันทีแบบเรียลไทม์</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PERSONAL PLAYER DASHBOARD VIEW -->
+    <div id="dashboardView" style="display: none;">
+
+      <!-- Anime Zero Map Cover Ambient Backdrop & Showcase Banner -->
+      <section class="dashboard-hero-banner">
+        <div class="dash-cover-backdrop">
+          <img src="/anime_zero_cover.png" alt="Anime Zero Cover" class="dash-backdrop-img">
+          <div class="dash-backdrop-overlay"></div>
+        </div>
+        <div class="dash-banner-card">
+          <div class="dash-banner-left">
+            <div class="dash-cover-thumb-wrap">
+              <img src="/anime_zero_cover.png" alt="Anime Zero Map Cover" class="dash-cover-thumb">
+            </div>
+            <div class="dash-game-badge">
+              <img src="/anime_zero_icon.png" alt="Anime Zero Icon" class="game-icon-thumb" onerror="this.onerror=null;this.src='/anime_zero_cover.png';">
+              <div class="game-badge-meta">
+                <div class="game-badge-title">Anime Zero</div>
+                <div class="game-badge-sub"><span class="badge-dot"></span> <span id="dashLiveStatusText">Live Cloud Sync Online</span> • Universe 10512942223</div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-banner-pills">
+            <span class="cover-stats-pill">📍 Place ID: 114574503491412</span>
+            <span class="cover-stats-pill" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.35);">⚡ Realtime Sync (3s)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Player Profile & EXP Progression Card (User Requested Style) -->
+      <section class="player-profile-strip">
+        <div class="player-avatar-box">
+          <img id="playerAvatarImg" src="/api/avatar?userId=9165405454" alt="Avatar" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='/icons/default_avatar.png';}">
+        </div>
       <div class="player-meta-box">
         <div class="player-title-row">
           <span class="p-display-name" id="pDisplayName">フレーム</span>
           <span class="p-handle" id="pUsername">@Liesajsor17919</span>
-          <span class="p-guild-pill" id="pGuildBadge">Shinoko</span>
+          <span class="p-guild-pill" id="pGuildBadge" style="display: none;"></span>
           <span class="p-level-pill" id="pLevelBadge">LV. 451</span>
           <span class="p-updated-time">• <span id="pUpdatedLabel">Updated:</span> <span id="pUpdatedTime">17:14:41</span></span>
         </div>
@@ -2298,7 +3333,227 @@
       </div>
     </section>
 
+    </div><!-- End dashboardView -->
   </main>
+
+  <!-- DISCORD OAUTH2 AUTHORIZATION MODAL (EXACT MATCH TO REFERENCE) -->
+  <div class="item-modal" id="discordOAuthModal" onclick="if(event.target===this) closeDiscordOAuthModal()">
+    <div class="discord-modal-box">
+      <!-- Top Avatar Bridge -->
+      <div class="discord-avatar-bridge">
+        <div class="discord-avatar-circle">
+          <img src="/icons/default_avatar.png" id="modalServiceAvatar" alt="Shino Services">
+        </div>
+        <div class="discord-bridge-dots">•••</div>
+        <div class="discord-avatar-circle user">
+          <img src="/icons/default_avatar.png" id="modalUserDiscordAvatar" alt="zerox7_xm">
+        </div>
+      </div>
+
+      <!-- Header Titles -->
+      <h2 class="discord-app-title" id="discordModalAppTitle">Shino Services</h2>
+      <div class="discord-app-subtitle" id="discordModalSubtitle">ต้องการเข้าถึงบัญชี Discord ของคุณ</div>
+      <div class="discord-login-as">
+        <span><span id="discordLoginAsPrefix">ลงชื่อเข้าใช้เป็น</span> <strong id="discordActiveUserLabel">zerox7_xm</strong></span>
+        <button type="button" onclick="promptSwitchDiscordUser()" class="discord-link-btn" id="btnDiscordSwitchUser">ไม่ใช่คุณหรือ?</button>
+      </div>
+
+      <!-- Discord Permission Scope Card -->
+      <div class="discord-scope-card">
+        <div class="discord-scope-header" id="discordScopeHeader">นี่จะเป็นการอนุญาตให้ผู้พัฒนาจาก Shino Services ทำสิ่งเหล่านี้:</div>
+
+        <div class="discord-scope-list">
+          <div class="discord-scope-item">
+            <div class="discord-scope-icon check">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span id="discordScopeItem1">เข้าถึงชื่อผู้ใช้ สัญลักษณ์ประจำตัว และแบนเนอร์ของคุณ</span>
+          </div>
+
+          <div class="discord-scope-item muted">
+            <div class="discord-scope-icon cross">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </div>
+            <span id="discordScopeItem2">เลี้ยงดินเนอร์อาหารทะเลสุดหรูคุณสักมื้อ</span>
+          </div>
+        </div>
+
+        <div class="discord-divider"></div>
+
+        <div class="discord-meta-list">
+          <div class="discord-meta-item">
+            <span class="meta-icon">🔗</span>
+            <span><span id="discordRedirectNotice">เมื่อยืนยันสิทธิ์แล้ว ระบบจะพาคุณไปนอก Discord ที่:</span><br>
+              <strong style="color: #949ba4; font-family: monospace;" id="discordRedirectDomain">https://anime-zero-tracker.onrender.com</strong>
+            </span>
+          </div>
+
+          <div class="discord-meta-item">
+            <span class="meta-icon">🔒</span>
+            <span id="discordPrivacyNotice">นโยบายความเป็นส่วนตัวและเงื่อนไขการให้บริการของผู้พัฒนา Shino Services มีผลกับแอปพลิเคชันนี้</span>
+          </div>
+
+          <div class="discord-meta-item">
+            <span class="meta-icon">🕒</span>
+            <span id="discordDateNotice">ใช้งานตั้งแต่ 12 ม.ค. 2569</span>
+          </div>
+
+          <div class="discord-meta-item">
+            <span class="meta-icon">🛡️</span>
+            <span id="discordBotNotice">แอปพลิเคชันนี้ไม่สามารถอ่านข้อความของคุณหรือส่งข้อความแทนคุณได้</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Row -->
+      <div class="discord-actions-row">
+        <button type="button" class="discord-btn-cancel" id="btnDiscordCancel" onclick="closeDiscordOAuthModal()">
+          ยกเลิก
+        </button>
+        <button type="button" class="discord-btn-auth" id="btnConfirmDiscordAuth" onclick="confirmDiscordAuthorization()">
+          <span id="btnConfirmDiscordAuthText">อนุญาต</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Accounts Modal (Manage Roblox Accounts under Discord Profile) -->
+  <div class="item-modal" id="userSwitcherModal" onclick="if(event.target===this) closeMyAccountsModal()">
+    <div class="item-modal-card" style="max-width: 540px; text-align: left; background: rgba(15, 23, 42, 0.98); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 18px; padding: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.85);">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 14px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">🎮</span>
+          <div>
+            <h3 style="margin: 0; font-size: 17px; color: #fff; font-weight: 800;" id="modalMyAccountsTitle">จัดการบัญชี Roblox (My Accounts)</h3>
+            <span style="font-size: 12px; color: #94a3b8;" id="modalDiscordSubtitle">Discord: @zerox7_xm</span>
+          </div>
+        </div>
+        <button onclick="closeMyAccountsModal()" style="background: transparent; border: none; color: #94a3b8; font-size: 22px; cursor: pointer; padding: 4px; line-height: 1;">✕</button>
+      </div>
+
+      <!-- In-Game API Key Card -->
+      <div id="modalApiKeyBox" style="background: rgba(11, 15, 26, 0.85); border: 1px dashed rgba(56, 189, 248, 0.3); border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <div style="display: flex; flex-direction: column; overflow: hidden;">
+          <span style="font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase;" id="modalApiKeyTitleText">🔑 In-Game API Key ของคุณ</span>
+          <code id="modalApiKeyVal" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #38bdf8; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">key_loading...</code>
+        </div>
+        <button id="btnModalCopyKey" onclick="copyApiKey()" style="background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; color: #38bdf8; border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap;">📋 คัดลอก Key</button>
+      </div>
+
+      <!-- Add Roblox Account Input -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <input type="text" id="addAltInput" placeholder="พิมพ์ชื่อ Roblox Username หรือ User ID ของไอดีรอง..." style="flex: 1; background: rgba(10, 14, 24, 0.9); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 8px; padding: 11px 16px; color: #fff; font-family: inherit; font-size: 14px; outline: none;" onkeydown="if(event.key==='Enter') linkRobloxAccount()">
+        <button id="btnLinkRoblox" onclick="linkRobloxAccount()" style="background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 8px; padding: 11px 18px; color: #fff; font-weight: 700; cursor: pointer; font-size: 13px; font-family: inherit; white-space: nowrap;">+ เชื่อมต่อไอดี</button>
+      </div>
+
+      <div style="font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; display: flex; justify-content: space-between;">
+        <span id="modalLinkedAccountsHeader">ไอดี Roblox ที่เชื่อมต่อกับ Discord ของคุณ</span>
+        <span id="myAccountsCountBadge" style="color: #38bdf8;">1 บัญชี</span>
+      </div>
+      <div style="max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;" id="userModalList">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 14px; display: flex; align-items: center; justify-content: space-between;">
+        <span style="font-size: 12px; color: #64748b;" id="modalAccountsFootnote">ข้อมูลทุกไอดีถูกแยกเป็นส่วนตัว 100%</span>
+        <button onclick="logoutAccount(); closeMyAccountsModal();" style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); color: #f87171; border-radius: 8px; padding: 7px 14px; font-size: 12px; font-weight: 700; cursor: pointer;" id="btnModalLogout">
+          🚪 ออกจากระบบ Discord
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GET SCRIPT MODAL (1:1 REPLICA OF USER REFERENCE) -->
+  <div class="item-modal" id="getScriptModal" onclick="if(event.target===this) closeGetScriptModal()">
+    <div class="item-modal-card" style="max-width: 620px; width: 92%; text-align: left; background: #18191c; border: 1px solid #2a2c32; border-radius: 14px; padding: 24px; box-shadow: 0 25px 60px rgba(0,0,0,0.85);">
+      
+      <!-- Modal Header -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <!-- Green code icon square -->
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: #14231b; border: 1px solid #1c3d28; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 17px; font-weight: 700; color: #ffffff; line-height: 1.3;" id="modalGetScriptTitle">รับสคริปต์</h3>
+            <p style="margin: 2px 0 0 0; font-size: 13px; color: #9ca3af; line-height: 1.3;" id="modalGetScriptSubtitle">โหลดเดอร์สำหรับรันบน Executor ของคุณ</p>
+          </div>
+        </div>
+        <button onclick="closeGetScriptModal()" style="background: transparent; border: none; color: #9ca3af; font-size: 20px; cursor: pointer; padding: 4px; line-height: 1;">✕</button>
+      </div>
+
+      <!-- Section 1: PC Name Input -->
+      <div style="margin-bottom: 16px;">
+        <label for="modalPcNameInput" style="display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: #d1d5db; margin-bottom: 8px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          <span id="modalPcNameLabelText">ชื่อเครื่อง (PC)</span>
+        </label>
+        <input type="text" id="modalPcNameInput" value="PC-001" placeholder="PC-001" oninput="updateModalScriptDisplay()" style="width: 100%; box-sizing: border-box; background: #131417; border: 1px solid #282a30; border-radius: 8px; padding: 11px 14px; font-family: inherit; font-size: 14px; color: #ffffff; outline: none; transition: border-color 0.15s;">
+        <div id="modalPcWarnText" style="font-size: 12px; color: #f87171; margin-top: 6px;">ต้องมีอย่างน้อย 4 ตัวอักษร (ภาษาอังกฤษเท่านั้น)</div>
+      </div>
+
+      <!-- Section 2: Code Editor Window -->
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: #d1d5db;">
+            <span style="font-family: monospace; font-size: 14px; color: #9ca3af;">&gt;_</span>
+            <span id="modalScriptHeaderTitle">สคริปต์</span>
+          </div>
+          <!-- Clean / Anti-ban toggle pills -->
+          <div style="display: flex; gap: 6px;">
+            <button type="button" class="tab-btn active" id="modalTabClean" onclick="switchModalScript('clean')" style="padding: 3px 10px; font-size: 11px; border-radius: 6px;">Clean</button>
+            <button type="button" class="tab-btn" id="modalTabObf" onclick="switchModalScript('obf')" style="padding: 3px 10px; font-size: 11px; border-radius: 6px;">🛡️ Anti-Ban</button>
+          </div>
+        </div>
+
+        <!-- Terminal Editor Box with macOS dots -->
+        <div style="background: #111215; border: 1px solid #282a30; border-radius: 10px; overflow: hidden;">
+          <div style="background: #18191d; border-bottom: 1px solid #23252a; padding: 10px 14px; display: flex; align-items: center; gap: 7px;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444;"></div>
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b;"></div>
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></div>
+            <span id="modalScriptFileName" style="font-family: 'JetBrains Mono', Consolas, monospace; font-size: 12px; color: #9ca3af; margin-left: 8px;">ducky.host.Luau</span>
+          </div>
+          <pre id="modalScriptCode" style="margin: 0; padding: 18px 20px; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 13.5px; line-height: 1.7; color: #e2e8f0; white-space: pre; overflow-x: auto; background: transparent;">repeat task.wait() until game:IsLoaded()
+
+getgenv().DuckyConfig = {
+    ["discord_id"] = "1561147994416349285",
+    ["PC_NAME"] = "PC-001"
+}
+
+loadstring(game:HttpGet("http://localhost:18888/tracker.luau"))()</pre>
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div style="display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 22px;">
+        <button type="button" id="btnModalCloseScript" onclick="closeGetScriptModal()" style="background: transparent; border: none; color: #9ca3af; font-size: 13.5px; font-weight: 600; padding: 9px 18px; cursor: pointer; border-radius: 6px; transition: color 0.15s;">
+          ปิด
+        </button>
+        <button type="button" id="btnModalCopyScript" onclick="copyModalScript()" style="background: #374151; border: 1px solid rgba(255,255,255,0.08); color: #ffffff; font-size: 13.5px; font-weight: 600; padding: 9px 20px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: background 0.15s;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span id="btnModalCopyScriptText">คัดลอก</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- FLOATING SELECTION TOOLBAR (IMAGE 2 REPLICA) -->
   <div class="floating-toolbar" id="floatingToolbar">
@@ -2318,21 +3573,33 @@
   <div class="item-modal" id="itemDetailModal" onclick="if(event.target === this) closeItemModal()">
     <div class="item-modal-card">
       <div style="display: flex; align-items: center; justify-content: space-between;">
-        <span class="rarity-pill mythic" id="modalRarityBadge">MYTHIC</span>
-        <button onclick="closeItemModal()" style="background: none; border: none; color: #94a3b8; font-size: 18px; cursor: pointer;">✕</button>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="rarity-pill mythic" id="modalRarityBadge">MYTHIC</span>
+          <span class="modal-slot-pill" id="modalItemSlot">HEAD</span>
+        </div>
+        <button onclick="closeItemModal()" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; padding: 4px;">✕</button>
       </div>
       <div style="display: flex; align-items: center; gap: 16px;">
-        <div style="width: 72px; height: 72px; background: #0e121a; border-radius: 10px; display: flex; align-items: center; justify-content: center;" id="modalIconWrap">
-          <img src="" style="width: 56px; height: 56px; object-fit: contain;" id="modalItemImg">
+        <div style="width: 76px; height: 76px; background: #0c101a; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0;" id="modalIconWrap">
+          <img src="" style="width: 60px; height: 60px; object-fit: contain;" id="modalItemImg">
         </div>
         <div>
-          <div style="font-size: 18px; font-weight: 700; color: #fff;" id="modalItemName">Item Name</div>
+          <div style="font-size: 19px; font-weight: 800; color: #fff; letter-spacing: 0.3px;" id="modalItemName">Item Name</div>
           <div style="font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;" id="modalItemCategory">MATERIAL</div>
           <div style="font-size: 14px; font-weight: 700; color: #22c55e; margin-top: 4px;" id="modalItemStock">ในคลัง: 1,424 ชิ้น</div>
         </div>
       </div>
-      <div style="background: #0f131c; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; font-size: 13px; color: #cbd5e1;" id="modalItemDesc">
-        Description
+      <div class="modal-section-box">
+        <div class="modal-section-title" id="modalDescTitle">📖 คำอธิบาย (Description)</div>
+        <div style="color: #cbd5e1; font-size: 13px; line-height: 1.5;" id="modalItemDesc">Description</div>
+      </div>
+      <div class="modal-section-box" id="modalBuffsSection">
+        <div class="modal-section-title" id="modalBuffsTitle">⚡ ค่าสเตตัส / บัฟพิเศษ (Stat Buffs)</div>
+        <div class="modal-buff-grid" id="modalBuffsGrid"></div>
+      </div>
+      <div class="modal-section-box" id="modalRecipeSection">
+        <div class="modal-section-title" id="modalRecipeTitle">🔨 วิธีการได้รับ / สูตรคราฟต์ (Source & Recipe)</div>
+        <div style="color: #94a3b8; font-size: 13px; line-height: 1.5;" id="modalRecipeContent">...</div>
       </div>
     </div>
   </div>
@@ -2440,7 +3707,85 @@
         youBadge: 'คุณ',
         podiumChamp: '👑 #1 CHAMPION',
         podium2nd: '🥈 #2 RUNNER UP',
-        podium3rd: '🥉 #3 THIRD PLACE'
+        podium3rd: '🥉 #3 THIRD PLACE',
+
+        // Nav & Popovers
+        btnGetScriptNav: 'รับสคริปต์',
+        btnToolsMenu: 'เครื่องมือ',
+        toolsItemAccountsTitle: 'บัญชีของฉัน',
+        toolsItemAccountsDesc: 'สลับไอดี / จัดการ Roblox Accounts',
+        toolsItemSyncTitle: 'ซิงค์ข้อมูล Real-time',
+        toolsItemSyncDesc: 'อัปเดตสถานะล่าสุดจากเซิร์ฟเวอร์',
+        toolsItemCopyTitle: 'คัดลอก Loader Script',
+        toolsItemCopyDesc: 'Loadstring สำเร็จรูปพร้อมรันใน Executor',
+        btnNavLogin: 'เข้าสู่ระบบด้วย Discord',
+        popoverLoggedInTitle: 'เข้าสู่ระบบแล้ว',
+        popoverLogoutBtn: 'ออกจากระบบ',
+
+        // Landing & Hero
+        hubPrivateBadge: '100% PRIVATE & ISOLATED CLOUD TRACKER',
+        hubLiveBadge: 'Live Tracker Online',
+        hubMainTitle: 'Anime Zero Private Cloud Tracker',
+        hubMainSubtitle: 'ระบบติดตามคลังไอเทม สถิติแมตช์ และบันทึกข้อมูลส่วนบุคคลแบบ Real-time<br>ข้อมูลทั้งหมดแยกอิสระเฉพาะบัญชี Discord ของคุณ ปลอดภัย 100% โดยไม่ต้องกรอกรหัสผ่าน',
+        hubConnectorTitle: 'Shino Services / CFame Cloud',
+        hubConnectorSubtitle: 'กดปุ่มด้านล่างเพื่ออนุญาตเชื่อมต่อบัญชี Discord<br>ระบบจะสร้างพื้นที่จัดเก็บคลังไอเทมส่วนตัวให้คุณทันที',
+        btnHubDiscordAuth: 'เข้าสู่ระบบด้วย Discord (Authorize)',
+        hubFootnote: '🔒 ไม่ต้องกรอกรหัสผ่าน Discord • ข้อมูลของคุณจะถูกแยกเป็นส่วนตัว 100%',
+
+        // Waiting Screen
+        waitBadge: '⏳ รอการเชื่อมต่อจากสคริปต์ในเกม (Awaiting In-Game Script)',
+        waitMainHeading: 'ยังไม่พบข้อมูลบัญชี Roblox',
+        waitMainDescPattern: 'คุณเข้าสู่ระบบ Discord ในชื่อ {tag} เรียบร้อยแล้ว<br>ขณะนี้ระบบยังไม่ได้รับข้อมูลจากเกม Anime Zero กรุณานำโหลดเดอร์ไปรันใน Executor เพื่อเชื่อมต่อข้อมูลคลังและสถิติเข้าสู่หน้านี้',
+        waitGetScriptBtn: 'รับสคริปต์ไปรัน (Get Script)',
+        waitStep1Title: '1. รับสคริปต์',
+        waitStep1Desc: 'กดปุ่มด้านบน ระบุชื่อเครื่อง (PC) แล้วกดคัดลอกโค้ด',
+        waitStep2Title: '2. รันในเกม',
+        waitStep2Desc: 'เปิด Roblox เกม Anime Zero วางโค้ดใน Executor แล้วกด Execute',
+        waitStep3Title: '3. ซิงค์อัตโนมัติ',
+        waitStep3Desc: 'หน้านี้จะตรวจจับและสลับเป็น Dashboard ของคุณทันทีแบบเรียลไทม์',
+        statusWaitingScript: '⏳ รอสคริปต์ในเกม',
+
+        // Discord OAuth Modal
+        discordModalSubtitle: 'ต้องการเข้าถึงบัญชี Discord ของคุณ',
+        discordLoginAsPrefix: 'ลงชื่อเข้าใช้เป็น',
+        btnDiscordSwitchUser: 'ไม่ใช่คุณหรือ?',
+        discordScopeHeader: 'นี่จะเป็นการอนุญาตให้ผู้พัฒนาจาก Shino Services ทำสิ่งเหล่านี้:',
+        discordScopeItem1: 'เข้าถึงชื่อผู้ใช้ สัญลักษณ์ประจำตัว และแบนเนอร์ของคุณ',
+        discordScopeItem2: 'เลี้ยงดินเนอร์อาหารทะเลสุดหรูคุณสักมื้อ',
+        discordRedirectNotice: 'เมื่อยืนยันสิทธิ์แล้ว ระบบจะพาคุณไปนอก Discord ที่:',
+        discordPrivacyNotice: 'นโยบายความเป็นส่วนตัวและเงื่อนไขการให้บริการของผู้พัฒนา Shino Services มีผลกับแอปพลิเคชันนี้',
+        discordDateNotice: 'ใช้งานตั้งแต่ 12 ม.ค. 2569',
+        discordBotNotice: 'แอปพลิเคชันนี้ไม่สามารถอ่านข้อความของคุณหรือส่งข้อความแทนคุณได้',
+        btnDiscordCancel: 'ยกเลิก',
+        btnConfirmDiscordAuth: 'อนุญาต',
+
+        // My Accounts Modal
+        modalMyAccountsTitle: 'จัดการบัญชี Roblox (My Accounts)',
+        modalApiKeyTitleText: '🔑 In-Game API Key ของคุณ',
+        btnModalCopyKey: '📋 คัดลอก Key',
+        modalAltInputPh: 'พิมพ์ชื่อ Roblox Username หรือ User ID ของไอดีรอง...',
+        btnLinkRoblox: '+ เชื่อมต่อไอดี',
+        modalLinkedAccountsHeader: 'ไอดี Roblox ที่เชื่อมต่อกับ Discord ของคุณ',
+        modalAccountsFootnote: 'ข้อมูลทุกไอดีถูกแยกเป็นส่วนตัว 100%',
+        btnModalLogout: '🚪 ออกจากระบบ Discord',
+        modalActiveAccount: '✓ กำลังใช้งาน',
+        modalSwitchAccount: 'สลับดูไอดีนี้',
+        modalNoLinkedRoblox: 'ยังไม่มีไอดี Roblox ที่เชื่อมต่อ<br>พิมพ์ชื่อ Username ด้านบนเพื่อเชื่อมต่อไอดีแรกของคุณ',
+        modalLinkedCountPattern: '{count} บัญชี',
+
+        // Get Script Modal
+        modalGetScriptTitle: 'รับสคริปต์',
+        modalGetScriptSubtitle: 'โหลดเดอร์สำหรับรันบน Executor ของคุณ',
+        modalPcNameLabelText: 'ชื่อเครื่อง (PC)',
+        modalPcWarnText: 'ต้องมีอย่างน้อย 4 ตัวอักษร (ภาษาอังกฤษเท่านั้น)',
+        modalScriptHeaderTitle: 'สคริปต์',
+        btnModalCloseScript: 'ปิด',
+        btnModalCopyScriptText: 'คัดลอก',
+        toastCopiedScript: 'คัดลอกสคริปต์ Loader เรียบร้อยแล้ว!',
+        modalDescTitle: '📖 ข้อมูลไอเทม (Description)',
+        modalBuffsTitle: '⚡ สเตตัสและบัฟพิเศษ (Stat Buffs)',
+        modalRecipeTitle: '🔨 วิธีการได้รับ / สูตรคราฟต์ (Source & Recipe)',
+        modalNoBuffsText: 'ไม่มีค่าสเตตัสสวมใส่ (ไอเทมประเภทวัตถุดิบ/อาหาร)'
       },
       en: {
         code: 'EN',
@@ -2527,9 +3872,132 @@
         youBadge: 'YOU',
         podiumChamp: '👑 #1 CHAMPION',
         podium2nd: '🥈 #2 RUNNER UP',
-        podium3rd: '🥉 #3 THIRD PLACE'
+        podium3rd: '🥉 #3 THIRD PLACE',
+
+        // Nav & Popovers
+        btnGetScriptNav: 'Get Script',
+        btnToolsMenu: 'Tools',
+        toolsItemAccountsTitle: 'My Accounts',
+        toolsItemAccountsDesc: 'Switch Accounts / Manage Roblox IDs',
+        toolsItemSyncTitle: 'Real-Time Sync',
+        toolsItemSyncDesc: 'Fetch latest status from server',
+        toolsItemCopyTitle: 'Copy Loader Script',
+        toolsItemCopyDesc: 'Ready-to-run Loadstring for Executor',
+        btnNavLogin: 'Login with Discord',
+        popoverLoggedInTitle: 'Logged In As',
+        popoverLogoutBtn: 'Sign Out',
+
+        // Landing & Hero
+        hubPrivateBadge: '100% PRIVATE & ISOLATED CLOUD TRACKER',
+        hubLiveBadge: 'Live Tracker Online',
+        hubMainTitle: 'Anime Zero Private Cloud Tracker',
+        hubMainSubtitle: 'Real-time tracker for inventory items, match logs, and player stats.<br>100% private and isolated to your Discord account without requiring your password.',
+        hubConnectorTitle: 'Shino Services / CFame Cloud',
+        hubConnectorSubtitle: 'Click below to authorize your Discord account.<br>Your private cloud storage will be prepared instantly.',
+        btnHubDiscordAuth: 'Authorize with Discord',
+        hubFootnote: '🔒 No Discord password required • Your data is 100% private & isolated',
+
+        // Waiting Screen
+        waitBadge: '⏳ Awaiting In-Game Script Connection',
+        waitMainHeading: 'No Roblox Account Connected Yet',
+        waitMainDescPattern: 'You are logged in with Discord as {tag}.<br>The system has not received data from Anime Zero yet. Please run the loader script in your Executor to connect.',
+        waitGetScriptBtn: 'Get Script',
+        waitStep1Title: '1. Get Script',
+        waitStep1Desc: 'Click the button above, enter your PC name, and copy the loader code',
+        waitStep2Title: '2. Run In-Game',
+        waitStep2Desc: 'Open Anime Zero on Roblox, paste code into your Executor and execute',
+        waitStep3Title: '3. Auto-Sync',
+        waitStep3Desc: 'This dashboard will automatically detect your session and switch live',
+        statusWaitingScript: '⏳ Waiting for Script',
+
+        // Discord OAuth Modal
+        discordModalSubtitle: 'wants to access your Discord account',
+        discordLoginAsPrefix: 'Signed in as',
+        btnDiscordSwitchUser: 'Not you?',
+        discordScopeHeader: 'This will allow developer from Shino Services to:',
+        discordScopeItem1: 'Access your username, avatar, and banner',
+        discordScopeItem2: 'Buy you a fancy seafood dinner',
+        discordRedirectNotice: 'Once authorized, you will be redirected outside of Discord to:',
+        discordPrivacyNotice: "Shino Services's Privacy Policy and Terms of Service apply to this application",
+        discordDateNotice: 'Active since Jan 12, 2026',
+        discordBotNotice: 'This application cannot read your messages or send messages on your behalf',
+        btnDiscordCancel: 'Cancel',
+        btnConfirmDiscordAuth: 'Authorize',
+
+        // My Accounts Modal
+        modalMyAccountsTitle: 'Manage Roblox Accounts (My Accounts)',
+        modalApiKeyTitleText: '🔑 Your In-Game API Key',
+        btnModalCopyKey: '📋 Copy Key',
+        modalAltInputPh: 'Enter Roblox Username or User ID...',
+        btnLinkRoblox: '+ Link Account',
+        modalLinkedAccountsHeader: 'Roblox Accounts linked to your Discord',
+        modalAccountsFootnote: 'All account data is 100% private & isolated',
+        btnModalLogout: '🚪 Sign out from Discord',
+        modalActiveAccount: '✓ Active',
+        modalSwitchAccount: 'Switch to this account',
+        modalNoLinkedRoblox: 'No linked Roblox accounts yet.<br>Type your Roblox Username above to link your first account.',
+        modalLinkedCountPattern: '{count} Accounts',
+
+        // Get Script Modal
+        modalGetScriptTitle: 'Get Script',
+        modalGetScriptSubtitle: 'Loader script to run on your Executor',
+        modalPcNameLabelText: 'Device Name (PC)',
+        modalPcWarnText: 'Must be at least 4 characters (English letters only)',
+        modalScriptHeaderTitle: 'Script',
+        btnModalCloseScript: 'Close',
+        btnModalCopyScriptText: 'Copy',
+        toastCopiedScript: 'Loader script copied to clipboard!',
+        modalDescTitle: '📖 Item Information',
+        modalBuffsTitle: '⚡ Stat Buffs & Attributes',
+        modalRecipeTitle: '🔨 Crafting Recipe & Drop Source',
+        modalNoBuffsText: 'No equipment stat buffs (Material/Consumable item)'
       }
     };
+
+    function toggleProfilePopover(e) {
+      if (e) e.stopPropagation();
+      const m = document.getElementById('profileDropdownMenu');
+      const tm = document.getElementById('toolsDropdownMenu');
+      if (tm) tm.style.display = 'none';
+      if (m) m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function toggleToolsPopover(e) {
+      if (e) e.stopPropagation();
+      const m = document.getElementById('toolsDropdownMenu');
+      const pm = document.getElementById('profileDropdownMenu');
+      if (pm) pm.style.display = 'none';
+      if (m) m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function closeAllNavPopovers() {
+      const pm = document.getElementById('profileDropdownMenu');
+      const tm = document.getElementById('toolsDropdownMenu');
+      if (pm) pm.style.display = 'none';
+      if (tm) tm.style.display = 'none';
+    }
+    document.addEventListener('click', () => closeAllNavPopovers());
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('dashboard_lang', currentLang);
+      applyTranslations();
+      renderAll();
+    }
+
+    function copyLoaderScript() {
+      const script = 'loadstring(game:HttpGet("http://localhost:18888/tracker.luau"))()';
+      const t = I18N[currentLang] || I18N.th;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(script).then(() => {
+          showToast(t.toastCopiedScript || 'คัดลอกสคริปต์ Loader เรียบร้อยแล้ว!');
+        }).catch(() => {
+          prompt(currentLang === 'en' ? 'Copy this script into your Executor:' : 'คัดลอกสคริปต์นี้ไปรันใน Executor:', script);
+        });
+      } else {
+        prompt(currentLang === 'en' ? 'Copy this script into your Executor:' : 'คัดลอกสคริปต์นี้ไปรันใน Executor:', script);
+      }
+    }
 
     function toggleLanguage() {
       currentLang = (currentLang === 'th') ? 'en' : 'th';
@@ -2541,11 +4009,18 @@
     function applyTranslations() {
       const t = I18N[currentLang] || I18N.th;
 
-      // Header button
-      const flagEl = document.getElementById('langFlag');
-      if (flagEl) flagEl.innerText = t.flag;
-      const labelEl = document.getElementById('langLabel');
-      if (labelEl) labelEl.innerText = t.code;
+      // Segmented Switcher UI
+      const segEn = document.getElementById('langSegEn');
+      const segTh = document.getElementById('langSegTh');
+      if (segEn && segTh) {
+        if (currentLang === 'en') {
+          segEn.classList.add('active');
+          segTh.classList.remove('active');
+        } else {
+          segTh.classList.add('active');
+          segEn.classList.remove('active');
+        }
+      }
 
       // Status badge
       const botText = document.getElementById('botStatusText');
@@ -2675,6 +4150,133 @@
       if (pinInp) pinInp.placeholder = t.pinInputPh;
       const pinBtn = document.querySelector('#pinModal button');
       if (pinBtn) pinBtn.innerText = t.pinSubmitBtn;
+
+      // Nav & Popovers
+      const btnGetNav = document.getElementById('btnGetScriptNavText');
+      if (btnGetNav) btnGetNav.innerText = t.btnGetScriptNav;
+      const btnTools = document.getElementById('btnToolsMenuText');
+      if (btnTools) btnTools.innerText = t.btnToolsMenu;
+      const itmAccT = document.getElementById('toolsItemAccountsTitle');
+      if (itmAccT) itmAccT.innerText = t.toolsItemAccountsTitle;
+      const itmAccD = document.getElementById('toolsItemAccountsDesc');
+      if (itmAccD) itmAccD.innerText = t.toolsItemAccountsDesc;
+      const itmSyncT = document.getElementById('toolsItemSyncTitle');
+      if (itmSyncT) itmSyncT.innerText = t.toolsItemSyncTitle;
+      const itmSyncD = document.getElementById('toolsItemSyncDesc');
+      if (itmSyncD) itmSyncD.innerText = t.toolsItemSyncDesc;
+      const itmCopyT = document.getElementById('toolsItemCopyTitle');
+      if (itmCopyT) itmCopyT.innerText = t.toolsItemCopyTitle;
+      const itmCopyD = document.getElementById('toolsItemCopyDesc');
+      if (itmCopyD) itmCopyD.innerText = t.toolsItemCopyDesc;
+      const btnNavLog = document.getElementById('btnNavLoginText');
+      if (btnNavLog) btnNavLog.innerText = t.btnNavLogin;
+      const popLogT = document.getElementById('popoverLoggedInTitle');
+      if (popLogT) popLogT.innerText = t.popoverLoggedInTitle;
+      const popLogOut = document.getElementById('popoverLogoutBtnText');
+      if (popLogOut) popLogOut.innerText = t.popoverLogoutBtn;
+
+      // Hub & Hero
+      const hubPrivB = document.getElementById('hubPrivateBadgeText');
+      if (hubPrivB) hubPrivB.innerText = t.hubPrivateBadge;
+      const hubLiveB = document.getElementById('hubLiveBadgeText');
+      if (hubLiveB) hubLiveB.innerText = t.hubLiveBadge;
+      const hubMainT = document.getElementById('hubMainTitle');
+      if (hubMainT) hubMainT.innerText = t.hubMainTitle;
+      const hubMainS = document.getElementById('hubMainSubtitle');
+      if (hubMainS) hubMainS.innerHTML = t.hubMainSubtitle;
+      const hubConnT = document.getElementById('hubConnectorTitle');
+      if (hubConnT) hubConnT.innerText = t.hubConnectorTitle;
+      const hubConnS = document.getElementById('hubConnectorSubtitle');
+      if (hubConnS) hubConnS.innerHTML = t.hubConnectorSubtitle;
+      const btnHubAuth = document.getElementById('btnHubDiscordAuthText');
+      if (btnHubAuth) btnHubAuth.innerText = t.btnHubDiscordAuth;
+      const hubFoot = document.getElementById('hubFootnote');
+      if (hubFoot) hubFoot.innerText = t.hubFootnote;
+
+      // Waiting View
+      const waitB = document.getElementById('waitBadgeText');
+      if (waitB) waitB.innerText = t.waitBadge;
+      const waitH = document.getElementById('waitMainHeading');
+      if (waitH) waitH.innerText = t.waitMainHeading;
+      const waitDesc = document.getElementById('waitMainDesc');
+      if (waitDesc) {
+        const uTag = (state.accountUser && (state.accountUser.displayName || state.accountUser.username)) ? ('@' + (state.accountUser.displayName || state.accountUser.username)) : '@user';
+        waitDesc.innerHTML = (t.waitMainDescPattern || '').replace('{tag}', `<strong id="waitDiscordTag" style="color: #38bdf8;">${uTag}</strong>`);
+      }
+      const waitGetBtn = document.getElementById('waitGetScriptBtnText');
+      if (waitGetBtn) waitGetBtn.innerText = t.waitGetScriptBtn;
+      const s1t = document.getElementById('waitStep1Title');
+      if (s1t) s1t.innerText = t.waitStep1Title;
+      const s1d = document.getElementById('waitStep1Desc');
+      if (s1d) s1d.innerText = t.waitStep1Desc;
+      const s2t = document.getElementById('waitStep2Title');
+      if (s2t) s2t.innerText = t.waitStep2Title;
+      const s2d = document.getElementById('waitStep2Desc');
+      if (s2d) s2d.innerText = t.waitStep2Desc;
+      const s3t = document.getElementById('waitStep3Title');
+      if (s3t) s3t.innerText = t.waitStep3Title;
+      const s3d = document.getElementById('waitStep3Desc');
+      if (s3d) s3d.innerText = t.waitStep3Desc;
+
+      // Discord Modal
+      const dmSub = document.getElementById('discordModalSubtitle');
+      if (dmSub) dmSub.innerText = t.discordModalSubtitle;
+      const dmPrefix = document.getElementById('discordLoginAsPrefix');
+      if (dmPrefix) dmPrefix.innerText = t.discordLoginAsPrefix;
+      const dmSwitch = document.getElementById('btnDiscordSwitchUser');
+      if (dmSwitch) dmSwitch.innerText = t.btnDiscordSwitchUser;
+      const dmScopeH = document.getElementById('discordScopeHeader');
+      if (dmScopeH) dmScopeH.innerText = t.discordScopeHeader;
+      const dmScope1 = document.getElementById('discordScopeItem1');
+      if (dmScope1) dmScope1.innerText = t.discordScopeItem1;
+      const dmScope2 = document.getElementById('discordScopeItem2');
+      if (dmScope2) dmScope2.innerText = t.discordScopeItem2;
+      const dmRedir = document.getElementById('discordRedirectNotice');
+      if (dmRedir) dmRedir.innerText = t.discordRedirectNotice;
+      const dmPriv = document.getElementById('discordPrivacyNotice');
+      if (dmPriv) dmPriv.innerText = t.discordPrivacyNotice;
+      const dmDate = document.getElementById('discordDateNotice');
+      if (dmDate) dmDate.innerText = t.discordDateNotice;
+      const dmBot = document.getElementById('discordBotNotice');
+      if (dmBot) dmBot.innerText = t.discordBotNotice;
+      const dmCancel = document.getElementById('btnDiscordCancel');
+      if (dmCancel) dmCancel.innerText = t.btnDiscordCancel;
+      const dmAuth = document.getElementById('btnConfirmDiscordAuthText');
+      if (dmAuth) dmAuth.innerText = t.btnConfirmDiscordAuth;
+
+      // My Accounts Modal
+      const maTitle = document.getElementById('modalMyAccountsTitle');
+      if (maTitle) maTitle.innerText = t.modalMyAccountsTitle;
+      const maKeyTitle = document.getElementById('modalApiKeyTitleText');
+      if (maKeyTitle) maKeyTitle.innerText = t.modalApiKeyTitleText;
+      const maKeyBtn = document.getElementById('btnModalCopyKey');
+      if (maKeyBtn) maKeyBtn.innerText = t.btnModalCopyKey;
+      const maAltInp = document.getElementById('addAltInput');
+      if (maAltInp) maAltInp.placeholder = t.modalAltInputPh;
+      const maLinkBtn = document.getElementById('btnLinkRoblox');
+      if (maLinkBtn) maLinkBtn.innerText = t.btnLinkRoblox;
+      const maLinkedHead = document.getElementById('modalLinkedAccountsHeader');
+      if (maLinkedHead) maLinkedHead.innerText = t.modalLinkedAccountsHeader;
+      const maFoot = document.getElementById('modalAccountsFootnote');
+      if (maFoot) maFoot.innerText = t.modalAccountsFootnote;
+      const maLogout = document.getElementById('btnModalLogout');
+      if (maLogout) maLogout.innerText = t.btnModalLogout;
+
+      // Get Script Modal
+      const gsTitle = document.getElementById('modalGetScriptTitle');
+      if (gsTitle) gsTitle.innerText = t.modalGetScriptTitle;
+      const gsSub = document.getElementById('modalGetScriptSubtitle');
+      if (gsSub) gsSub.innerText = t.modalGetScriptSubtitle;
+      const gsPcLabel = document.getElementById('modalPcNameLabelText');
+      if (gsPcLabel) gsPcLabel.innerText = t.modalPcNameLabelText;
+      const gsPcWarn = document.getElementById('modalPcWarnText');
+      if (gsPcWarn) gsPcWarn.innerText = t.modalPcWarnText;
+      const gsHeader = document.getElementById('modalScriptHeaderTitle');
+      if (gsHeader) gsHeader.innerText = t.modalScriptHeaderTitle;
+      const gsClose = document.getElementById('btnModalCloseScript');
+      if (gsClose) gsClose.innerText = t.btnModalCloseScript;
+      const gsCopy = document.getElementById('btnModalCopyScriptText');
+      if (gsCopy) gsCopy.innerText = t.btnModalCopyScriptText;
     }
 
     // Real in-game icon map matching game assets 1:1
@@ -2784,15 +4386,1041 @@
       return null;
     }
 
-    // Resolve Rarity to match Ducky Host screenshot
+    // Complete Anime Zero Item Rarity Dictionary (100% Authentic Game Config)
+    const KNOWN_ITEM_RARITIES = {
+      // Materials - Common (Tier 1)
+      "fine cloth": "common",
+      "shinobi scroll": "common",
+      "zero calories flour": "common",
+      "caprese": "common",
+
+      // Materials - Epic (Tier 2)
+      "mana feather": "epic",
+      "eyeball": "epic",
+      "broken blade": "epic",
+      "shadow essence": "epic",
+      "zero calories doughnuts": "epic",
+      "zero calories donut": "epic",
+      "zero calories donuts": "epic",
+      "ham": "epic",
+
+      // Materials - Legendary (Tier 3)
+      "cursed finger": "legendary",
+      "tech component": "legendary",
+      "soul fragment": "legendary",
+      "waves core": "legendary",
+      "wave core": "legendary",
+      "igris' crest": "legendary",
+      "igris crest": "legendary",
+      "shadow's cloak": "legendary",
+      "shadows cloak": "legendary",
+      "omurice": "legendary",
+
+      // Materials - Mythic (Tier 4)
+      "suncore": "mythic",
+      "sun core": "mythic",
+      "magic pendant": "mythic",
+      "forbidden fruit": "mythic",
+      "ghost": "mythic",
+      "staff of homa": "mythic",
+      "monarch's blessing": "mythic",
+      "monarchs blessing": "mythic",
+      "burger": "mythic",
+
+      // Accessories - Common
+      "leaf shinobi headband": "common",
+      "gentleman's top hat": "common",
+      "gentlemans top hat": "common",
+      "capsule scarf": "common",
+      "8th brigade fire hat": "common",
+      "order assassin's tie": "common",
+      "order assassins tie": "common",
+
+      // Accessories - Rare
+      "sunglasses": "rare",
+      "sun glasses": "rare",
+
+      // Accessories - Epic
+      "diva headphones": "epic",
+      "wangsheng director's hat": "epic",
+      "wangsheng directors hat": "epic",
+      "strawhat captain's hat": "epic",
+      "strawhat captains hat": "epic",
+      "void hunter's eye": "epic",
+      "void hunters eye": "epic",
+      "zoldyck collar": "epic",
+      "kitsune mask": "epic",
+      "panther hollow mask": "epic",
+
+      // Accessories - Legendary
+      "light admiral cloak": "legendary",
+      "wind spirit wing": "legendary",
+      "wind spirit wings": "legendary",
+      "dark captain wings": "legendary",
+      "dark captain wing": "legendary",
+      "red emperor's cloak": "legendary",
+      "red emperors cloak": "legendary",
+      "cursed king's collar": "legendary",
+      "cursed kings collar": "legendary",
+      "no-life king's shades": "legendary",
+      "no life king's shades": "legendary",
+      "divine general's wheel": "legendary",
+      "divine generals wheel": "legendary",
+      "otherworld halo": "legendary",
+      "flame pirate hat": "legendary",
+
+      // Accessories - Mythic
+      "blast archer crown": "mythic",
+      "blast archer wings": "mythic",
+      "solar wings": "mythic",
+      "astral wings": "mythic",
+      "spectral wings": "mythic",
+      "shadow monarch coat": "mythic"
+    };
+
+    const KNOWN_MAT_ID_RARITIES = {
+      // Tier 1: Common
+      "101": "common", "102": "common", "117": "common", "121": "common",
+      // Tier 2: Epic
+      "103": "epic", "106": "epic", "107": "epic", "115": "epic", "118": "epic", "122": "epic",
+      // Tier 3: Legendary
+      "104": "legendary", "105": "legendary", "108": "legendary", "112": "legendary", "116": "legendary", "119": "legendary", "123": "legendary",
+      // Tier 4: Mythic
+      "109": "mythic", "110": "mythic", "111": "mythic", "113": "mythic", "114": "mythic", "120": "mythic", "124": "mythic"
+    };
+
+    const KNOWN_ACC_ID_RARITIES = {
+      // Common
+      "101": "common", "102": "common", "103": "common", "104": "common", "124": "common",
+      // Rare
+      "105": "rare",
+      // Epic
+      "106": "epic", "107": "epic", "108": "epic", "118": "epic", "120": "epic", "125": "epic", "126": "epic",
+      // Legendary
+      "109": "legendary", "110": "legendary", "111": "legendary", "112": "legendary", "121": "legendary", "122": "legendary", "123": "legendary", "127": "legendary", "128": "legendary",
+      // Mythic
+      "113": "mythic", "114": "mythic", "115": "mythic", "116": "mythic", "117": "mythic", "119": "mythic"
+    };
+
+    // Authentic Anime Zero Item Database (Slots, Stat Buffs, Forger Crafting Recipes, Drop Sources)
+    const ANIME_ZERO_ITEM_DB = {
+      // ACCESSORIES
+      "blast archer crown": {
+        id: "113",
+        category: "ACCESSORY",
+        rarity: "mythic",
+        slot: "Head",
+        slotTh: "ศีรษะ (Head)",
+        buffs: [
+          { name: "Damage", val: "+20%" },
+          { name: "HP", val: "+12%" },
+          { name: "Drop Rate", val: "+7%" },
+          { name: "CDR", val: "+7%" }
+        ],
+        recipe: "60x Broken Blade, 8x SunCore, 8x Magic Pendant, 8x Forbidden Fruit",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 60x Broken Blade, 8x SunCore, 8x Magic Pendant, 8x Forbidden Fruit",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "มงกุฎนักธนูระเบิด เพิ่มพลังโจมตีมหาศาล +20% เลือด +12% อัตราดรอป +7% และลดคูลดาวน์สกิล 7%",
+        descEn: "Blast Archer Crown: Greatly boosts Damage (+20%), HP (+12%), Drop Rate (+7%), and CDR (+7%)."
+      },
+      "blast archer wings": {
+        id: "114",
+        category: "ACCESSORY",
+        rarity: "mythic",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+16%" },
+          { name: "HP", val: "+14%" },
+          { name: "Coins", val: "+10%" },
+          { name: "EXP", val: "+10%" },
+          { name: "Drop Rate", val: "+10%" },
+          { name: "CDR", val: "+5%" }
+        ],
+        recipe: "80x Mana Feather, 10x SunCore, 10x Magic Pendant, 10x Forbidden Fruit",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 80x Mana Feather, 10x SunCore, 10x Magic Pendant, 10x Forbidden Fruit",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ปีกนักธนูระเบิด เพิ่มพลังโจมตี +16% เลือด +14% เงิน +10% ค่า EXP +10% อัตราดรอป +10% และลดคูลดาวน์ 5%",
+        descEn: "Blast Archer Wings: Boosts Damage (+16%), HP (+14%), Coins (+10%), EXP (+10%), Drop Rate (+10%), and CDR (+5%)."
+      },
+      "astral wings": {
+        id: "116",
+        category: "ACCESSORY",
+        rarity: "mythic",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+14%" },
+          { name: "HP", val: "+10%" },
+          { name: "Coins", val: "+6%" },
+          { name: "EXP", val: "+6%" },
+          { name: "Drop Rate", val: "+6%" },
+          { name: "CDR", val: "+4%" }
+        ],
+        recipe: "70x Mana Feather, 16x Soul Fragment, 8x Magic Pendant, 8x Forbidden Fruit",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 70x Mana Feather, 16x Soul Fragment, 8x Magic Pendant, 8x Forbidden Fruit",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ปีกแห่งดวงดาว ส่องประกายพลังจักรวาล เพิ่มความเสียหายและอัตราฟาร์มทุกด้านอย่างสมดุล",
+        descEn: "Astral Wings: Cosmic wings increasing Damage (+14%), HP (+10%), EXP, Coins, and Drop Rate."
+      },
+      "spectral wings": {
+        id: "117",
+        category: "ACCESSORY",
+        rarity: "mythic",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+14%" },
+          { name: "HP", val: "+10%" },
+          { name: "Coins", val: "+6%" },
+          { name: "EXP", val: "+6%" },
+          { name: "Drop Rate", val: "+6%" },
+          { name: "CDR", val: "+4%" }
+        ],
+        recipe: "70x Mana Feather, 16x Broken Blade, 8x SunCore, 8x Forbidden Fruit",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 70x Mana Feather, 16x Broken Blade, 8x SunCore, 8x Forbidden Fruit",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ปีกวิญญาณสเปกตรัม ปลดปล่อยพลังวิญญาณโบราณ เพิ่มสเตตัสการต่อสู้ ดาเมจ เลือด และอัตราดรอป",
+        descEn: "Spectral Wings: Ethereal wings enhancing combat stats, Drop Rate (+6%), and CDR (+4%)."
+      },
+      "solar wings": {
+        id: "115",
+        category: "ACCESSORY",
+        rarity: "mythic",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+14%" },
+          { name: "HP", val: "+10%" },
+          { name: "Drop Rate", val: "+6%" },
+          { name: "CDR", val: "+4%" }
+        ],
+        recipe: "70x Mana Feather, 16x Soul Fragment, 8x SunCore, 8x Forbidden Fruit",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 70x Mana Feather, 16x Soul Fragment, 8x SunCore, 8x Forbidden Fruit",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ปีกสุริยัน แผ่รังสีเพลิงสุริยะ เพิ่มดาเมจ +14% เลือด +10% ดรอปเรท +6% และลดคูลดาวน์ 4%",
+        descEn: "Solar Wings: Solar radiant wings increasing Damage (+14%), HP (+10%), Drop Rate (+6%), and CDR (+4%)."
+      },
+      "shadow monarch coat": {
+        id: "119",
+        category: "ACCESSORY",
+        rarity: "mythic",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+17%" },
+          { name: "HP", val: "+12%" },
+          { name: "EXP", val: "+8%" },
+          { name: "Drop Rate", val: "+6%" },
+          { name: "CDR", val: "+6%" }
+        ],
+        recipe: "70x Broken Blade, 16x Soul Fragment, 10x SunCore, 10x Magic Pendant",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 70x Broken Blade, 16x Soul Fragment, 10x SunCore, 10x Magic Pendant",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "เสื้อโค้ตราชันเงา พลังแห่งจอมเงาเพิ่มความเสียหาย +17% เลือด +12% EXP +8% ดรอปเรท +6% และลดคูลดาวน์ 6%",
+        descEn: "Shadow Monarch Coat: Robe of the Shadow Monarch boosting Damage +17%, HP +12%, and CDR +6%."
+      },
+      "dark captain wings": {
+        id: "111",
+        category: "ACCESSORY",
+        rarity: "legendary",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+17%" },
+          { name: "HP", val: "+10%" },
+          { name: "CDR", val: "+6%" }
+        ],
+        recipe: "16x Mana Feather, 16x Broken Blade, 6x Cursed Finger, 6x Soul Fragment",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 16x Mana Feather, 16x Broken Blade, 6x Cursed Finger, 6x Soul Fragment",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ปีกกัปตันแห่งความมืด เพิ่มดาเมจรุนแรง +17% เลือด +10% และลดคูลดาวน์ 6%",
+        descEn: "Dark Captain Wings: Dark winged cloak providing +17% Damage, +10% HP, and +6% CDR."
+      },
+      "flame pirate hat": {
+        id: "128",
+        category: "ACCESSORY",
+        rarity: "legendary",
+        slot: "Head",
+        slotTh: "ศีรษะ (Head)",
+        buffs: [
+          { name: "Damage", val: "+11%" },
+          { name: "Coins", val: "+10%" },
+          { name: "EXP", val: "+8%" },
+          { name: "Drop Rate", val: "+10%" }
+        ],
+        recipe: "70x Fine Cloth, 14x Tech Component, 6x SunCore, 6x Forbidden Fruit",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 70x Fine Cloth, 14x Tech Component, 6x SunCore, 6x Forbidden Fruit",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "หมวกโจรสลัดเพลิง เพิ่มดาเมจ +11% พร้อมโบนัสฟาร์มเงิน เลเวล และดรอปเรทอย่างละ 8-10%",
+        descEn: "Flame Pirate Hat: Fiery pirate hat granting +11% Damage, +10% Coins, and +10% Drop Rate."
+      },
+      "wind spirit wing": {
+        id: "110",
+        category: "ACCESSORY",
+        rarity: "legendary",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+12%" },
+          { name: "EXP", val: "+8%" },
+          { name: "CDR", val: "+5%" },
+          { name: "Walk Speed", val: "+4" }
+        ],
+        recipe: "40x Mana Feather, 12x Soul Fragment, 12x Waves Core, 6x Magic Pendant",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 40x Mana Feather, 12x Soul Fragment, 12x Waves Core, 6x Magic Pendant",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ปีกจิตวิญญาณแห่งสายลม เพิ่มความเร็วเดิน +4 ดาเมจ +12% EXP +8% และลดคูลดาวน์ 5%",
+        descEn: "Wind Spirit Wing: Grants swift movement (+4 Walk Speed), +12% Damage, and +5% CDR."
+      },
+      "light admiral cloak": {
+        id: "109",
+        category: "ACCESSORY",
+        rarity: "legendary",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+14%" },
+          { name: "EXP", val: "+8%" },
+          { name: "Drop Rate", val: "+5%" },
+          { name: "Walk Speed", val: "+3" }
+        ],
+        recipe: "60x Fine Cloth, 12x Waves Core, 5x SunCore, 5x Forbidden Fruit",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 60x Fine Cloth, 12x Waves Core, 5x SunCore, 5x Forbidden Fruit",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ผ้าคลุมพลเรือเอกแห่งแสง เพิ่มความเร็วเดิน +3 ดาเมจ +14% EXP +8% และดรอปเรท +5%",
+        descEn: "Light Admiral Cloak: Admiral cloak granting +14% Damage, +8% EXP, and +3 Walk Speed."
+      },
+      "cursed king's collar": {
+        id: "121",
+        category: "ACCESSORY",
+        rarity: "legendary",
+        slot: "Neck",
+        slotTh: "สร้อยคอ (Neck)",
+        buffs: [
+          { name: "Damage", val: "+10%" },
+          { name: "HP", val: "+8%" },
+          { name: "EXP", val: "+6%" },
+          { name: "CDR", val: "+4%" }
+        ],
+        recipe: "18x Broken Blade, 14x Cursed Finger, 8x Soul Fragment, 5x Magic Pendant",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 18x Broken Blade, 14x Cursed Finger, 8x Soul Fragment, 5x Magic Pendant",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ปลอกคอราชาต้องสาป เสริมพลังคำสาปโบราณ เพิ่มดาเมจ +10% เลือด +8% EXP +6% และลดคูลดาวน์ 4%",
+        descEn: "Cursed King's Collar: Relic of cursed energy granting +10% Damage, +8% HP, and +4% CDR."
+      },
+      "divine general's wheel": {
+        id: "123",
+        category: "ACCESSORY",
+        rarity: "legendary",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+13%" },
+          { name: "HP", val: "+10%" },
+          { name: "CDR", val: "+6%" }
+        ],
+        recipe: "30x Broken Blade, 16x Cursed Finger, 12x Soul Fragment, 6x Magic Pendant",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 30x Broken Blade, 16x Cursed Finger, 12x Soul Fragment, 6x Magic Pendant",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "กงล้อแม่ทัพสวรรค์ เสริมพลังปรับสภาพการต่อสู้ เพิ่มดาเมจ +13% เลือด +10% และลดคูลดาวน์ 6%",
+        descEn: "Divine General's Wheel: Sacred wheel providing +13% Damage, +10% HP, and +6% CDR."
+      },
+      "otherworld halo": {
+        id: "127",
+        category: "ACCESSORY",
+        rarity: "legendary",
+        slot: "Head",
+        slotTh: "ศีรษะ (Head)",
+        buffs: [
+          { name: "Damage", val: "+12%" },
+          { name: "HP", val: "+6%" },
+          { name: "EXP", val: "+10%" },
+          { name: "CDR", val: "+5%" }
+        ],
+        recipe: "40x Mana Feather, 8x Tech Component, 12x Soul Fragment, 6x SunCore",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 40x Mana Feather, 8x Tech Component, 12x Soul Fragment, 6x SunCore",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "วงแหวนต่างโลก เพิ่ม EXP +10% ดาเมจ +12% เลือด +6% และลดคูลดาวน์ 5%",
+        descEn: "Otherworld Halo: Heavenly halo granting +12% Damage, +10% EXP, and +5% CDR."
+      },
+      "no-life king's shades": {
+        id: "122",
+        category: "ACCESSORY",
+        rarity: "legendary",
+        slot: "Face",
+        slotTh: "ใบหน้า (Face)",
+        buffs: [
+          { name: "Damage", val: "+12%" },
+          { name: "HP", val: "+12%" },
+          { name: "Crit Chance", val: "+4%" },
+          { name: "Drop Rate", val: "+5%" }
+        ],
+        recipe: "30x Eyeball, 8x Cursed Finger, 12x Soul Fragment, 6x Magic Pendant",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 30x Eyeball, 8x Cursed Finger, 12x Soul Fragment, 6x Magic Pendant",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "แว่นตาราชาแวมไพร์ เพิ่มดาเมจ +12% เลือด +12% โอกาสคริติคอล +4% และอัตราดรอป +5%",
+        descEn: "No-Life King's Shades: Vampire lord shades giving +12% Damage, +12% HP, and +4% Crit."
+      },
+      "red emperor's cloak": {
+        id: "112",
+        category: "ACCESSORY",
+        rarity: "legendary",
+        slot: "Back",
+        slotTh: "หลัง (Back)",
+        buffs: [
+          { name: "Damage", val: "+14%" },
+          { name: "HP", val: "+10%" },
+          { name: "Coins", val: "+8%" },
+          { name: "Drop Rate", val: "+5%" }
+        ],
+        recipe: "60x Fine Cloth, 10x Broken Blade, 12x Waves Core, 6x Forbidden Fruit",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 60x Fine Cloth, 10x Broken Blade, 12x Waves Core, 6x Forbidden Fruit",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ผ้าคลุมจักรพรรดิแดง เพิ่มดาเมจ +14% เลือด +10% เงิน +8% และดรอปเรท +5%",
+        descEn: "Red Emperor's Cloak: Crimson cloak granting +14% Damage, +10% HP, and +8% Coins."
+      },
+      "panther hollow mask": {
+        id: "126",
+        category: "ACCESSORY",
+        rarity: "epic",
+        slot: "Face",
+        slotTh: "ใบหน้า (Face)",
+        buffs: [
+          { name: "Damage", val: "+12%" },
+          { name: "HP", val: "+10%" },
+          { name: "Drop Rate", val: "+4%" }
+        ],
+        recipe: "24x Eyeball, 8x Cursed Finger, 8x Soul Fragment",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 24x Eyeball, 8x Cursed Finger, 8x Soul Fragment",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "หน้ากากฮอลโลว์เสือดำ เพิ่มดาเมจ +12% เลือด +10% และอัตราดรอป +4%",
+        descEn: "Panther Hollow Mask: Hollow mask providing +12% Damage, +10% HP, and +4% Drop Rate."
+      },
+      "kitsune mask": {
+        id: "125",
+        category: "ACCESSORY",
+        rarity: "epic",
+        slot: "Face",
+        slotTh: "ใบหน้า (Face)",
+        buffs: [
+          { name: "Damage", val: "+8%" },
+          { name: "HP", val: "+8%" },
+          { name: "EXP", val: "+6%" },
+          { name: "CDR", val: "+2%" }
+        ],
+        recipe: "18x Eyeball, 12x Shinobi Scroll, 6x Cursed Finger",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 18x Eyeball, 12x Shinobi Scroll, 6x Cursed Finger",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "หน้ากากจิ้งจอกคิทสึเนะ เพิ่มดาเมจ +8% เลือด +8% EXP +6% และลดคูลดาวน์ 2%",
+        descEn: "Kitsune Mask: Fox spirit mask giving +8% Damage, +8% HP, and +6% EXP."
+      },
+      "diva headphones": {
+        id: "106",
+        category: "ACCESSORY",
+        rarity: "epic",
+        slot: "Head",
+        slotTh: "ศีรษะ (Head)",
+        buffs: [
+          { name: "Damage", val: "+6%" },
+          { name: "Coins", val: "+7%" },
+          { name: "EXP", val: "+8%" },
+          { name: "Drop Rate", val: "+4%" }
+        ],
+        recipe: "30x Fine Cloth, 20x Broken Blade, 8x Tech Component",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 30x Fine Cloth, 20x Broken Blade, 8x Tech Component",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "หูฟังดีว่า เพิ่ม EXP +8% เงิน +7% ดาเมจ +6% และอัตราดรอป +4%",
+        descEn: "Diva Headphones: Acoustic headset giving +8% EXP, +7% Coins, and +4% Drop Rate."
+      },
+      "wangsheng director's hat": {
+        id: "107",
+        category: "ACCESSORY",
+        rarity: "epic",
+        slot: "Head",
+        slotTh: "ศีรษะ (Head)",
+        buffs: [
+          { name: "Damage", val: "+8%" },
+          { name: "HP", val: "+8%" },
+          { name: "Coins", val: "+6%" },
+          { name: "EXP", val: "+4%" }
+        ],
+        recipe: "24x Fine Cloth, 12x Eyeball, 6x Soul Fragment",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 24x Fine Cloth, 12x Eyeball, 6x Soul Fragment",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "หมวกผู้อำนวยการวังเซิง เพิ่มดาเมจ +8% เลือด +8% เงิน +6% และ EXP +4%",
+        descEn: "Wangsheng Director's Hat: Funeral parlor hat providing +8% Damage and +8% HP."
+      },
+      "strawhat captain's hat": {
+        id: "108",
+        category: "ACCESSORY",
+        rarity: "epic",
+        slot: "Head",
+        slotTh: "ศีรษะ (Head)",
+        buffs: [
+          { name: "Damage", val: "+6%" },
+          { name: "HP", val: "+10%" },
+          { name: "EXP", val: "+6%" },
+          { name: "Drop Rate", val: "+4%" }
+        ],
+        recipe: "28x Fine Cloth, 16x Mana Feather, 6x SunCore",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 28x Fine Cloth, 16x Mana Feather, 6x SunCore",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "หมวกฟางกัปตัน เพิ่มเลือด +10% ดาเมจ +6% EXP +6% และอัตราดรอป +4%",
+        descEn: "Strawhat Captain's Hat: Iconic straw hat giving +10% HP, +6% Damage, and +6% EXP."
+      },
+      "void hunter's eye": {
+        id: "118",
+        category: "ACCESSORY",
+        rarity: "epic",
+        slot: "Face",
+        slotTh: "ใบหน้า (Face)",
+        buffs: [
+          { name: "Damage", val: "+7%" },
+          { name: "Crit Chance", val: "+6%" },
+          { name: "EXP", val: "+5%" },
+          { name: "CDR", val: "+3%" }
+        ],
+        recipe: "20x Eyeball, 12x Shinobi Scroll, 6x Soul Fragment",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 20x Eyeball, 12x Shinobi Scroll, 6x Soul Fragment",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ดวงตานักล่าวอยด์ เพิ่มโอกาสคริติคอล +6% ดาเมจ +7% EXP +5% และลดคูลดาวน์ 3%",
+        descEn: "Void Hunter's Eye: Void optic increasing Crit Chance +6%, Damage +7%, and CDR."
+      },
+      "zoldyck collar": {
+        id: "120",
+        category: "ACCESSORY",
+        rarity: "epic",
+        slot: "Neck",
+        slotTh: "สร้อยคอ (Neck)",
+        buffs: [
+          { name: "Damage", val: "+6%" },
+          { name: "EXP", val: "+6%" },
+          { name: "CDR", val: "+3%" },
+          { name: "Walk Speed", val: "+2" }
+        ],
+        recipe: "14x Broken Blade, 14x Shinobi Scroll, 6x Tech Component",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 14x Broken Blade, 14x Shinobi Scroll, 6x Tech Component",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ปลอกคอนักฆ่าตระกูลโซลดิ๊ก เพิ่มความเร็วเดิน +2 ดาเมจ +6% EXP +6% และลดคูลดาวน์ 3%",
+        descEn: "Zoldyck Collar: Assassin choker providing +2 Walk Speed, +6% Damage, and +3% CDR."
+      },
+      "sunglasses": {
+        id: "105",
+        category: "ACCESSORY",
+        rarity: "rare",
+        slot: "Face",
+        slotTh: "ใบหน้า (Face)",
+        buffs: [
+          { name: "Crit Chance", val: "+11%" },
+          { name: "Damage", val: "+3%" },
+          { name: "HP", val: "+4%" },
+          { name: "Coins", val: "+5%" },
+          { name: "Walk Speed", val: "+1" }
+        ],
+        recipe: "20x Fine Cloth, 8x Eyeball",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 20x Fine Cloth, 8x Eyeball",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "แว่นกันแดดสุดเท่ เพิ่มโอกาสคริติคอลสูงถึง +11% พร้อมดาเมจ เลือด เงิน และความเร็ว",
+        descEn: "Sunglasses: Cool shades offering a massive +11% Crit Chance and utility buffs."
+      },
+      "leaf shinobi headband": {
+        id: "101",
+        category: "ACCESSORY",
+        rarity: "common",
+        slot: "Head",
+        slotTh: "ศีรษะ (Head)",
+        buffs: [
+          { name: "Damage", val: "+5%" },
+          { name: "EXP", val: "+5%" },
+          { name: "Walk Speed", val: "+2" }
+        ],
+        recipe: "12x Fine Cloth, 5x Shinobi Scroll",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 12x Fine Cloth, 5x Shinobi Scroll",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ที่คาดหน้านินจาหมู่บ้านโคโนฮะ เพิ่มความเร็วเดิน +2 ดาเมจ +5% และ EXP +5%",
+        descEn: "Leaf Shinobi Headband: Ninja headband granting +5% Damage, +5% EXP, and +2 Walk Speed."
+      },
+      "gentleman's top hat": {
+        id: "102",
+        category: "ACCESSORY",
+        rarity: "common",
+        slot: "Head",
+        slotTh: "ศีรษะ (Head)",
+        buffs: [
+          { name: "Damage", val: "+3%" },
+          { name: "EXP", val: "+5%" },
+          { name: "Walk Speed", val: "+2" }
+        ],
+        recipe: "8x Fine Cloth",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 8x Fine Cloth",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "หมวกทรงสูงสุภาพบุรุษ เพิ่มความเร็วเดิน +2 ดาเมจ +3% และ EXP +5%",
+        descEn: "Gentleman's Top Hat: Dapper hat providing +3% Damage, +5% EXP, and +2 Walk Speed."
+      },
+      "capsule scarf": {
+        id: "103",
+        category: "ACCESSORY",
+        rarity: "common",
+        slot: "Neck",
+        slotTh: "สร้อยคอ (Neck)",
+        buffs: [
+          { name: "Damage", val: "+4%" },
+          { name: "Coins", val: "+5%" },
+          { name: "EXP", val: "+7%" },
+          { name: "Walk Speed", val: "+1" }
+        ],
+        recipe: "16x Fine Cloth, 6x Shinobi Scroll",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 16x Fine Cloth, 6x Shinobi Scroll",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "ผ้าพันคอแคปซูล เพิ่ม EXP +7% เงิน +5% ดาเมจ +4% และความเร็วเดิน +1",
+        descEn: "Capsule Scarf: Stylish warm scarf giving +7% EXP, +5% Coins, and +1 Walk Speed."
+      },
+      "8th brigade fire hat": {
+        id: "104",
+        category: "ACCESSORY",
+        rarity: "common",
+        slot: "Head",
+        slotTh: "ศีรษะ (Head)",
+        buffs: [
+          { name: "Damage", val: "+7%" },
+          { name: "HP", val: "+6%" },
+          { name: "CDR", val: "+2%" }
+        ],
+        recipe: "20x Fine Cloth, 8x Shinobi Scroll",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 20x Fine Cloth, 8x Shinobi Scroll",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "หมวกนักดับเพลิงหน่วยที่ 8 เพิ่มดาเมจ +7% เลือด +6% และลดคูลดาวน์ 2%",
+        descEn: "8th Brigade Fire Hat: Fireforce helmet providing +7% Damage, +6% HP, and +2% CDR."
+      },
+      "order assassin's tie": {
+        id: "124",
+        category: "ACCESSORY",
+        rarity: "common",
+        slot: "Neck",
+        slotTh: "สร้อยคอ (Neck)",
+        buffs: [
+          { name: "Damage", val: "+5%" },
+          { name: "Crit Chance", val: "+3%" },
+          { name: "Walk Speed", val: "+2" }
+        ],
+        recipe: "14x Fine Cloth, 6x Shinobi Scroll",
+        recipeTh: "ช่างตีเหล็ก Yugi the Forger: 14x Fine Cloth, 6x Shinobi Scroll",
+        source: "Yugi the Forger (Crafting)",
+        sourceTh: "คราฟต์ที่ช่างตีเหล็ก Yugi the Forger",
+        descTh: "เนกไทนักฆ่าแห่งออร์เดอร์ เพิ่มโอกาสคริ +3% ดาเมจ +5% และความเร็วเดิน +2",
+        descEn: "Order Assassin's Tie: Formal assassin tie granting +5% Damage and +3% Crit Chance."
+      },
+
+      // MATERIALS
+      "suncore": {
+        id: "109",
+        category: "MATERIAL",
+        rarity: "mythic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Demon Slayer / Solar Dungeons / Infinite Castle Boss Drop",
+        recipeTh: "ดรอปจากบอส Demon Slayer / ดันเจี้ยนสุริยัน / ปราสาทไร้ขอบเขต",
+        source: "Demon Slayer Infinity Castle Boss Drop",
+        sourceTh: "ดรอปจากบอส Infinite Castle และดันเจี้ยนระดับสูง",
+        descTh: "แก่นพลังสุริยัน วัตถุดิบระดับ Mythic ใช้ในการคราฟต์เครื่องประดับขั้นสูงสุด เช่น ปีกสุริยัน และ Blast Archer",
+        descEn: "SunCore: Mythic core of solar essence used to forge endgame accessories."
+      },
+      "magic pendant": {
+        id: "110",
+        category: "MATERIAL",
+        rarity: "mythic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Ancient Mage / Sorcerer Dungeons Boss Drop",
+        recipeTh: "ดรอปจากบอส Ancient Mage / ดันเจี้ยนจอมเวทโบราณ",
+        source: "Ancient Mage Boss Drop",
+        sourceTh: "ดรอปจากบอส Ancient Mage",
+        descTh: "จี้เวทมนตร์โบราณ วัตถุดิบระดับ Mythic เปี่ยมด้วยพลังเวทมนตร์ ใช้คราฟต์ Blast Archer Wings และ Astral Wings",
+        descEn: "Magic Pendant: Mythic artifact brimming with ancient sorcery used in mythic crafts."
+      },
+      "forbidden fruit": {
+        id: "111",
+        category: "MATERIAL",
+        rarity: "mythic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "God Tree / Void Raids Boss Drop",
+        recipeTh: "ดรอปจากบอส God Tree / เรดเกาะมิติว่างเปล่า",
+        source: "Void Raids Boss Drop",
+        sourceTh: "ดรอปจากเรดบอสระดับ Mythic",
+        descTh: "ผลไม้ต้องห้าม วัตถุดิบระดับ Mythic มอบพลังแห่งการกำเนิด ใช้คราฟต์ปีกระดับสูงสุดในเกม",
+        descEn: "Forbidden Fruit: Mythic mystical fruit essential for crafting top-tier wings."
+      },
+      "ghost": {
+        id: "113",
+        category: "MATERIAL",
+        rarity: "mythic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Astral Domain / Phantom Raids",
+        recipeTh: "ดรอปจาก Phantom Raids / มิติวิญญาณ",
+        source: "Phantom Raids",
+        sourceTh: "เรดวิญญาณ Phantom Raids",
+        descTh: "วิญญาณบริสุทธิ์ วัตถุดิบระดับ Mythic แฝงเร้นด้วยพลังไร้ตัวตน",
+        descEn: "Ghost: Pure ethereal entity used in secret crafting arts."
+      },
+      "staff of homa": {
+        id: "114",
+        category: "MATERIAL",
+        rarity: "mythic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Wangsheng Relics / Pyro Archon Raid",
+        recipeTh: "ดรอปจาก Pyro Archon Raid / วังเซิงโบราณ",
+        source: "Pyro Archon Raid",
+        sourceTh: "เรด Pyro Archon",
+        descTh: "หอกโฮมะโบราณ วัตถุดิบระดับ Mythic หลอมรวมเพลิงและจิตวิญญาณแห่งวังเซิง",
+        descEn: "Staff of Homa: Mythic relic channel of eternal crimson flames."
+      },
+      "monarch's blessing": {
+        id: "120",
+        category: "MATERIAL",
+        rarity: "mythic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Shadow Monarch Solo Raid Drop",
+        recipeTh: "ดรอปจาก Solo Raid ราชันเงา",
+        source: "Shadow Monarch Raid",
+        sourceTh: "เรดบอสราชันเงา",
+        descTh: "พรแห่งราชันเงา วัตถุดิบระดับ Mythic บรรจุเจตจำนงของจอมทัพเงา",
+        descEn: "Monarch's Blessing: Mythic blessing carrying the unyielding will of shadows."
+      },
+      "burger": {
+        id: "124",
+        category: "MATERIAL",
+        rarity: "mythic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Master Chef Feast / Special Event Drop",
+        recipeTh: "ได้รับจากกิจกรรมพิเศษ / รางวัลกิลด์ / มาสเตอร์เชฟ",
+        source: "Special Event / Cooking Quests",
+        sourceTh: "กิจกรรมพิเศษและเควสต์ทำอาหารระดับตำนาน",
+        descTh: "เบอร์เกอร์ในตำนาน วัตถุดิบระดับ Mythic ฟื้นฟูพลังและใช้ในการแลกเปลี่ยนลับ",
+        descEn: "Burger: Mythic legendary gourmet food prized by masters."
+      },
+      "cursed finger": {
+        id: "104",
+        category: "MATERIAL",
+        rarity: "legendary",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Jujutsu High / Special Grade Curse Boss Drop",
+        recipeTh: "ดรอปจากคำสาประดับพิเศษ ในดันเจี้ยน Jujutsu",
+        source: "Special Grade Curse Boss",
+        sourceTh: "บอสคำสาประดับพิเศษ",
+        descTh: "นิ้วต้องสาป วัตถุดิบระดับ Legendary เต็มไปด้วยพลังไสยเวท ใช้คราฟต์ Dark Captain Wings และ Cursed Collar",
+        descEn: "Cursed Finger: Legendary talisman of immense cursed energy."
+      },
+      "tech component": {
+        id: "105",
+        category: "MATERIAL",
+        rarity: "legendary",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Cyber City / Mech Boss Drop",
+        recipeTh: "ดรอปจากบอสไซเบอร์ Mech และดันเจี้ยน Cyber City",
+        source: "Mech Boss Drop",
+        sourceTh: "บอสหุ่นยนต์ไซเบอร์",
+        descTh: "ชิ้นส่วนเทคโนโลยี วัตถุดิบระดับ Legendary ใช้สร้างอุปกรณ์ล้ำยุคและ Flame Pirate Hat",
+        descEn: "Tech Component: High-tech component essential for advanced mechanical crafting."
+      },
+      "soul fragment": {
+        id: "108",
+        category: "MATERIAL",
+        rarity: "legendary",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Hueco Mundo / Hollow Dungeons",
+        recipeTh: "ดรอปจากฮอลโลว์และดันเจี้ยน Hueco Mundo",
+        source: "Hueco Mundo Dungeons",
+        sourceTh: "ดันเจี้ยนยมทูต / ฮอลโลว์",
+        descTh: "เศษเสี้ยววิญญาณ วัตถุดิบระดับ Legendary สำคัญมากสำหรับการคราฟต์ปีกและอุปกรณ์ระดับสูง",
+        descEn: "Soul Fragment: Pure soul remnant required for celestial wing craft recipes."
+      },
+      "waves core": {
+        id: "112",
+        category: "MATERIAL",
+        rarity: "legendary",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Marineford / Sea King Boss Drop",
+        recipeTh: "ดรอปจากบอสเจ้าทะเลและดันเจี้ยน Marineford",
+        source: "Sea King Boss",
+        sourceTh: "บอสเจ้าทะเล / มารีนฟอร์ด",
+        descTh: "แกนพลังคลื่นสมุทร วัตถุดิบระดับ Legendary สกัดจากพลังแห่งท้องทะเล ใช้คราฟต์ผ้าคลุมพลเรือเอก",
+        descEn: "Waves Core: Condensed oceanic power extracted from titanic sea monsters."
+      },
+      "igris' crest": {
+        id: "116",
+        category: "MATERIAL",
+        rarity: "legendary",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Blood-Red Commander Igris Boss Drop",
+        recipeTh: "ดรอปจากผู้บัญชาการสีชาด อิกริส (Red Gate)",
+        source: "Commander Igris Boss",
+        sourceTh: "บอสอัศวินสีชาด อิกริส",
+        descTh: "ตราสัญลักษณ์อัศวินอิกริส วัตถุดิบระดับ Legendary เกียรติยศแห่งอัศวินเงาสีเลือด",
+        descEn: "Igris' Crest: Blood-red crest bestowed by the loyal knight commander."
+      },
+      "shadow's cloak": {
+        id: "119",
+        category: "MATERIAL",
+        rarity: "legendary",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Shadow Realm / Monarch Dungeons",
+        recipeTh: "ดรอปจากดันเจี้ยนโลกเงา Shadow Realm",
+        source: "Shadow Realm Mobs & Boss",
+        sourceTh: "มอนสเตอร์และบอสโลกเงา",
+        descTh: "ผ้าคลุมเงา วัตถุดิบระดับ Legendary ทอจากเส้นใยความมืดบริสุทธิ์",
+        descEn: "Shadow's Cloak: Woven dark cloth infused with stealth shadow power."
+      },
+      "omurice": {
+        id: "123",
+        category: "MATERIAL",
+        rarity: "legendary",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Master Chef Cooking Quests",
+        recipeTh: "ทำอาหารเควสต์เชฟระดับสูง",
+        source: "Cooking Quests",
+        sourceTh: "เควสต์ทำอาหาร",
+        descTh: "ข้าวห่อไข่รสเลิศ วัตถุดิบระดับ Legendary เสริมพลังและความอิ่มหนำ",
+        descEn: "Omurice: Gourmet culinary dish that empowers body and spirit."
+      },
+      "mana feather": {
+        id: "103",
+        category: "MATERIAL",
+        rarity: "epic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Sky Islands / Harpy & Angel Mobs Drop",
+        recipeTh: "ดรอปจากมอนสเตอร์เกาะลอยฟ้าและฮาร์ปี้",
+        source: "Sky Islands Mobs",
+        sourceTh: "มอนสเตอร์เกาะลอยฟ้า",
+        descTh: "ขนนกมานา วัตถุดิบระดับ Epic อาบด้วยละอองเวท ใช้ในการคราฟต์ปีกเกือบทุกชนิด",
+        descEn: "Mana Feather: Epic feather bathed in ambient mana, used in wing synthesis."
+      },
+      "eyeball": {
+        id: "106",
+        category: "MATERIAL",
+        rarity: "epic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Hollow Forest / Curse Mobs Drop",
+        recipeTh: "ดรอปจากป่าฮอลโลว์และมอนสเตอร์คำสาป",
+        source: "Hollow Forest Mobs",
+        sourceTh: "ป่าฮอลโลว์",
+        descTh: "ลูกตาต้องสาป วัตถุดิบระดับ Epic ใช้ในการคราฟต์หน้ากาก แว่นตา และอุปกรณ์สวมหน้า",
+        descEn: "Eyeball: Epic occult eyeball used for crafting masks and facial accessories."
+      },
+      "broken blade": {
+        id: "107",
+        category: "MATERIAL",
+        rarity: "epic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Swordsman Dungeons / Soul Society Mobs",
+        recipeTh: "ดรอปจากดันเจี้ยนนักดาบและโซลโซไซตี้",
+        source: "Swordsman Dungeons",
+        sourceTh: "ดันเจี้ยนนักดาบ",
+        descTh: "เศษดาบหัก วัตถุดิบระดับ Epic จากดาบของยอดนักรบ ใช้คราฟต์อาวุธและเกราะจำนวนมาก",
+        descEn: "Broken Blade: Epic blade shard from fallen warriors, essential forge metal."
+      },
+      "shadow essence": {
+        id: "115",
+        category: "MATERIAL",
+        rarity: "epic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Solo Dungeons / Shadow Monarch Mobs",
+        recipeTh: "ดรอปจากมอนสเตอร์เงาใน Solo Dungeons",
+        source: "Solo Dungeons",
+        sourceTh: "ดันเจี้ยนเงา",
+        descTh: "แก่นแท้แห่งเงา วัตถุดิบระดับ Epic สกัดจากมวลเงาที่มีชีวิต",
+        descEn: "Shadow Essence: Epic dark essence concentrated from living shadow forms."
+      },
+      "zero calories doughnuts": {
+        id: "118",
+        category: "MATERIAL",
+        rarity: "epic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Cooking / Pastry Quests",
+        recipeTh: "เควสต์ทำขนม / ดรอปจากดันเจี้ยนอาหาร",
+        source: "Pastry Quests",
+        sourceTh: "เควสต์ทำอาหาร",
+        descTh: "โดนัทแคลอรี่ศูนย์ ขนมหวานสุดพิเศษระดับ Epic ไม่ทำให้อ้วน",
+        descEn: "Zero Calories Doughnuts: Epic delightful snack offering light sustenance."
+      },
+      "ham": {
+        id: "122",
+        category: "MATERIAL",
+        rarity: "epic",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Cooking / Gourmet Dungeons",
+        recipeTh: "ดรอปจากดันเจี้ยนอาหารและเควสต์ทำอาหาร",
+        source: "Gourmet Dungeons",
+        sourceTh: "ดันเจี้ยนกูร์เมต์",
+        descTh: "แฮมเนื้อแน่น วัตถุดิบระดับ Epic รสชาติกลมกล่อม",
+        descEn: "Ham: Epic savory cured meat used in hearty dishes."
+      },
+      "fine cloth": {
+        id: "101",
+        category: "MATERIAL",
+        rarity: "common",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Map 1 / Windmill Village / Leaf Village Mobs Drop",
+        recipeTh: "ดรอปจากมอนสเตอร์ทั่วไปในแมพเริ่มต้นและทุกดันเจี้ยน",
+        source: "General Mobs & Dungeons",
+        sourceTh: "มอนสเตอร์ทั่วไปและดันเจี้ยน",
+        descTh: "ผ้าเนื้อละเอียด วัตถุดิบพื้นฐานระดับ Common ใช้คราฟต์หมวก เสื้อคลุม และผ้าคลุมเกือบทุกชนิด",
+        descEn: "Fine Cloth: Common versatile fabric foundational for all garment crafting."
+      },
+      "shinobi scroll": {
+        id: "102",
+        category: "MATERIAL",
+        rarity: "common",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Hidden Leaf Dungeons / Ninja Mobs Drop",
+        recipeTh: "ดรอปจากนินจาและดันเจี้ยนหมู่บ้านโคโนฮะ",
+        source: "Ninja Dungeons",
+        sourceTh: "ดันเจี้ยนนินจา",
+        descTh: "คัมภีร์นินจา วัตถุดิบระดับ Common จารึกวิชานินจาพื้นฐาน ใช้คราฟต์ที่คาดหัวและปลอกคอ",
+        descEn: "Shinobi Scroll: Common scroll containing secret shinobi jutsu notes."
+      },
+      "zero calories flour": {
+        id: "117",
+        category: "MATERIAL",
+        rarity: "common",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Cooking Quests / Food Drops",
+        recipeTh: "เควสต์ทำอาหารเบื้องต้น",
+        source: "Food Dungeons",
+        sourceTh: "เควสต์ทำอาหาร",
+        descTh: "แป้งแคลอรี่ศูนย์ วัตถุดิบพื้นฐานระดับ Common สำหรับทำอาหาร",
+        descEn: "Zero Calories Flour: Common culinary flour that creates guilt-free treats."
+      },
+      "caprese": {
+        id: "121",
+        category: "MATERIAL",
+        rarity: "common",
+        slot: "Material",
+        slotTh: "วัตถุดิบ (Material)",
+        buffs: [],
+        recipe: "Cooking Quests / Food Drops",
+        recipeTh: "เควสต์ทำอาหารเบื้องต้น",
+        source: "Food Dungeons",
+        sourceTh: "เควสต์ทำอาหาร",
+        descTh: "สลัดคาเปรเซ่ วัตถุดิบอาหารระดับ Common",
+        descEn: "Caprese: Fresh common salad made from cheese and tomatoes."
+      }
+    };
+
+    // Resolve Rarity accurately across all Anime Zero items
     function resolveRarity(item) {
-      const tier = String(item.tier || '1');
-      const r = (item.rarity || '').toLowerCase();
-      if (r === 'mythic' || tier === '4') return 'mythic';
-      if (r === 'legendary' || tier === '3') return 'legendary';
-      if (r === 'epic' || tier === '2') return 'epic';
+      if (!item) return 'common';
+
+      // 1. Check exact name match in authentic dictionary
+      const rawName = String(item.name || '').toLowerCase().trim();
+      if (rawName && KNOWN_ITEM_RARITIES[rawName]) {
+        return KNOWN_ITEM_RARITIES[rawName];
+      }
+
+      // 2. Check item ID lookup
+      const idStr = String(item.id || '').trim();
+      const isAcc = (item._category === 'accessory' || item.category === 'accessory' || item._category === 'ACCESSORY');
+      if (idStr) {
+        if (isAcc && KNOWN_ACC_ID_RARITIES[idStr]) {
+          return KNOWN_ACC_ID_RARITIES[idStr];
+        }
+        if (!isAcc && KNOWN_MAT_ID_RARITIES[idStr]) {
+          return KNOWN_MAT_ID_RARITIES[idStr];
+        }
+      }
+
+      // 3. Check explicit rarity string
+      const r = (item.rarity || '').toLowerCase().trim();
+      if (r === 'mythic' || r === 'mythical') return 'mythic';
+      if (r === 'legendary') return 'legendary';
+      if (r === 'epic') return 'epic';
       if (r === 'rare') return 'rare';
-      return 'common';
+      if (r === 'common') return 'common';
+
+      // 4. Check tier fallback
+      const tier = String(item.tier || '1');
+      if (isAcc) {
+        if (tier === '4') return 'mythic';
+        if (tier === '3') return 'legendary';
+        if (tier === '2') return 'epic';
+        return 'common';
+      } else {
+        if (tier === '4') return 'mythic';
+        if (tier === '3') return 'legendary';
+        if (tier === '2') return 'epic';
+        return 'common';
+      }
     }
 
     function setMainTab(tabName, btn) {
@@ -2809,198 +5437,396 @@
       }
     }
 
-    function getTargetUserParam() {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('u') || urlParams.get('user') || localStorage.getItem('cfame_user') || '';
+    // ========================================================
+    // DISCORD OAUTH2 & SESSION MANAGEMENT
+    // ========================================================
+
+    function getAuthToken() {
+      return localStorage.getItem('discord_auth_token') || '';
     }
 
-    function setTargetUser(userKey) {
-      if (!userKey) return;
-      localStorage.setItem('cfame_user', userKey);
-      const url = new URL(window.location.href);
-      url.searchParams.set('u', userKey);
-      window.history.pushState({}, '', url.toString());
-      closeUserModal();
-      fetchState();
-      showToast('🔄 สลับไปยังแดชบอร์ดของ: ' + userKey);
-    }
-
-    function openUserModal() {
-      const modal = document.getElementById('userSwitcherModal');
-      if (modal) modal.style.display = 'flex';
-      renderUserModalList();
-      const input = document.getElementById('userSearchInput');
-      if (input) {
-        input.value = '';
-        setTimeout(() => input.focus(), 100);
+    function setAuthToken(token) {
+      if (token) {
+        localStorage.setItem('discord_auth_token', token);
+      } else {
+        localStorage.removeItem('discord_auth_token');
       }
     }
 
-    function closeUserModal() {
+    function checkOAuthParams() {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
+      if (token) {
+        setAuthToken(token);
+        params.delete('token');
+        const newSearch = params.toString() ? ('?' + params.toString()) : '';
+        window.history.replaceState({}, document.title, window.location.pathname + newSearch);
+      }
+      if (params.get('open_discord_auth') === '1') {
+        openDiscordOAuthModal();
+      }
+    }
+
+    async function openDiscordOAuthModal() {
+      try {
+        const res = await fetch('/api/auth/discord/status');
+        const st = await res.json();
+        if (st.configured) {
+          window.location.href = '/api/auth/discord/login';
+          return;
+        }
+      } catch (e) {}
+      showDiscordOAuthModal();
+    }
+
+    function showDiscordOAuthModal() {
+      const modal = document.getElementById('discordOAuthModal');
+      if (!modal) return;
+      const hostDom = document.getElementById('discordRedirectDomain');
+      if (hostDom) hostDom.innerText = window.location.origin;
+
+      const simUser = localStorage.getItem('sim_discord_user') || 'zerox7_xm';
+      const label = document.getElementById('discordActiveUserLabel');
+      if (label) label.innerText = simUser;
+
+      modal.style.display = 'flex';
+    }
+
+    function closeDiscordOAuthModal() {
+      const modal = document.getElementById('discordOAuthModal');
+      if (!modal) return;
+      modal.style.display = 'none';
+    }
+
+    function promptSwitchDiscordUser() {
+      const current = localStorage.getItem('sim_discord_user') || 'zerox7_xm';
+      const input = prompt('ระบุชื่อบัญชี Discord ที่ต้องการใช้เข้าสู่ระบบ (เช่น zerox7_xm หรือชื่อ Discord ของคุณ):', current);
+      if (input && input.trim()) {
+        const sanitized = input.trim();
+        localStorage.setItem('sim_discord_user', sanitized);
+        const label = document.getElementById('discordActiveUserLabel');
+        if (label) label.innerText = sanitized;
+      }
+    }
+
+    async function confirmDiscordAuthorization() {
+      const btn = document.getElementById('btnConfirmDiscordAuth');
+      const t = I18N[currentLang] || I18N.th;
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = (currentLang === 'en') ? 'Authorizing...' : 'กำลังยืนยัน...';
+      }
+      try {
+        const simUser = localStorage.getItem('sim_discord_user') || 'zerox7_xm';
+        const res = await fetch('/api/auth/discord/authorize', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: simUser,
+            displayName: simUser
+          })
+        });
+        const data = await res.json();
+        if (data.ok && data.token) {
+          setAuthToken(data.token);
+          closeDiscordOAuthModal();
+          await fetchState();
+        } else {
+          alert((currentLang === 'en' ? 'Authorization failed: ' : 'เข้าสู่ระบบไม่สำเร็จ: ') + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        alert((currentLang === 'en' ? 'Discord connection error: ' : 'เกิดข้อผิดพลาดในการเชื่อมต่อ Discord: ') + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = `<span id="btnConfirmDiscordAuthText">${t.btnConfirmDiscordAuth}</span>`;
+        }
+      }
+    }
+
+    async function logoutAccount() {
+      const token = getAuthToken();
+      if (token) {
+        try {
+          await fetch('/api/auth/logout', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+        } catch (e) {}
+      }
+      setAuthToken(null);
+      localStorage.removeItem('active_roblox_account');
+      state = { authenticated: false, isPrivateGateway: true };
+      renderAll();
+      await fetchState();
+    }
+
+    // ========================================================
+    // MY ROBLOX ACCOUNTS (LINK & SWITCH UNDER DISCORD USER)
+    // ========================================================
+
+    function openMyAccountsModal() {
+      const modal = document.getElementById('userSwitcherModal');
+      if (!modal) return;
+      renderMyAccountsModal();
+      modal.style.display = 'flex';
+    }
+
+    function closeMyAccountsModal() {
       const modal = document.getElementById('userSwitcherModal');
       if (modal) modal.style.display = 'none';
     }
 
-    function searchAndSwitchUser() {
-      const input = document.getElementById('userSearchInput');
-      if (input && input.value.trim()) {
-        setTargetUser(input.value.trim());
-      }
-    }
+    function renderMyAccountsModal() {
+      const t = I18N[currentLang] || I18N.th;
+      const acc = state.accountUser || {};
+      const sub = document.getElementById('modalDiscordSubtitle');
+      if (sub) sub.innerText = `Discord: @${acc.username || 'User'}`;
 
-    function copyPersonalLink() {
-      const p = state.player || {};
-      const identifier = p.name || p.userId || getTargetUserParam();
-      const origin = window.location.origin;
-      const path = window.location.pathname;
-      const shareUrl = identifier ? `${origin}${path}?u=${encodeURIComponent(identifier)}` : window.location.href;
+      const keyVal = document.getElementById('modalApiKeyVal');
+      if (keyVal) keyVal.innerText = acc.apiKey || '-';
 
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(shareUrl).then(() => {
-          showToast('🔗 คัดลอกลิงก์ส่วนตัวของคุณแล้ว!\n' + shareUrl);
-        }).catch(() => {
-          prompt('คัดลอกลิงก์ส่วนตัวของคุณ:', shareUrl);
-        });
-      } else {
-        prompt('คัดลอกลิงก์ส่วนตัวของคุณ:', shareUrl);
-      }
-    }
+      const listContainer = document.getElementById('userModalList');
+      const badge = document.getElementById('myAccountsCountBadge');
+      const linked = acc.linkedRoblox || [];
 
-    function showToast(msg) {
-      let toast = document.getElementById('cfameToast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'cfameToast';
-        toast.style.position = 'fixed';
-        toast.style.bottom = '24px';
-        toast.style.right = '24px';
-        toast.style.background = 'rgba(15, 23, 42, 0.96)';
-        toast.style.border = '1px solid rgba(56, 189, 248, 0.5)';
-        toast.style.boxShadow = '0 12px 36px rgba(0,0,0,0.8), 0 0 20px rgba(56, 189, 248, 0.3)';
-        toast.style.color = '#fff';
-        toast.style.padding = '12px 20px';
-        toast.style.borderRadius = '12px';
-        toast.style.zIndex = '99999';
-        toast.style.fontSize = '13px';
-        toast.style.fontWeight = '600';
-        toast.style.backdropFilter = 'blur(16px)';
-        toast.style.transition = 'all 0.25s ease';
-        toast.style.pointerEvents = 'none';
-        toast.style.maxWidth = '90vw';
-        toast.style.wordBreak = 'break-all';
-        document.body.appendChild(toast);
-      }
-      toast.innerText = msg;
-      toast.style.opacity = '1';
-      toast.style.transform = 'translateY(0)';
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(8px)';
-      }, 3500);
-    }
+      if (badge) badge.innerText = (t.modalLinkedCountPattern || '{count} บัญชี').replace('{count}', linked.length);
 
-    function renderUserModalList() {
-      const container = document.getElementById('userModalList');
-      const badge = document.getElementById('userCountBadge');
-      if (!container) return;
-
-      const users = state.activeUsers || [];
-      if (badge) badge.innerText = `${users.length} คน`;
-
-      if (users.length === 0) {
-        container.innerHTML = `
-          <div style="padding: 24px; text-align: center; color: #94a3b8; font-size: 13px;">
-            ยังไม่มีผู้เล่นอื่นส่งข้อมูลเข้ามา<br>
-            <span style="font-size: 12px; color: #64748b;">(รันสคริปต์ในเกมเพื่อเพิ่มแดชบอร์ดส่วนตัวของคุณ)</span>
+      if (!listContainer) return;
+      if (linked.length === 0) {
+        listContainer.innerHTML = `
+          <div style="text-align: center; padding: 20px; color: #64748b; font-size: 13px;">
+            ${t.modalNoLinkedRoblox}
           </div>
         `;
         return;
       }
 
-      const currentUid = String(state.player?.userId || state.player?.name || '');
+      const activeRoblox = localStorage.getItem('active_roblox_account') || (linked[0] ? String(linked[0].name || linked[0].userId) : '');
 
-      container.innerHTML = users.map(u => {
-        const isCurrent = String(u.userId) === currentUid || (u.name && u.name.toLowerCase() === currentUid.toLowerCase());
-        const isOnline = u.connected;
-        const avatar = u.avatarUrl || `https://www.roblox.com/headshot-thumbnail/image?userId=${u.userId}&width=150&height=150&format=png`;
-
+      listContainer.innerHTML = linked.map(r => {
+        const isCurrent = (String(r.name).toLowerCase() === activeRoblox.toLowerCase() || String(r.userId) === activeRoblox);
+        const avatar = r.userId ? `/api/avatar?userId=${r.userId}` : (r.avatarUrl || '/icons/default_avatar.png');
         return `
-          <div onclick="setTargetUser('${u.name || u.userId}')" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: ${isCurrent ? 'rgba(56, 189, 248, 0.15)' : 'rgba(255,255,255,0.03)'}; border: 1px solid ${isCurrent ? 'rgba(56, 189, 248, 0.4)' : 'rgba(255,255,255,0.07)'}; border-radius: 12px; cursor: pointer; transition: all 0.15s ease;" onmouseenter="this.style.background='rgba(56, 189, 248, 0.12)'" onmouseleave="this.style.background='${isCurrent ? 'rgba(56, 189, 248, 0.15)' : 'rgba(255,255,255,0.03)'}'">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <div style="position: relative;">
-                <img src="${avatar}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #0b0f19; border: 1.5px solid ${isCurrent ? '#38bdf8' : 'rgba(255,255,255,0.1)'};">
-                <span style="position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-radius: 50%; background: ${isOnline ? '#22c55e' : '#64748b'}; border: 2px solid #0f172a;"></span>
-              </div>
-              <div style="display: flex; flex-direction: column;">
-                <div style="font-weight: 700; color: #fff; font-size: 14px; display: flex; align-items: center; gap: 6px;">
-                  <span>${u.displayName || u.name}</span>
-                  ${isCurrent ? '<span style="font-size: 10px; background: rgba(56, 189, 248, 0.25); color: #38bdf8; padding: 1px 6px; border-radius: 9999px;">คุณ</span>' : ''}
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(15, 23, 42, 0.7); border: 1px solid ${isCurrent ? 'rgba(56, 189, 248, 0.5)' : 'rgba(255, 255, 255, 0.08)'}; border-radius: 10px; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px; overflow: hidden;">
+              <img src="${avatar}" onerror="this.onerror=null;this.src='/icons/default_avatar.png';" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.15);" alt="">
+              <div style="overflow: hidden;">
+                <div style="font-weight: 700; color: #fff; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  ${r.displayName || r.name}
                 </div>
-                <div style="font-size: 12px; color: #94a3b8; font-family: 'JetBrains Mono', monospace;">
-                  @${u.name} • Lv. ${u.level || 1} ${u.guild ? `• [${u.guild}]` : ''}
+                <div style="font-size: 11px; color: #94a3b8; font-family: 'JetBrains Mono', monospace;">
+                  @${r.name} • ID: ${r.userId || '-'}
                 </div>
               </div>
             </div>
-            <button style="background: transparent; border: 1px solid ${isCurrent ? '#38bdf8' : 'rgba(255,255,255,0.15)'}; color: ${isCurrent ? '#38bdf8' : '#cbd5e1'}; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer;">
-              ${isCurrent ? 'กำลังดู' : 'เปิดดู'}
-            </button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              ${isCurrent ? `
+                <span style="font-size: 11px; font-weight: 800; color: #38bdf8; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); padding: 4px 10px; border-radius: 20px;">
+                  ${t.modalActiveAccount}
+                </span>
+              ` : `
+                <button onclick="switchActiveRobloxAccount('${r.name}')" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer;">
+                  ${t.modalSwitchAccount}
+                </button>
+              `}
+              ${linked.length > 1 ? `
+                <button onclick="unlinkRobloxAccount('${r.userId}')" title="ยกเลิกการเชื่อมต่อไอดีนี้" style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; border-radius: 6px; padding: 5px 8px; font-size: 12px; cursor: pointer;">
+                  ✕
+                </button>
+              ` : ''}
+            </div>
           </div>
         `;
       }).join('');
     }
 
-    async function fetchState() {
+    function switchActiveRobloxAccount(nameOrId) {
+      localStorage.setItem('active_roblox_account', nameOrId);
+      closeMyAccountsModal();
+      fetchState();
+    }
+
+    async function linkRobloxAccount() {
+      const input = document.getElementById('addAltInput');
+      if (!input || !input.value.trim()) return;
+      const q = input.value.trim();
+      const token = getAuthToken();
+      if (!token) {
+        alert('กรุณาเข้าสู่ระบบ Discord ก่อน');
+        return;
+      }
       try {
-        const pin = localStorage.getItem('dashboard_pin') || '';
-        const targetUser = getTargetUserParam();
-        let url = `/api/data?_t=${Date.now()}` + (pin ? `&pin=${encodeURIComponent(pin)}` : '');
-        if (targetUser) {
-          url += `&u=${encodeURIComponent(targetUser)}`;
-        }
-
-        const res = await fetch(url, {
-          cache: 'no-store',
-          headers: pin ? { 'x-dashboard-pin': pin } : {}
+        const res = await fetch('/api/auth/link-roblox', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ query: q })
         });
-
-        if (res.status === 401) {
-          showPinPrompt();
-          return;
+        const data = await res.json();
+        if (data.ok) {
+          input.value = '';
+          localStorage.setItem('active_roblox_account', data.account.name || data.account.userId);
+          await fetchState();
+          renderMyAccountsModal();
+        } else {
+          alert('เชื่อมต่อไม่สำเร็จ: ' + (data.error || 'Unknown error'));
         }
-        hidePinPrompt();
-
-        if (!res.ok) throw new Error('Network error');
-        state = await res.json();
-
-        // Save active user identifier
-        if (state.player && (state.player.name || state.player.userId)) {
-          const currentIdentifier = state.player.name || state.player.userId;
-          if (!localStorage.getItem('cfame_user')) {
-            localStorage.setItem('cfame_user', currentIdentifier);
-          }
-        }
-
-        renderAll();
       } catch (err) {
-        setOffline();
+        alert('เกิดข้อผิดพลาด: ' + err.message);
       }
     }
 
-    function showPinPrompt() {
-      const modal = document.getElementById('pinModal');
-      if (modal) modal.style.display = 'flex';
+    async function unlinkRobloxAccount(userId) {
+      if (!confirm('คุณต้องการยกเลิกการเชื่อมต่อไอดี Roblox นี้หรือไม่?')) return;
+      const token = getAuthToken();
+      try {
+        const res = await fetch('/api/auth/unlink-roblox', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ userId })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          localStorage.removeItem('active_roblox_account');
+          await fetchState();
+          renderMyAccountsModal();
+        } else {
+          alert('ยกเลิกไม่สำเร็จ: ' + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('เกิดข้อผิดพลาด: ' + err.message);
+      }
     }
 
-    function hidePinPrompt() {
-      const modal = document.getElementById('pinModal');
+    function copyApiKey() {
+      const key = state.accountUser?.apiKey;
+      if (!key) return;
+      navigator.clipboard.writeText(key);
+      alert('✓ คัดลอก API Key สำเร็จ!');
+    }
+
+    // ========================================================
+    // GET SCRIPT MODAL
+    // ========================================================
+
+    let currentScriptMode = 'clean';
+
+    function openGetScriptModal() {
+      const modal = document.getElementById('getScriptModal');
+      if (!modal) return;
+      const savedPc = localStorage.getItem('tracker_pc_name') || 'PC-001';
+      const pcInput = document.getElementById('modalPcNameInput');
+      if (pcInput) pcInput.value = savedPc;
+      updateModalScriptDisplay();
+      modal.style.display = 'flex';
+    }
+
+    function closeGetScriptModal() {
+      const modal = document.getElementById('getScriptModal');
       if (modal) modal.style.display = 'none';
     }
 
-    function submitPin() {
-      const input = document.getElementById('pinInput');
-      if (input && input.value) {
-        localStorage.setItem('dashboard_pin', input.value.trim());
-        fetchState();
+    function switchModalScript(mode) {
+      currentScriptMode = mode;
+      const tabClean = document.getElementById('modalTabClean');
+      const tabObf = document.getElementById('modalTabObf');
+      const fileNameDom = document.getElementById('modalScriptFileName');
+      if (tabClean && tabObf) {
+        if (mode === 'clean') {
+          tabClean.classList.add('active');
+          tabObf.classList.remove('active');
+          if (fileNameDom) fileNameDom.innerText = 'ducky.host.Luau';
+        } else {
+          tabClean.classList.remove('active');
+          tabObf.classList.add('active');
+          if (fileNameDom) fileNameDom.innerText = 'tracker.obf.Luau';
+        }
+      }
+      updateModalScriptDisplay();
+    }
+
+    function updateModalScriptDisplay() {
+      const pcInput = document.getElementById('modalPcNameInput');
+      const pcWarn = document.getElementById('modalPcWarnText');
+      let pc = (pcInput ? pcInput.value : '').trim();
+      if (!pc) pc = 'PC-001';
+      else localStorage.setItem('tracker_pc_name', pc);
+
+      const isValid = /^[a-zA-Z0-9_-]{4,}$/.test(pc);
+      if (pcWarn) {
+        if (!isValid) {
+          pcWarn.style.color = '#f87171';
+          pcWarn.innerText = 'ต้องมีอย่างน้อย 4 ตัวอักษร (ภาษาอังกฤษเท่านั้น)';
+        } else {
+          pcWarn.style.color = '#34d399';
+          pcWarn.innerText = '✓ ชื่อเครื่องถูกต้อง';
+        }
+      }
+
+      const discordId = state.accountUser?.discordId || state.accountUser?.id?.replace('discord_', '') || '1107270583093317772';
+      const file = currentScriptMode === 'obf' ? 'tracker.obf.luau' : 'tracker.luau';
+      const loadUrl = `${window.location.origin}/${file}`;
+
+      const codeDom = document.getElementById('modalScriptCode');
+      if (codeDom) {
+        codeDom.innerText = `repeat task.wait() until game:IsLoaded()
+
+getgenv().DuckyConfig = {
+    ["discord_id"] = "${discordId}",
+    ["PC_NAME"] = "${pc}"
+}
+
+loadstring(game:HttpGet("${loadUrl}"))()`;
+      }
+    }
+
+    function copyModalScript() {
+      const codeDom = document.getElementById('modalScriptCode');
+      const btnText = document.getElementById('btnModalCopyScriptText');
+      if (!codeDom) return;
+      navigator.clipboard.writeText(codeDom.innerText.trim());
+      if (btnText) {
+        btnText.innerText = (currentLang === 'en') ? 'Copied!' : 'คัดลอกแล้ว!';
+        setTimeout(() => {
+          btnText.innerText = (currentLang === 'en') ? 'Copy' : 'คัดลอก';
+        }, 1800);
+      }
+    }
+
+    async function fetchState() {
+      try {
+        const token = getAuthToken();
+        const activeRoblox = localStorage.getItem('active_roblox_account') || '';
+        let url = `/api/data?_t=${Date.now()}`;
+        if (token) url += `&token=${encodeURIComponent(token)}`;
+        if (activeRoblox) url += `&u=${encodeURIComponent(activeRoblox)}`;
+
+        const headers = { 'Cache-Control': 'no-cache' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const res = await fetch(url, {
+          cache: 'no-store',
+          headers: headers
+        });
+
+        if (res.status === 401) {
+          setAuthToken(null);
+          state = { authenticated: false, isPrivateGateway: true };
+          renderAll();
+          return;
+        }
+
+        if (!res.ok) throw new Error('Network error');
+        state = await res.json();
+        renderAll();
+      } catch (err) {
+        setOffline();
       }
     }
 
@@ -3074,6 +5900,85 @@
       applyTranslations();
       const t = I18N[currentLang] || I18N.th;
 
+      const isAuth = Boolean(state.authenticated);
+      const hasRoblox = Boolean(state.hasLinked && !state.waitingForScript && state.player);
+
+      const hubView = document.getElementById('hubView');
+      const waitingView = document.getElementById('waitingScriptView');
+      const dashView = document.getElementById('dashboardView');
+      const btnLogin = document.getElementById('btnNavLogin');
+      const btnScript = document.getElementById('btnGetScriptNav');
+      const toolsWrap = document.getElementById('toolsPopoverWrap');
+      const navUserPill = document.getElementById('navUserPill');
+
+      // Heartbeat pulse icon
+      const hbBtn = document.getElementById('navHeartbeatBtn');
+      if (hbBtn) {
+        if (state.connected) {
+          hbBtn.className = 'heartbeat-btn';
+          hbBtn.setAttribute('title', 'สถานะบอท: ออนไลน์ / Realtime Active');
+        } else {
+          hbBtn.className = 'heartbeat-btn offline';
+          hbBtn.setAttribute('title', 'สถานะบอท: กำลังรอการเชื่อมต่อ / Standby');
+        }
+      }
+
+      if (!isAuth) {
+        if (hubView) hubView.style.display = 'block';
+        if (waitingView) waitingView.style.display = 'none';
+        if (dashView) dashView.style.display = 'none';
+        if (btnLogin) btnLogin.style.display = 'inline-flex';
+        if (btnScript) btnScript.style.display = 'none';
+        if (toolsWrap) toolsWrap.style.display = 'none';
+        if (navUserPill) navUserPill.style.display = 'none';
+        closeAllNavPopovers();
+        return;
+      }
+
+      // Authenticated -> Discord profile in Top Nav
+      const acc = state.accountUser || {};
+      if (hubView) hubView.style.display = 'none';
+      if (btnLogin) btnLogin.style.display = 'none';
+      if (btnScript) btnScript.style.display = 'inline-flex';
+      if (toolsWrap) toolsWrap.style.display = 'block';
+      if (navUserPill) navUserPill.style.display = 'inline-flex';
+
+      const dName = acc.displayName || acc.username || 'frxmz_.q';
+      const dHandle = '@' + (acc.username || acc.discordId || 'zerox7_xm');
+      const dAvatar = acc.avatarUrl || '/icons/default_avatar.png';
+
+      const navDisplay = document.getElementById('navDisplayName');
+      if (navDisplay) navDisplay.innerText = dName;
+      const navAvatar = document.getElementById('navAvatarImg');
+      if (navAvatar) navAvatar.src = dAvatar;
+
+      const dropName = document.getElementById('dropdownDisplayName');
+      if (dropName) dropName.innerText = dName;
+      const dropHandle = document.getElementById('dropdownHandle');
+      if (dropHandle) dropHandle.innerText = dHandle;
+      const dropAvatar = document.getElementById('dropdownAvatarImg');
+      if (dropAvatar) dropAvatar.src = dAvatar;
+
+      // Check if user has linked a Roblox account or reported from script yet
+      if (!hasRoblox) {
+        if (waitingView) waitingView.style.display = 'block';
+        if (dashView) dashView.style.display = 'none';
+
+        const waitTag = document.getElementById('waitDiscordTag');
+        if (waitTag) waitTag.innerText = '@' + (acc.displayName || acc.username || 'User');
+
+        const badge = document.getElementById('botStatusBadge');
+        if (badge) {
+          badge.className = 'status-badge offline';
+          document.getElementById('botStatusText').innerText = t.statusWaitingScript || '⏳ รอสคริปต์ในเกม';
+        }
+        return;
+      }
+
+      // User has active Roblox data -> Show Full Live Dashboard
+      if (waitingView) waitingView.style.display = 'none';
+      if (dashView) dashView.style.display = 'block';
+
       // 1. Bot Connection Status
       const badge = document.getElementById('botStatusBadge');
       if (state.connected) {
@@ -3091,10 +5996,6 @@
       const lvl = prog.level || p.level || 451;
 
       document.getElementById('barUsername').innerText = p.name || 'Liesajsor17919';
-      document.getElementById('navUsername').innerText = p.displayName || p.name || 'Liesajsor17919';
-      if (p.avatarUrl) {
-        document.getElementById('navAvatarImg').src = p.avatarUrl;
-      }
 
       // 3. IMAGE 1: Account Currency Bar Values
       const goldFull = numFmt(curr.money);
@@ -3116,7 +6017,15 @@
       const pUser = document.getElementById('pUsername');
       if (pUser) pUser.innerText = '@' + (p.name || 'Liesajsor17919');
       const pGuild = document.getElementById('pGuildBadge');
-      if (pGuild) pGuild.innerText = (p.guild && p.guild !== 'None') ? p.guild : 'Shinoko';
+      if (pGuild) {
+        const g = (p.guild && p.guild !== 'None' && p.guild !== 'none' && p.guild !== 'รอสคริปต์ในเกม') ? String(p.guild).trim() : '';
+        if (g) {
+          pGuild.innerText = g;
+          pGuild.style.display = 'inline-flex';
+        } else {
+          pGuild.style.display = 'none';
+        }
+      }
       const pLvl = document.getElementById('pLevelBadge');
       if (pLvl) pLvl.innerText = `LV. ${lvl}`;
       const pTime = document.getElementById('pUpdatedTime');
@@ -3131,7 +6040,10 @@
       const pExpBar = document.getElementById('pExpBar');
       if (pExpBar) pExpBar.style.width = pct;
       const pAvatar = document.getElementById('playerAvatarImg');
-      if (pAvatar && p.avatarUrl) pAvatar.src = p.avatarUrl;
+      if (pAvatar) {
+        const avatarSrc = p.userId ? `/api/avatar?userId=${p.userId}` : (p.avatarUrl || '/icons/default_avatar.png');
+        if (avatarSrc) pAvatar.src = avatarSrc;
+      }
 
       document.getElementById('barLevelVal').innerText = `Lv ${lvl}`;
       document.getElementById('pillLevel').setAttribute('data-tooltip', levelTip);
@@ -3300,15 +6212,101 @@
       const it = selectedItemObj;
       const t = I18N[currentLang] || I18N.th;
       const rar = resolveRarity(it);
+      const isMat = (it._category === 'MATERIAL' || it.category === 'material');
       const iconUrl = getItemIconUrl(it.name, it._category.toLowerCase()) || getItemIconUrl(it.id, it._category.toLowerCase());
 
-      document.getElementById('modalRarityBadge').className = `rarity-pill ${rar}`;
-      document.getElementById('modalRarityBadge').innerText = rar.toUpperCase();
+      const rawName = String(it.name || '').toLowerCase().trim();
+      const idKey = String(it.id || '').trim();
+
+      // Look up in comprehensive Anime Zero DB
+      let meta = ANIME_ZERO_ITEM_DB[rawName];
+      if (!meta) {
+        for (const k in ANIME_ZERO_ITEM_DB) {
+          const entry = ANIME_ZERO_ITEM_DB[k];
+          if (entry.id === idKey && ((isMat && entry.category === 'MATERIAL') || (!isMat && entry.category === 'ACCESSORY'))) {
+            meta = entry;
+            break;
+          }
+        }
+      }
+
+      // 1. Rarity badge
+      const badge = document.getElementById('modalRarityBadge');
+      if (badge) {
+        badge.className = `rarity-pill ${rar}`;
+        badge.innerText = rar.toUpperCase();
+      }
+
+      // 2. Slot pill
+      const slotEl = document.getElementById('modalItemSlot');
+      if (slotEl) {
+        let slotName = meta ? (currentLang === 'en' ? meta.slot : (meta.slotTh || meta.slot)) : (isMat ? 'MATERIAL' : 'ACCESSORY');
+        slotEl.innerText = slotName.toUpperCase();
+      }
+
+      // 3. Name & Category & Stock
       document.getElementById('modalItemName').innerText = it.name;
       document.getElementById('modalItemCategory').innerText = it._category;
       document.getElementById('modalItemStock').innerText = t.stockPattern.replace('{count}', numFmt(it.count));
-      document.getElementById('modalItemDesc').innerText = it.description || t.itemFallbackDesc;
 
+      // 4. Description
+      const descEl = document.getElementById('modalItemDesc');
+      const descTitle = document.getElementById('modalDescTitle');
+      if (descTitle) descTitle.innerText = t.modalDescTitle;
+      if (descEl) {
+        let desc = '';
+        if (meta) {
+          desc = (currentLang === 'en') ? meta.descEn : meta.descTh;
+        }
+        descEl.innerText = desc || it.description || t.itemFallbackDesc;
+      }
+
+      // 5. Stat Buffs
+      const buffsSec = document.getElementById('modalBuffsSection');
+      const buffsGrid = document.getElementById('modalBuffsGrid');
+      const buffsTitle = document.getElementById('modalBuffsTitle');
+      if (buffsTitle) buffsTitle.innerText = t.modalBuffsTitle;
+
+      const buffs = (meta && meta.buffs && meta.buffs.length > 0) ? meta.buffs : (it.buffs || []);
+      if (buffs && buffs.length > 0) {
+        buffsGrid.innerHTML = buffs.map(b => `
+          <div class="modal-buff-tag">
+            <span>${b.name || b.label}</span>
+            <span class="buff-val">${b.val || b.value}</span>
+          </div>
+        `).join('');
+        buffsSec.style.display = 'block';
+      } else {
+        if (isMat) {
+          buffsGrid.innerHTML = `<span style="color: var(--text-dim); font-size: 12px; font-style: italic;">${t.modalNoBuffsText}</span>`;
+          buffsSec.style.display = 'block';
+        } else {
+          buffsSec.style.display = 'none';
+        }
+      }
+
+      // 6. Recipe & Drop Source
+      const recipeSec = document.getElementById('modalRecipeSection');
+      const recipeContent = document.getElementById('modalRecipeContent');
+      const recipeTitle = document.getElementById('modalRecipeTitle');
+      if (recipeTitle) recipeTitle.innerText = t.modalRecipeTitle;
+
+      let recipeText = '';
+      if (meta) {
+        recipeText = (currentLang === 'en') ? (meta.recipe || meta.source) : (meta.recipeTh || meta.sourceTh || meta.recipe);
+      } else if (it.recipe) {
+        recipeText = it.recipe;
+      }
+
+      if (recipeText) {
+        recipeContent.innerText = recipeText;
+        recipeSec.style.display = 'block';
+      } else {
+        recipeContent.innerText = (currentLang === 'en') ? 'Drops from in-game dungeons and enemies' : 'ดรอปจากมอนสเตอร์และดันเจี้ยนในเกม';
+        recipeSec.style.display = 'block';
+      }
+
+      // 7. Icon Image
       const img = document.getElementById('modalItemImg');
       if (iconUrl) {
         img.src = iconUrl;
@@ -3411,6 +6409,9 @@
         `;
       }).join('');
     }
+
+    // Check Discord OAuth query parameters
+    checkOAuthParams();
 
     // Auto-refresh interval (every 2.5 seconds)
     fetchState();

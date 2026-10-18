@@ -19,6 +19,15 @@ local CLOUD_SERVER_URL = "https://anime-zero-tracker.onrender.com/api/report"
 local function requestHttp(payload)
     local fn = request or http_request or (syn and syn.request)
     if not fn then return end
+
+    local cfg = getgenv().DuckyConfig or getgenv().TrackerConfig or {}
+    if cfg["discord_id"] then
+        payload.discord_id = tostring(cfg["discord_id"])
+    end
+    if cfg["PC_NAME"] then
+        payload.pc_name = tostring(cfg["PC_NAME"])
+    end
+
     local body = HttpService:JSONEncode(payload)
     pcall(function()
         fn({
@@ -57,6 +66,50 @@ local function getSnapshot()
         end
     end
 
+    local KNOWN_MAT_RARITIES = {
+        [101] = "Common", [102] = "Common", [117] = "Common", [121] = "Common",
+        [103] = "Epic", [106] = "Epic", [107] = "Epic", [115] = "Epic", [118] = "Epic", [122] = "Epic",
+        [104] = "Legendary", [105] = "Legendary", [108] = "Legendary", [112] = "Legendary", [116] = "Legendary", [119] = "Legendary", [123] = "Legendary",
+        [109] = "Mythic", [110] = "Mythic", [111] = "Mythic", [113] = "Mythic", [114] = "Mythic", [120] = "Mythic", [124] = "Mythic"
+    }
+
+    local KNOWN_ACC_RARITIES = {
+        [101] = "Common", [102] = "Common", [103] = "Common", [104] = "Common", [124] = "Common",
+        [105] = "Rare",
+        [106] = "Epic", [107] = "Epic", [108] = "Epic", [118] = "Epic", [120] = "Epic", [125] = "Epic", [126] = "Epic",
+        [109] = "Legendary", [110] = "Legendary", [111] = "Legendary", [112] = "Legendary",
+        [121] = "Legendary", [122] = "Legendary", [123] = "Legendary", [127] = "Legendary", [128] = "Legendary",
+        [113] = "Mythic", [114] = "Mythic", [115] = "Mythic", [116] = "Mythic", [117] = "Mythic", [119] = "Mythic"
+    }
+
+    local function resolveMatRarity(id, name, info)
+        local numId = tonumber(id)
+        if numId and KNOWN_MAT_RARITIES[numId] then return KNOWN_MAT_RARITIES[numId] end
+        if info and (info.Tier or info.tier) then
+            local t = tonumber(info.Tier or info.tier)
+            if t == 4 then return "Mythic"
+            elseif t == 3 then return "Legendary"
+            elseif t == 2 then return "Epic"
+            elseif t == 1 then return "Common" end
+        end
+        if info and info.Rarity and type(info.Rarity) == "string" and info.Rarity ~= "" then return info.Rarity end
+        return "Common"
+    end
+
+    local function resolveAccRarity(id, name, info)
+        local numId = tonumber(id)
+        if numId and KNOWN_ACC_RARITIES[numId] then return KNOWN_ACC_RARITIES[numId] end
+        if info and (info.Tier or info.tier) then
+            local t = tonumber(info.Tier or info.tier)
+            if t == 4 then return "Mythic"
+            elseif t == 3 then return "Legendary"
+            elseif t == 2 then return "Epic"
+            elseif t == 1 then return "Common" end
+        end
+        if info and info.Rarity and type(info.Rarity) == "string" and info.Rarity ~= "" then return info.Rarity end
+        return "Common"
+    end
+
     -- Materials
     local materials = {}
     if acc.state.material and acc.state.material.entries then
@@ -64,11 +117,12 @@ local function getSnapshot()
             local count = tonumber(getVal(v)) or 0
             if count > 0 then
                 local info = matConfig[tonumber(id)] or matConfig[tostring(id)] or {}
+                local mName = info.Name or info.name or ("Material " .. id)
                 materials[tostring(id)] = {
                     id = tostring(id),
-                    name = info.Name or info.name or ("Material " .. id),
+                    name = mName,
                     count = count,
-                    rarity = info.Rarity or info.rarity or "Common"
+                    rarity = resolveMatRarity(id, mName, info)
                 }
             end
         end
@@ -81,11 +135,12 @@ local function getSnapshot()
             local count = tonumber(getVal(v)) or 0
             if count > 0 then
                 local info = accConfig[tonumber(id)] or accConfig[tostring(id)] or {}
+                local aName = info.Name or info.name or ("Accessory " .. id)
                 accessories[tostring(id)] = {
                     id = tostring(id),
-                    name = info.Name or info.name or ("Accessory " .. id),
+                    name = aName,
                     count = count,
-                    rarity = info.Rarity or info.rarity or "Common"
+                    rarity = resolveAccRarity(id, aName, info)
                 }
             end
         end
@@ -201,7 +256,8 @@ local function getSnapshot()
             displayName = player.DisplayName,
             userId = player.UserId,
             level = level,
-            guild = player:GetAttribute("GuildName") or "None"
+            guild = player:GetAttribute("GuildName") or "",
+            avatarUrl = "/api/avatar?userId=" .. tostring(player.UserId)
         },
         playerProg = playerProg,
         serverLeaderboard = serverPlayers,
@@ -301,6 +357,7 @@ task.spawn(function()
                             category = "accessory",
                             name = curAcc.name,
                             amount = delta,
+                            rarity = curAcc.rarity,
                             icon = "👑"
                         })
                     end
