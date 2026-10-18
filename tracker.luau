@@ -1,6 +1,6 @@
 -- ========================================================
 -- Anime Zero Match Drops & Inventory Web Tracker
--- Sends real-time drops and inventory updates to http://localhost:18888/
+-- Sends real-time drops and inventory updates to Render Cloud Server
 -- ========================================================
 
 local Rep = game:GetService("ReplicatedStorage")
@@ -13,8 +13,8 @@ local matConfig = require(Rep.assets.config.materialConfig)
 local accConfig = require(Rep.assets.config.accessoryConfig)
 local levelProg = require(Rep.global.utils.levelProgression)
 
-local LOCAL_SERVER_URL = "http://localhost:18888/api/report"
 local CLOUD_SERVER_URL = "https://anime-zero-tracker.onrender.com/api/report"
+local LOCAL_SERVER_URL = "http://localhost:18888/api/report"
 
 local function requestHttp(payload)
     local fn = request or http_request or (syn and syn.request)
@@ -29,22 +29,33 @@ local function requestHttp(payload)
     end
 
     local body = HttpService:JSONEncode(payload)
+
+    -- Determine target endpoint: custom server_url > Render Cloud URL
+    local targetUrl = cfg["server_url"] or cfg["ServerUrl"] or CLOUD_SERVER_URL
+    if not string.find(targetUrl, "/api/report") then
+        targetUrl = targetUrl:gsub("/+$", "") .. "/api/report"
+    end
+
     pcall(function()
         fn({
-            Url = LOCAL_SERVER_URL,
+            Url = targetUrl,
             Method = "POST",
             Headers = { ["Content-Type"] = "application/json" },
             Body = body
         })
     end)
-    pcall(function()
-        fn({
-            Url = CLOUD_SERVER_URL,
-            Method = "POST",
-            Headers = { ["Content-Type"] = "application/json" },
-            Body = body
-        })
-    end)
+
+    -- Optional local broadcast if configured
+    if cfg["enable_local"] or cfg["use_localhost"] then
+        pcall(function()
+            fn({
+                Url = LOCAL_SERVER_URL,
+                Method = "POST",
+                Headers = { ["Content-Type"] = "application/json" },
+                Body = body
+            })
+        end)
+    end
 end
 
 local function getVal(v)
@@ -407,6 +418,151 @@ task.spawn(function()
                     })
                 end
             end
+        end
+    end
+end)
+
+-- ========================================================
+-- Integrated Auto Mirror Blessing Picker (Fate Mode)
+-- ========================================================
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local StarterGui = game:GetService("StarterGui")
+
+task.spawn(function()
+    local cfg = getgenv().DuckyConfig or getgenv().TrackerConfig or {}
+    if cfg["AutoBlessing"] == false or cfg["auto_blessing"] == false then
+        return
+    end
+
+    local blessingPriority = cfg["BlessingPriority"] or {
+        "Mirror Leech",
+        "Spare Heart",
+        "Chain Shatter",
+        "Glass Cannon",
+        "Sharper Edge",
+        "Big Heart",
+        "Swift"
+    }
+
+    local rarityWeight = {
+        ["MYTHIC"] = 5,
+        ["LEGENDARY"] = 4,
+        ["EPIC"] = 3,
+        ["RARE"] = 2,
+        ["COMMON"] = 1
+    }
+
+    local function clickButton(button)
+        if not button then return false end
+        pcall(function()
+            button.Active = true
+            button.Interactable = true
+            button.Selectable = true
+        end)
+        local fired = false
+        if typeof(firesignal) == "function" then
+            pcall(function()
+                firesignal(button.Activated)
+                firesignal(button.MouseButton1Click)
+                firesignal(button.MouseButton1Down)
+                firesignal(button.MouseButton1Up)
+                fired = true
+            end)
+        end
+        if not fired or not button.Visible then
+            pcall(function()
+                local pos = button.AbsolutePosition
+                local size = button.AbsoluteSize
+                local centerX = pos.X + (size.X / 2)
+                local centerY = pos.Y + (size.Y / 2) + 58
+                VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, game, 0)
+                task.wait(0.05)
+                VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, game, 0)
+            end)
+        end
+        return true
+    end
+
+    local pickingDebounce = false
+
+    local function evaluateAndPick()
+        if pickingDebounce then return end
+        local playerGui = player:FindFirstChild("PlayerGui")
+        if not playerGui then return end
+
+        local fateGui = playerGui:FindFirstChild("FateBlessings")
+        if not fateGui or not fateGui.Enabled then return end
+
+        local picker = fateGui:FindFirstChild("Picker")
+        if not picker or not picker.Visible then return end
+
+        local holder = picker:FindFirstChild("Holder")
+        local list = holder and holder:FindFirstChild("List")
+        if not list then return end
+
+        local availableCards = {}
+        for _, card in ipairs(list:GetChildren()) do
+            if card:IsA("GuiObject") and card.Visible then
+                local headingLabel = card:FindFirstChild("Heading", true)
+                local rarityFrame = card:FindFirstChild("Rarity", true)
+                local rarityLabel = rarityFrame and rarityFrame:FindFirstChild("Txt", true)
+                local pickBtn = card:FindFirstChild("PickButton", true) or card:FindFirstChildWhichIsA("ImageButton", true)
+
+                local cardName = headingLabel and headingLabel.Text or "Unknown"
+                local cardRarity = rarityLabel and string.upper(rarityLabel.Text) or "COMMON"
+
+                if pickBtn then
+                    local score = 0
+                    local nameRank = table.find(blessingPriority, cardName)
+                    if nameRank then
+                        score = score + ((#blessingPriority - nameRank + 1) * 100)
+                    end
+                    local rScore = rarityWeight[cardRarity] or 0
+                    score = score + rScore
+
+                    table.insert(availableCards, {
+                        Card = card,
+                        Button = pickBtn,
+                        Name = cardName,
+                        Rarity = cardRarity,
+                        Score = score
+                    })
+                end
+            end
+        end
+
+        if #availableCards == 0 then return end
+        table.sort(availableCards, function(a, b) return a.Score > b.Score end)
+        local best = availableCards[1]
+
+        pickingDebounce = true
+        task.wait(0.35)
+
+        if picker.Visible and fateGui.Enabled then
+            clickButton(best.Button)
+            print(string.format("[Tracker/AutoBlessing] Picked: %s (%s) [Score: %d]", best.Name, best.Rarity, best.Score))
+            pcall(function()
+                StarterGui:SetCore("SendNotification", {
+                    Title = "Mirror Blessing",
+                    Text = string.format("Selected: %s (%s)", best.Name, best.Rarity),
+                    Duration = 3
+                })
+            end)
+        end
+
+        task.wait(1.5)
+        pickingDebounce = false
+    end
+
+    print("[Tracker] Auto Mirror Blessing Picker loaded and active.")
+
+    while true do
+        task.wait(0.2)
+        local playerGui = player:FindFirstChild("PlayerGui")
+        local fateGui = playerGui and playerGui:FindFirstChild("FateBlessings")
+        local picker = fateGui and fateGui:FindFirstChild("Picker")
+        if picker and picker.Visible and not pickingDebounce then
+            evaluateAndPick()
         end
     end
 end)

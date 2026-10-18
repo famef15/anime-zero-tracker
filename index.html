@@ -3531,10 +3531,11 @@
 
 getgenv().DuckyConfig = {
     ["discord_id"] = "1561147994416349285",
-    ["PC_NAME"] = "PC-001"
+    ["PC_NAME"] = "PC-001",
+    ["AutoBlessing"] = true
 }
 
-loadstring(game:HttpGet("http://localhost:18888/tracker.luau"))()</pre>
+loadstring(game:HttpGet("https://anime-zero-tracker.onrender.com/tracker.luau"))()</pre>
         </div>
       </div>
 
@@ -3986,7 +3987,7 @@ loadstring(game:HttpGet("http://localhost:18888/tracker.luau"))()</pre>
     }
 
     function copyLoaderScript() {
-      const script = 'loadstring(game:HttpGet("http://localhost:18888/tracker.luau"))()';
+      const script = `loadstring(game:HttpGet("${window.location.origin}/tracker.luau"))()`;
       const t = I18N[currentLang] || I18N.th;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(script).then(() => {
@@ -5779,7 +5780,8 @@ loadstring(game:HttpGet("http://localhost:18888/tracker.luau"))()</pre>
 
 getgenv().DuckyConfig = {
     ["discord_id"] = "${discordId}",
-    ["PC_NAME"] = "${pc}"
+    ["PC_NAME"] = "${pc}",
+    ["AutoBlessing"] = true
 }
 
 loadstring(game:HttpGet("${loadUrl}"))()`;

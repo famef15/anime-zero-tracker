@@ -40,10 +40,19 @@ const MCP_PORT = process.env.MCP_PORT || 16384;
 const DASHBOARD_PIN = process.env.DASHBOARD_PIN || "";
 const TRACKER_SECRET = process.env.TRACKER_SECRET || "";
 
-// Discord OAuth2 App Configuration (Loaded from .env or system environment)
-const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID || "";
-const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET || "";
-const DISCORD_REDIRECT_URI = process.env.DISCORD_REDIRECT_URI || "";
+// Discord OAuth2 App Configuration (Loaded from .env, system environment, or production defaults)
+const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID || "1561147994416349285";
+const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET || "tn9oqgyfI-9_ZqGG6QYN5oZ2iMZXPQKa";
+const DISCORD_REDIRECT_URI = process.env.DISCORD_REDIRECT_URI || "https://anime-zero-tracker.onrender.com/api/auth/discord/callback";
+
+function getDiscordRedirectUri(req) {
+  if (req && req.headers && req.headers.host && (req.headers.host.includes("localhost") || req.headers.host.includes("127.0.0.1"))) {
+    return `http://${req.headers.host}/api/auth/discord/callback`;
+  }
+  if (DISCORD_REDIRECT_URI) return DISCORD_REDIRECT_URI;
+  const proto = (req && req.headers && req.headers["x-forwarded-proto"]) || "https";
+  return `${proto}://${req ? req.headers.host : "anime-zero-tracker.onrender.com"}/api/auth/discord/callback`;
+}
 
 // Ensure icons directory and unpack bundle if needed
 const ICONS_DIR = path.join(__dirname, "icons");
@@ -463,6 +472,20 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // HTTPS Enforcement on Render / Cloud Reverse Proxies
+  if (process.env.RENDER && req.headers["x-forwarded-proto"] === "http") {
+    res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+    res.end();
+    return;
+  }
+
+  // Cloud Health Check Endpoint
+  if ((url.pathname === "/health" || url.pathname === "/api/health") && req.method === "GET") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ status: "ok", timestamp: Date.now() }));
+    return;
+  }
+
   // Static Root Images & Game Assets Route
   if ((url.pathname === "/anime_zero_cover.png" || 
        url.pathname === "/anime_zero_icon.png" || 
@@ -551,20 +574,20 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Luau Scripts Download Routes
-  if (url.pathname === "/tracker.luau" && req.method === "GET") {
-    const p = path.join(__dirname, "tracker.luau");
+  // Luau Scripts Download Routes (Dynamically injected with current host)
+  if ((url.pathname === "/tracker.luau" || url.pathname === "/tracker.obf.luau") && req.method === "GET") {
+    const filename = url.pathname === "/tracker.obf.luau" ? "tracker.obf.luau" : "tracker.luau";
+    const p = path.join(__dirname, filename);
     if (fs.existsSync(p)) {
-      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-      fs.createReadStream(p).pipe(res);
-      return;
-    }
-  }
-  if (url.pathname === "/tracker.obf.luau" && req.method === "GET") {
-    const p = path.join(__dirname, "tracker.obf.luau");
-    if (fs.existsSync(p)) {
-      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-      fs.createReadStream(p).pipe(res);
+      const proto = req.headers["x-forwarded-proto"] || (req.headers.host.includes("localhost") || req.headers.host.includes("127.0.0.1") ? "http" : "https");
+      const origin = `${proto}://${req.headers.host}`;
+      let content = fs.readFileSync(p, "utf-8");
+      content = content.replace(/local CLOUD_SERVER_URL = ".*?"/, `local CLOUD_SERVER_URL = "${origin}/api/report"`);
+      res.writeHead(200, {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Access-Control-Allow-Origin": "*"
+      });
+      res.end(content);
       return;
     }
   }
@@ -601,7 +624,7 @@ const server = http.createServer(async (req, res) => {
   // Discord OAuth2 Login Redirect (Official Flow)
   if (url.pathname === "/api/auth/discord/login" && req.method === "GET") {
     if (DISCORD_CLIENT_ID && DISCORD_CLIENT_SECRET) {
-      const redirectUri = DISCORD_REDIRECT_URI || `http://${req.headers.host}/api/auth/discord/callback`;
+      const redirectUri = getDiscordRedirectUri(req);
       const discordUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify`;
       res.writeHead(302, { Location: discordUrl });
       res.end();
@@ -623,7 +646,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     try {
-      const redirectUri = DISCORD_REDIRECT_URI || `http://${req.headers.host}/api/auth/discord/callback`;
+      const redirectUri = getDiscordRedirectUri(req);
       const tokenRes = await fetch("https://discord.com/api/oauth2/token", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },

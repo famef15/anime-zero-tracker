@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: anime-zero-tracker
+    env: node
+    plan: free
+    region: singapore # or oregon, frankfurt, ohio
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DISCORD_CLIENT_ID
+        sync: false
+      - key: DISCORD_CLIENT_SECRET
+        sync: false
+      - key: DISCORD_REDIRECT_URI
+        sync: false
+      - key: DASHBOARD_PIN
+        sync: false
+      - key: TRACKER_SECRET
+        sync: false
