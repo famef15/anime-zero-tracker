@@ -1,0 +1,2474 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark-game-gui">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANIME ZERO // LIVE COMBAT HUD & INVENTORY TRACKER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       ANIME ZERO // DARK MODE + RPG GAME GUI DESIGN SYSTEM
+       ============================================================ */
+    :root {
+      --game-bg: #06090e;
+      --game-surface: #0c121e;
+      --game-surface-hover: #141d2e;
+      --game-panel: rgba(12, 18, 30, 0.85);
+      --game-panel-solid: #0d1524;
+      --game-inset: #070b13;
+
+      --game-border: rgba(56, 189, 248, 0.22);
+      --game-border-bright: rgba(56, 189, 248, 0.55);
+      --game-border-subtle: rgba(255, 255, 255, 0.08);
+
+      --game-text: #f8fafc;
+      --game-text-muted: #94a3b8;
+      --game-text-dim: #64748b;
+
+      --neon-cyan: #00f0ff;
+      --neon-blue: #38bdf8;
+      --neon-purple: #c084fc;
+      --neon-violet: #a855f7;
+      --neon-gold: #ffb703;
+      --neon-amber: #f59e0b;
+      --neon-emerald: #10b981;
+      --neon-rose: #ff2e63;
+
+      /* Gaming Rarity Palettes */
+      --rarity-mythic-color: #ff2e63;
+      --rarity-mythic-glow: rgba(255, 46, 99, 0.45);
+      --rarity-mythic-bg: rgba(255, 46, 99, 0.14);
+      --rarity-mythic-border: rgba(255, 46, 99, 0.75);
+
+      --rarity-legend-color: #ffb703;
+      --rarity-legend-glow: rgba(255, 183, 3, 0.45);
+      --rarity-legend-bg: rgba(255, 183, 3, 0.12);
+      --rarity-legend-border: rgba(255, 183, 3, 0.65);
+
+      --rarity-epic-color: #c084fc;
+      --rarity-epic-glow: rgba(192, 132, 252, 0.4);
+      --rarity-epic-bg: rgba(192, 132, 252, 0.1);
+      --rarity-epic-border: rgba(192, 132, 252, 0.6);
+
+      --rarity-common-color: #94a3b8;
+      --rarity-common-glow: rgba(148, 163, 184, 0.25);
+      --rarity-common-bg: rgba(148, 163, 184, 0.08);
+      --rarity-common-border: rgba(148, 163, 184, 0.4);
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-pill: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--game-bg);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(30, 58, 138, 0.35) 0%, transparent 60%),
+        radial-gradient(circle at 10% 40%, rgba(168, 85, 247, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 70%, rgba(245, 158, 11, 0.07) 0%, transparent 40%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+      color: var(--game-text);
+      font-family: 'Kanit', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--game-bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* ============================================================
+       TOP HUD NAVIGATION
+       ============================================================ */
+    .game-header {
+      background: rgba(9, 13, 22, 0.92);
+      border-bottom: 1px solid var(--game-border);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(0, 240, 255, 0.15);
+    }
+
+    .game-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .game-emblem {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(168, 85, 247, 0.3) 100%);
+      border: 1px solid var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.4), inset 0 0 8px rgba(0, 240, 255, 0.3);
+      color: var(--neon-cyan);
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .game-brand:hover .game-emblem {
+      transform: scale(1.08) rotate(4deg);
+    }
+
+    .game-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .game-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 55%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.5));
+      line-height: 1.1;
+    }
+
+    .game-subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--game-text-muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .game-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Live Link Status Pill */
+    .game-status-hud {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+    }
+
+    .game-status-hud.offline {
+      background: rgba(244, 63, 94, 0.12);
+      border-color: rgba(244, 63, 94, 0.4);
+      color: #fb7185;
+      box-shadow: 0 0 12px rgba(244, 63, 94, 0.2);
+    }
+
+    .game-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      position: relative;
+    }
+    .game-status-hud.offline .game-status-dot {
+      background: #f43f5e;
+      box-shadow: 0 0 8px #f43f5e;
+    }
+
+    .game-status-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1px solid #10b981;
+      animation: pulse-radar 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    .game-status-hud.offline .game-status-dot::after {
+      border-color: #f43f5e;
+    }
+
+    @keyframes pulse-radar {
+      0% { transform: scale(0.9); opacity: 1; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    /* Master Rank Badge */
+    .game-rank-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: linear-gradient(135deg, rgba(255, 183, 3, 0.15) 0%, rgba(245, 158, 11, 0.25) 100%);
+      border: 1px solid rgba(255, 183, 3, 0.5);
+      border-radius: var(--radius-md);
+      color: #ffb703;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 14px rgba(255, 183, 3, 0.25);
+    }
+
+    /* Cyber Sync Button */
+    .game-btn-sync {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      border: 1px solid var(--neon-cyan);
+      border-radius: var(--radius-md);
+      color: #ffffff;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    }
+    .game-btn-sync:hover {
+      background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+    .game-btn-sync:active {
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       COOL VECTOR GAME NAVIGATION TABS (NO EMOJIS)
+       ============================================================ */
+    .game-tabs-container {
+      background: rgba(7, 11, 18, 0.9);
+      border-bottom: 1px solid var(--game-border);
+      padding: 0 28px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .game-tabs-container::-webkit-scrollbar { display: none; }
+
+    .game-tab {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 22px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--game-text-muted);
+      cursor: pointer;
+      position: relative;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .game-nav-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: var(--game-text-muted);
+      transition: transform 0.2s ease, color 0.2s ease, filter 0.2s ease;
+    }
+
+    .game-tab:hover {
+      color: var(--game-text);
+      background: rgba(56, 189, 248, 0.05);
+    }
+    .game-tab:hover .game-nav-icon {
+      color: #ffffff;
+      transform: scale(1.15);
+    }
+
+    .game-tab.active {
+      color: #ffffff;
+      border-bottom-color: var(--neon-cyan);
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 240, 255, 0.12) 100%);
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+    }
+    .game-tab.active .game-nav-icon {
+      color: var(--neon-cyan);
+      filter: drop-shadow(0 0 8px var(--neon-cyan));
+      transform: scale(1.1);
+    }
+
+    .game-tab-counter {
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--game-text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .game-tab.active .game-tab-counter {
+      background: rgba(0, 240, 255, 0.2);
+      color: var(--neon-cyan);
+      border-color: rgba(0, 240, 255, 0.4);
+    }
+
+    /* Tab Panes */
+    .game-pane {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+    .game-pane.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       MAIN CONTENT CONTAINER
+       ============================================================ */
+    .game-container {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      flex: 1;
+    }
+
+    /* ============================================================
+       HERO HUD: PLAYER PROFILE CARD
+       ============================================================ */
+    .player-hud-card {
+      background: linear-gradient(135deg, rgba(14, 21, 35, 0.95) 0%, rgba(8, 12, 22, 0.98) 100%);
+      border: 1px solid var(--game-border);
+      border-radius: var(--radius-lg);
+      padding: 22px 26px;
+      margin-bottom: 22px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 24px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .player-hud-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 32px;
+      height: 32px;
+      border-top: 2px solid var(--neon-cyan);
+      border-left: 2px solid var(--neon-cyan);
+      pointer-events: none;
+    }
+    .player-hud-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      border-bottom: 2px solid var(--neon-purple);
+      border-right: 2px solid var(--neon-purple);
+      pointer-events: none;
+    }
+
+
+
+    /* Avatar Frame */
+    .player-avatar-hud {
+      width: 84px;
+      height: 84px;
+      border-radius: 16px;
+      background: var(--game-inset);
+      border: 2px solid var(--neon-cyan);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4), inset 0 0 12px rgba(0, 0, 0, 0.8);
+      position: relative;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .player-avatar-hud img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .player-meta-hud {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .player-name-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .player-name-hud {
+      font-family: 'Kanit', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .player-handle-hud {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    .player-guild-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: rgba(192, 132, 252, 0.15);
+      color: var(--neon-purple);
+      border: 1px solid rgba(192, 132, 252, 0.4);
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      box-shadow: 0 0 10px rgba(192, 132, 252, 0.2);
+    }
+
+    .player-level-badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, rgba(255, 183, 3, 0.25) 0%, rgba(245, 158, 11, 0.35) 100%);
+      color: #ffb703;
+      border: 1px solid rgba(255, 183, 3, 0.6);
+      padding: 3px 12px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 0 14px rgba(255, 183, 3, 0.3);
+    }
+
+    /* RPG Segmented EXP Gauge */
+    .exp-gauge-hud {
+      margin-top: 4px;
+    }
+
+    .exp-gauge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--game-text-muted);
+      letter-spacing: 0.8px;
+      margin-bottom: 5px;
+    }
+
+    .exp-gauge-track {
+      width: 100%;
+      height: 12px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .exp-gauge-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0284c7 0%, #10b981 70%, #34d399 100%);
+      position: relative;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 12px rgba(52, 211, 153, 0.7);
+    }
+
+    .exp-gauge-fill::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0.15) 6px,
+        transparent 6px,
+        transparent 12px
+      );
+      animation: energy-stripe 1.5s linear infinite;
+    }
+    @keyframes energy-stripe {
+      0% { background-position: 0 0; }
+      100% { background-position: 24px 0; }
+    }
+
+    /* Combat Record Box */
+    .combat-record-hud {
+      text-align: right;
+      border-left: 1px solid var(--game-border);
+      padding-left: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .combat-record-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--game-text-dim);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .combat-record-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    }
+
+    /* ============================================================
+       CURRENCIES VAULT (GAME HUD WALLET)
+       ============================================================ */
+    .game-currencies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .currency-slot-card {
+      background: linear-gradient(145deg, rgba(16, 24, 40, 0.85) 0%, rgba(9, 13, 24, 0.95) 100%);
+      border: 1px solid var(--card-border, var(--game-border));
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .currency-slot-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--card-color, var(--neon-cyan)), transparent);
+      opacity: 0.8;
+    }
+
+    .currency-slot-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--card-color, var(--neon-cyan));
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 20px var(--card-glow, rgba(0, 240, 255, 0.3));
+    }
+
+    /* Currency Themes */
+    .card-gems {
+      --card-color: #38bdf8;
+      --card-glow: rgba(56, 189, 248, 0.3);
+      --card-border: rgba(56, 189, 248, 0.35);
+    }
+    .card-gold {
+      --card-color: #ffb703;
+      --card-glow: rgba(255, 183, 3, 0.3);
+      --card-border: rgba(255, 183, 3, 0.35);
+    }
+    .card-spins {
+      --card-color: #f59e0b;
+      --card-glow: rgba(245, 158, 11, 0.3);
+      --card-border: rgba(245, 158, 11, 0.35);
+    }
+    .card-rerolls {
+      --card-color: #c084fc;
+      --card-glow: rgba(192, 132, 252, 0.3);
+      --card-border: rgba(192, 132, 252, 0.35);
+    }
+    .card-xp {
+      --card-color: #34d399;
+      --card-glow: rgba(52, 211, 153, 0.3);
+      --card-border: rgba(52, 211, 153, 0.35);
+    }
+
+    .currency-icon-chamber {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, rgba(3, 7, 18, 0.9) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 14px var(--card-glow, transparent);
+      position: relative;
+    }
+
+    .currency-icon-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.8));
+      transition: transform 0.25s ease;
+    }
+    .currency-slot-card:hover .currency-icon-img {
+      transform: scale(1.15) rotate(4deg);
+    }
+
+    .currency-meta-hud {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .currency-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--game-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .currency-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--card-color, #ffffff);
+      margin-top: 2px;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 10px var(--card-glow, transparent);
+    }
+
+    /* ============================================================
+       MISSION DEBRIEF (LATEST MATCH SPOTLIGHT)
+       ============================================================ */
+    .mission-debrief-card {
+      background: linear-gradient(135deg, rgba(14, 21, 35, 0.9) 0%, rgba(8, 12, 22, 0.96) 100%);
+      border: 1px solid var(--game-border);
+      border-radius: var(--radius-lg);
+      padding: 18px 22px;
+      margin-bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .debrief-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--game-border-subtle);
+    }
+
+    .debrief-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .debrief-tags {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .game-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+    }
+    .badge-victory {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #34d399;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+    }
+    .badge-defeat {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      color: #fb7185;
+      box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
+    }
+    .badge-timer {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--neon-cyan);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge-idle {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: var(--game-text-dim);
+    }
+
+    .debrief-loot-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--game-text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .loot-flow-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .loot-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: rgba(7, 11, 19, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: var(--radius-md);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+    .loot-pill img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    }
+
+    /* ============================================================
+       INVENTORY TOOLBAR: RARITY FILTER PILLS & SORT SELECTOR
+       ============================================================ */
+    .game-filter-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .game-search-input {
+      flex: 1;
+      min-width: 240px;
+      background: rgba(11, 16, 28, 0.9);
+      border: 1px solid var(--game-border);
+      border-radius: var(--radius-md);
+      color: #ffffff;
+      font-family: 'Kanit', sans-serif;
+      font-size: 14px;
+      padding: 8px 16px;
+      outline: none;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s ease;
+    }
+    .game-search-input:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.3), inset 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .rarity-filter-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .rarity-filter-btn {
+      background: rgba(14, 21, 35, 0.85);
+      border: 1px solid var(--game-border);
+      border-radius: var(--radius-sm);
+      color: var(--game-text-muted);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .rarity-filter-btn:hover {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+    .rarity-filter-btn.active {
+      color: #ffffff;
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+    }
+    .rarity-filter-btn.filter-mythic.active {
+      background: rgba(255, 46, 99, 0.2);
+      border-color: #ff2e63;
+      color: #ff2e63;
+      box-shadow: 0 0 14px rgba(255, 46, 99, 0.4);
+    }
+    .rarity-filter-btn.filter-legendary.active {
+      background: rgba(255, 183, 3, 0.2);
+      border-color: #ffb703;
+      color: #ffb703;
+      box-shadow: 0 0 14px rgba(255, 183, 3, 0.4);
+    }
+    .rarity-filter-btn.filter-epic.active {
+      background: rgba(192, 132, 252, 0.2);
+      border-color: #c084fc;
+      color: #c084fc;
+      box-shadow: 0 0 14px rgba(192, 132, 252, 0.4);
+    }
+    .rarity-filter-btn.filter-common.active {
+      background: rgba(148, 163, 184, 0.2);
+      border-color: #94a3b8;
+      color: #e2e8f0;
+      box-shadow: 0 0 14px rgba(148, 163, 184, 0.3);
+    }
+
+    .game-sort-select {
+      background: rgba(14, 21, 35, 0.95);
+      border: 1px solid var(--game-border);
+      border-radius: var(--radius-sm);
+      color: var(--game-text);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 7px 12px;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .game-sort-select:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+    }
+
+    /* ============================================================
+       INVENTORY GRIDS & RPG ITEM SLOTS
+       ============================================================ */
+    .game-inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    /* RPG Item Slot Card */
+    .rpg-item-slot {
+      background: radial-gradient(circle at 50% 35%, var(--tier-bg, rgba(255, 255, 255, 0.04)) 0%, rgba(8, 12, 20, 0.98) 90%);
+      border: 1px solid var(--tier-border, var(--game-border));
+      border-radius: var(--radius-lg);
+      padding: 16px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .rpg-item-slot::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--tier-color, var(--neon-cyan)), transparent);
+      opacity: 0.8;
+    }
+
+    .rpg-item-slot:hover {
+      transform: translateY(-4px);
+      border-color: var(--tier-color, var(--neon-cyan));
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 24px var(--tier-glow, rgba(0, 240, 255, 0.3));
+    }
+
+    /* Slot Rarity Tag (Top-Left) */
+    .slot-tier-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      background: rgba(3, 7, 18, 0.75);
+      border: 1px solid var(--tier-border, rgba(255, 255, 255, 0.2));
+      color: var(--tier-color, var(--game-text-muted));
+    }
+
+    .slot-subtag {
+      position: absolute;
+      top: 8px;
+      left: 74px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      background: rgba(3, 7, 18, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--game-text-dim);
+    }
+
+    /* Slot Stack Counter (Top-Right) */
+    .slot-count-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 1px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(3, 7, 18, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    /* Floating Item Visual */
+    .slot-visual-chamber {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at 50% 50%, var(--tier-bg, rgba(255, 255, 255, 0.05)) 0%, rgba(3, 7, 18, 0.9) 90%);
+      border: 1px solid var(--tier-border, rgba(255, 255, 255, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.7), 0 0 14px var(--tier-glow, transparent);
+      transition: all 0.25s ease;
+    }
+
+    .rpg-item-slot:hover .slot-visual-chamber {
+      border-color: var(--tier-color, rgba(255, 255, 255, 0.4));
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 24px var(--tier-glow, transparent);
+    }
+
+    .slot-item-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 6px;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85));
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .rpg-item-slot:hover .slot-item-img {
+      transform: scale(1.18);
+    }
+
+    .slot-item-name {
+      font-family: 'Kanit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      text-align: center;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 4px;
+    }
+
+    .slot-item-desc {
+      font-family: 'Kanit', sans-serif;
+      font-size: 11px;
+      color: var(--game-text-muted);
+      text-align: center;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 28px;
+    }
+
+    /* Rarity Theme Classes */
+    .tier-4 {
+      --tier-color: var(--rarity-mythic-color);
+      --tier-glow: var(--rarity-mythic-glow);
+      --tier-bg: var(--rarity-mythic-bg);
+      --tier-border: var(--rarity-mythic-border);
+    }
+    .tier-3 {
+      --tier-color: var(--rarity-legend-color);
+      --tier-glow: var(--rarity-legend-glow);
+      --tier-bg: var(--rarity-legend-bg);
+      --tier-border: var(--rarity-legend-border);
+    }
+    .tier-2 {
+      --tier-color: var(--rarity-epic-color);
+      --tier-glow: var(--rarity-epic-glow);
+      --tier-bg: var(--rarity-epic-bg);
+      --tier-border: var(--rarity-epic-border);
+    }
+    .tier-1 {
+      --tier-color: var(--rarity-common-color);
+      --tier-glow: var(--rarity-common-glow);
+      --tier-bg: var(--rarity-common-bg);
+      --tier-border: var(--rarity-common-border);
+    }
+
+    /* ============================================================
+       TACTICAL MISSION LOG TABLE
+       ============================================================ */
+    .game-table-panel {
+      background: rgba(12, 18, 30, 0.9);
+      border: 1px solid var(--game-border);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    table.game-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    table.game-table th {
+      background: rgba(17, 24, 39, 0.95);
+      border-bottom: 2px solid var(--game-border);
+      color: var(--game-text-muted);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 12px 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    table.game-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--game-border-subtle);
+      color: var(--game-text);
+      vertical-align: middle;
+    }
+
+    table.game-table tr:hover td {
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    .unit-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--neon-cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: var(--game-text-dim);
+      font-family: 'Kanit', sans-serif;
+      padding: 24px;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .game-footer {
+      border-top: 1px solid var(--game-border-subtle);
+      background: rgba(6, 9, 14, 0.92);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--game-text-dim);
+      flex-wrap: wrap;
+    }
+
+    .game-footer a {
+      color: var(--neon-cyan);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .game-footer a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    /* Compatibility classes */
+    .gh-label { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: rgba(7, 11, 19, 0.8); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; margin: 2px; }
+    .gh-badge { display: inline-flex; align-items: center; gap: 4px; font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 9999px; text-transform: uppercase; }
+    .gh-badge-success { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.5); color: #34d399; }
+    .gh-badge-danger { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.5); color: #fb7185; }
+    .gh-badge-info { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: var(--neon-cyan); }
+    .gh-badge-muted { background: rgba(148, 163, 184, 0.1); border: 1px solid rgba(148, 163, 184, 0.3); color: var(--game-text-dim); }
+    .gh-branch-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.3); color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 2px 8px; border-radius: 4px; }
+    .gh-tier-tag { position: absolute; top: 8px; left: 8px; font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 1px 7px; border-radius: 9999px; background: rgba(3, 7, 18, 0.75); border: 1px solid var(--tier-border, rgba(255, 255, 255, 0.2)); color: var(--tier-color, var(--game-text-muted)); }
+    .gh-count-pill { position: absolute; top: 8px; right: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 800; padding: 1px 8px; border-radius: 9999px; background: rgba(3, 7, 18, 0.85); border: 1px solid rgba(255, 255, 255, 0.15); color: #ffffff; }
+    .gh-asset-visual { width: 72px; height: 72px; border-radius: 8px; background: radial-gradient(circle at 50% 50%, var(--tier-bg, rgba(255, 255, 255, 0.05)) 0%, rgba(3, 7, 18, 0.9) 90%); border: 1px solid var(--tier-border, rgba(255, 255, 255, 0.1)); display: flex; align-items: center; justify-content: center; margin-top: 14px; margin-bottom: 4px; overflow: hidden; position: relative; box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.7), 0 0 14px var(--tier-glow, transparent); }
+    .gh-asset-icon-img { width: 100%; height: 100%; object-fit: contain; padding: 6px; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85)); transition: transform 0.25s ease; }
+    .rpg-item-slot:hover .gh-asset-icon-img, .gh-asset-card:hover .gh-asset-icon-img { transform: scale(1.18); }
+    .gh-drop-icon-img { width: 20px; height: 20px; object-fit: contain; vertical-align: -4px; margin-right: 5px; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)); }
+    .gh-asset-name { font-family: 'Kanit', sans-serif; font-size: 13px; font-weight: 600; color: #ffffff; text-align: center; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; }
+    .gh-asset-desc { font-family: 'Kanit', sans-serif; font-size: 11px; color: var(--game-text-muted); text-align: center; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 28px; }
+
+    /* ============================================================
+       MOBILE & TABLET RESPONSIVE DESIGN SYSTEM
+       ============================================================ */
+    @media (max-width: 1024px) {
+      .game-header {
+        padding: 12px 18px;
+      }
+      .game-container {
+        padding: 18px 14px;
+      }
+      .game-tabs-container {
+        padding: 0 14px;
+      }
+      .game-currencies-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+    }
+
+    @media (max-width: 880px) {
+      .player-hud-card {
+        grid-template-columns: 1fr;
+        padding: 16px 14px;
+        gap: 16px;
+      }
+      .player-hud-card::before, .player-hud-card::after {
+        width: 20px;
+        height: 20px;
+      }
+      .combat-record-hud {
+        border-left: none;
+        border-top: 1px solid var(--game-border-subtle);
+        padding-left: 0;
+        padding-top: 12px;
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .combat-record-val {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 13px;
+      }
+      .game-header {
+        padding: 10px 14px;
+        gap: 10px;
+      }
+      .game-emblem {
+        width: 36px;
+        height: 36px;
+      }
+      .game-title {
+        font-size: 17px;
+        letter-spacing: 1px;
+      }
+      .game-subtitle {
+        font-size: 10px;
+        letter-spacing: 1px;
+      }
+      .game-header-actions {
+        width: 100%;
+        justify-content: space-between;
+        gap: 6px;
+      }
+      .game-status-hud {
+        padding: 4px 10px;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+      }
+      .game-rank-badge {
+        padding: 4px 10px;
+        font-size: 11px;
+      }
+      .game-btn-sync {
+        padding: 6px 14px;
+        font-size: 12px;
+        letter-spacing: 0.8px;
+      }
+
+      /* Touch-Friendly Horizontal Navigation Tabs */
+      .game-tabs-container {
+        padding: 0 10px;
+        gap: 4px;
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+      }
+      .game-tab {
+        padding: 12px 14px;
+        font-size: 12px;
+        letter-spacing: 0.8px;
+        gap: 6px;
+      }
+      .game-nav-icon {
+        width: 16px;
+        height: 16px;
+      }
+      .game-tab-counter {
+        font-size: 10px;
+        padding: 1px 6px;
+      }
+
+      /* Hero Character HUD */
+      .player-name-row {
+        gap: 8px;
+        align-items: center;
+      }
+      .player-avatar-hud {
+        width: 64px;
+        height: 64px;
+        border-radius: 12px;
+      }
+      .player-name-hud {
+        font-size: 18px;
+      }
+      .player-handle-hud {
+        font-size: 11px;
+        padding: 1px 8px;
+      }
+      .player-guild-badge, .player-level-badge {
+        font-size: 11px;
+        padding: 2px 8px;
+      }
+
+      /* Currencies: 2-Column Clean Mobile Grid */
+      .game-currencies-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .game-currencies-grid > :last-child:nth-child(odd) {
+        grid-column: span 2;
+      }
+      .currency-slot-card {
+        padding: 10px 12px;
+        gap: 10px;
+      }
+      .currency-icon-chamber {
+        width: 38px;
+        height: 38px;
+      }
+      .currency-icon-img {
+        width: 26px;
+        height: 26px;
+      }
+      .currency-title {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+      }
+      .currency-val {
+        font-size: 16px;
+      }
+
+      /* Mission Debrief Card */
+      .mission-debrief-card {
+        padding: 14px 14px;
+        gap: 10px;
+      }
+      .debrief-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .debrief-title {
+        font-size: 14px;
+      }
+      .debrief-tags {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .loot-pill {
+        font-size: 11px;
+        padding: 3px 8px;
+      }
+      .loot-pill img {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* Inventory Filter Bar: Mobile Optimized */
+      .game-container {
+        padding: 14px 10px;
+      }
+      .game-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .game-search-input {
+        min-width: 100%;
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+      .rarity-filter-group {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        width: 100%;
+      }
+      .rarity-filter-group::-webkit-scrollbar { display: none; }
+      .rarity-filter-btn {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      .game-sort-select {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+
+      /* 2-Column Responsive RPG Slots on Mobile */
+      .game-inventory-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .rpg-item-slot, .gh-asset-card {
+        padding: 12px 8px 10px;
+        gap: 4px;
+      }
+      .slot-tier-tag, .gh-tier-tag {
+        font-size: 9px;
+        padding: 1px 5px;
+        top: 6px;
+        left: 6px;
+      }
+      .slot-subtag {
+        font-size: 9px;
+        padding: 1px 4px;
+        top: 6px;
+        left: 54px;
+      }
+      .slot-count-badge, .gh-count-pill {
+        font-size: 11px;
+        padding: 1px 6px;
+        top: 6px;
+        right: 6px;
+      }
+      .slot-visual-chamber, .gh-asset-visual {
+        width: 58px;
+        height: 58px;
+        margin-top: 14px;
+        margin-bottom: 2px;
+      }
+      .slot-item-img, .gh-asset-icon-img {
+        padding: 4px;
+      }
+      .slot-item-name, .gh-asset-name {
+        font-size: 12px;
+        margin-top: 2px;
+      }
+      .slot-item-desc, .gh-asset-desc {
+        font-size: 10px;
+        min-height: 24px;
+        line-height: 1.2;
+      }
+
+      /* Touch Scrolling Table */
+      .game-table-panel {
+        border-radius: var(--radius-md);
+      }
+      table.game-table {
+        min-width: 600px;
+      }
+      table.game-table th, table.game-table td {
+        padding: 10px 10px;
+        font-size: 12px;
+      }
+
+      /* Footer on Mobile */
+      .game-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+        padding: 16px 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .game-container {
+        padding: 10px 8px;
+      }
+      .game-header {
+        padding: 8px 10px;
+      }
+      .game-title {
+        font-size: 15px;
+      }
+      .game-emblem {
+        width: 32px;
+        height: 32px;
+      }
+      .game-inventory-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .currency-val {
+        font-size: 14px;
+      }
+      .exp-gauge-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Game HUD Navigation -->
+  <header class="game-header">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <a href="#" class="game-brand" title="Anime Zero Tracker">
+        <div class="game-emblem">
+          <svg height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <div class="game-title-group">
+          <div class="game-title">ANIME ZERO</div>
+          <div class="game-subtitle">LIVE COMBAT HUD // <span id="repoOwnerLink" style="color: var(--neon-cyan);">Liesajsor17919</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="game-header-actions">
+      <!-- Live Server Link Status -->
+      <span id="connStatus" class="game-status-hud offline">
+        <span class="game-status-dot"></span>
+        <span id="connStatusText">Offline</span>
+      </span>
+
+      <!-- Player Master Rank / Level Badge -->
+      <div class="game-rank-badge" id="starRankBadge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>RANK</span>
+        <span id="starLevelCounter">LV. -</span>
+      </div>
+
+      <!-- Sci-Fi Sync State Action -->
+      <button class="game-btn-sync" onclick="syncNow()">
+        <svg height="15" viewBox="0 0 16 16" version="1.1" width="15" fill="currentColor">
+          <path d="M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z"></path>
+        </svg>
+        <span>SYNC STATE</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Game Mode Tabs (Equipped with Cool SVG Gaming Icons) -->
+  <div class="game-tabs-container">
+    <div class="game-tab gh-tab active" onclick="switchTab('overview')">
+      <svg class="game-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 17.5L3 6V3h3l11.5 11.5"></path>
+        <path d="M13 19l6-6"></path>
+        <path d="M16 16l4 4"></path>
+        <path d="M19 21l2-2"></path>
+        <path d="M9.5 14.5L21 6V3h-3L6.5 14.5"></path>
+        <path d="M11 19l-6-6"></path>
+        <path d="M8 16l-4 4"></path>
+        <path d="M5 21l-2-2"></path>
+      </svg>
+      <span>COMBAT OVERVIEW</span>
+    </div>
+
+    <div class="game-tab gh-tab" onclick="switchTab('materials')">
+      <svg class="game-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+        <path d="m3.3 7 8.7 5 8.7-5"></path>
+        <path d="M12 22V12"></path>
+      </svg>
+      <span>MATERIALS VAULT</span>
+      <span class="game-tab-counter" id="tabMatCounter">0</span>
+    </div>
+
+    <div class="game-tab gh-tab" onclick="switchTab('accessories')">
+      <svg class="game-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 18h18L21 7l-5 4-4-7-4 7-5-4 2 11z"></path>
+        <circle cx="12" cy="4" r="1.2" fill="currentColor"></circle>
+        <circle cx="4" cy="7" r="1.2" fill="currentColor"></circle>
+        <circle cx="20" cy="7" r="1.2" fill="currentColor"></circle>
+      </svg>
+      <span>ACCESSORIES & GEAR</span>
+      <span class="game-tab-counter" id="tabAccCounter">0</span>
+    </div>
+
+    <div class="game-tab gh-tab" onclick="switchTab('history')">
+      <svg class="game-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"></path>
+        <line x1="7" y1="8" x2="17" y2="8"></line>
+        <line x1="7" y1="12" x2="17" y2="12"></line>
+        <line x1="7" y1="16" x2="13" y2="16"></line>
+      </svg>
+      <span>DUNGEON RAID LOGS</span>
+      <span class="game-tab-counter" id="tabHistCounter">0</span>
+    </div>
+  </div>
+
+  <!-- Main Game GUI Stage -->
+  <main class="game-container">
+
+    <!-- Player Character Sheet Hero HUD -->
+    <div class="player-hud-card">
+      <div class="player-avatar-hud">
+        <img id="playerAvatarImg" src="/api/avatar" alt="Player Avatar" onerror="this.onerror=null; this.src='/api/avatar';">
+      </div>
+
+      <div class="player-meta-hud">
+        <div class="player-name-row">
+          <span class="player-name-hud" id="heroPlayerName">Loading...</span>
+          <span class="player-handle-hud" id="heroPlayerHandle">@Liesajsor17919</span>
+          <span class="player-guild-badge" id="heroGuildTag">Shinoko</span>
+          <span class="player-level-badge" id="playerLevelBadge">LV. 470</span>
+          <span style="font-size: 12px; color: var(--game-text-dim);">• LIVE SYNC: <span id="heroLastUpdate" style="color: var(--game-text-muted);">-</span></span>
+        </div>
+
+        <!-- Segmented Sci-Fi EXP Gauge -->
+        <div class="exp-gauge-hud">
+          <div class="exp-gauge-header">
+            <span style="display: inline-flex; align-items: center; gap: 5px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color: #38bdf8;">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              <span id="expSectionTitle">LEVEL 470 PROGRESSION</span>
+              <strong id="expPercent" style="color: #34d399; margin-left: 4px;">(0.0%)</strong>
+            </span>
+            <span id="expNumbers" style="font-family: 'JetBrains Mono', monospace; color: var(--game-text-muted);">0 / 0 XP</span>
+          </div>
+          <div class="exp-gauge-track">
+            <div class="exp-gauge-fill" id="expFillBar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Combat Record HUD -->
+      <div class="combat-record-hud">
+        <div class="combat-record-label">COMBAT RECORD</div>
+        <div class="combat-record-val" id="sessionWinLoss">0W - 0L</div>
+      </div>
+    </div>
+
+    <!-- Currencies Vault (Real Transparent In-Game Assets) -->
+    <div class="game-currencies-grid">
+      <div class="currency-slot-card card-gems">
+        <div class="currency-icon-chamber">
+          <img src="/icons/currency_gems.png" onerror="this.onerror=null; this.src='/icons/currency_gems.bmp';" class="currency-icon-img" alt="Gems" />
+        </div>
+        <div class="currency-meta-hud">
+          <div class="currency-title">GEMS</div>
+          <div class="currency-val" id="valGems">-</div>
+        </div>
+      </div>
+
+      <div class="currency-slot-card card-gold">
+        <div class="currency-icon-chamber">
+          <img src="/icons/currency_money.png" onerror="this.onerror=null; this.src='/icons/currency_money.bmp';" class="currency-icon-img" alt="Gold / Money" />
+        </div>
+        <div class="currency-meta-hud">
+          <div class="currency-title">GOLD / MONEY</div>
+          <div class="currency-val" id="valMoney">-</div>
+        </div>
+      </div>
+
+      <div class="currency-slot-card card-spins">
+        <div class="currency-icon-chamber">
+          <img src="/icons/currency_luckySpins.png" onerror="this.onerror=null; this.src='/icons/currency_luckySpins.bmp';" class="currency-icon-img" alt="Lucky Spins" />
+        </div>
+        <div class="currency-meta-hud">
+          <div class="currency-title">LUCKY SPINS</div>
+          <div class="currency-val" id="valSpins">-</div>
+        </div>
+      </div>
+
+      <div class="currency-slot-card card-rerolls">
+        <div class="currency-icon-chamber">
+          <img src="/icons/currency_traitRerolls.png" onerror="this.onerror=null; this.src='/icons/currency_traitRerolls.bmp';" class="currency-icon-img" alt="Trait Rerolls" />
+        </div>
+        <div class="currency-meta-hud">
+          <div class="currency-title">TRAIT REROLLS</div>
+          <div class="currency-val" id="valRerolls">-</div>
+        </div>
+      </div>
+
+      <div class="currency-slot-card card-xp">
+        <div class="currency-icon-chamber">
+          <img src="/icons/currency_xp.png" onerror="this.onerror=null; this.src='/icons/currency_xp.bmp';" class="currency-icon-img" alt="Total XP" />
+        </div>
+        <div class="currency-meta-hud">
+          <div class="currency-title">TOTAL PLAYER XP</div>
+          <div class="currency-val" id="valRolls">-</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission Debrief (Latest Match Spotlight) -->
+    <div class="mission-debrief-card">
+      <div class="debrief-header">
+        <div class="debrief-title">
+          <svg height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--neon-cyan);">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span>MISSION DEBRIEF // <strong id="spotMapInfo" style="color: #ffffff;">Hxh (Nightmare)</strong></span>
+        </div>
+        <div class="debrief-tags">
+          <span class="game-badge badge-victory" id="spotResultBadge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>VICTORY</span>
+          </span>
+          <span class="game-badge badge-timer" id="spotDurationBadge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>01:34</span>
+          </span>
+        </div>
+      </div>
+      <div>
+        <div class="debrief-loot-title">LOOT ACQUIRED</div>
+        <div class="loot-flow-container" id="spotRewardsFlow">
+          <div class="empty-msg" style="padding: 10px;">กำลังดึงข้อมูลของดรอป...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Pane 1: Overview -->
+    <div id="pane-overview" class="game-pane gh-pane active">
+      <div class="game-table-panel">
+        <div style="padding: 14px 20px; border-bottom: 1px solid var(--game-border); display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 1px; color: #ffffff;">
+            RECENT DUNGEON RUNS
+          </div>
+          <button class="game-tab" style="padding: 4px 14px; font-size: 12px; border: 1px solid var(--game-border); border-radius: var(--radius-sm);" onclick="switchTab('history')">
+            VIEW ALL RUNS →
+          </button>
+        </div>
+        <table class="game-table">
+          <thead>
+            <tr>
+              <th>TIME</th>
+              <th>MAP & DIFFICULTY</th>
+              <th>UNIT / CHARACTER</th>
+              <th>RESULT</th>
+              <th>DURATION</th>
+              <th>WAVE / KILLS</th>
+              <th>LOOT DROPS</th>
+            </tr>
+          </thead>
+          <tbody id="overviewHistoryBody">
+            <tr><td colspan="7" class="empty-msg">กำลังโหลดประวัติ...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab Pane 2: Materials Vault -->
+    <div id="pane-materials" class="game-pane gh-pane">
+      <div class="game-filter-bar">
+        <input type="text" class="game-search-input" id="matSearch" placeholder="Search crafting materials..." oninput="renderMaterials()">
+        
+        <!-- Rarity Filters -->
+        <div class="rarity-filter-group">
+          <button class="rarity-filter-btn active" data-filter="all" onclick="setMatRarityFilter('all', this)">ALL</button>
+          <button class="rarity-filter-btn filter-mythic" data-filter="4" onclick="setMatRarityFilter('4', this)">MYTHIC</button>
+          <button class="rarity-filter-btn filter-legendary" data-filter="3" onclick="setMatRarityFilter('3', this)">LEGENDARY</button>
+          <button class="rarity-filter-btn filter-epic" data-filter="2" onclick="setMatRarityFilter('2', this)">EPIC</button>
+          <button class="rarity-filter-btn filter-common" data-filter="1" onclick="setMatRarityFilter('1', this)">COMMON</button>
+        </div>
+
+        <!-- Sort Selector -->
+        <div>
+          <select id="matSort" class="game-sort-select" onchange="renderMaterials()">
+            <option value="rarity-desc">✦ Rarity: Mythic → Common</option>
+            <option value="rarity-asc">✦ Rarity: Common → Mythic</option>
+            <option value="count-desc">📦 Count: High → Low</option>
+            <option value="name-asc">🔤 Name: A → Z</option>
+          </select>
+        </div>
+      </div>
+      <div class="game-inventory-grid" id="materialsGrid">
+        <div class="empty-msg" style="grid-column: 1/-1;">กำลังโหลดคลังวัตถุดิบ...</div>
+      </div>
+    </div>
+
+    <!-- Tab Pane 3: Accessories & Gear -->
+    <div id="pane-accessories" class="game-pane gh-pane">
+      <div class="game-filter-bar">
+        <input type="text" class="game-search-input" id="accSearch" placeholder="Search accessories and equipment..." oninput="renderAccessories()">
+        
+        <!-- Rarity Filters -->
+        <div class="rarity-filter-group">
+          <button class="rarity-filter-btn active" data-filter="all" onclick="setAccRarityFilter('all', this)">ALL</button>
+          <button class="rarity-filter-btn filter-mythic" data-filter="4" onclick="setAccRarityFilter('4', this)">MYTHIC</button>
+          <button class="rarity-filter-btn filter-legendary" data-filter="3" onclick="setAccRarityFilter('3', this)">LEGENDARY</button>
+          <button class="rarity-filter-btn filter-epic" data-filter="2" onclick="setAccRarityFilter('2', this)">EPIC</button>
+          <button class="rarity-filter-btn filter-common" data-filter="1" onclick="setAccRarityFilter('1', this)">COMMON</button>
+        </div>
+
+        <!-- Sort Selector -->
+        <div>
+          <select id="accSort" class="game-sort-select" onchange="renderAccessories()">
+            <option value="rarity-desc">✦ Rarity: Mythic → Common</option>
+            <option value="rarity-asc">✦ Rarity: Common → Mythic</option>
+            <option value="count-desc">📦 Count: High → Low</option>
+            <option value="name-asc">🔤 Name: A → Z</option>
+          </select>
+        </div>
+      </div>
+      <div class="game-inventory-grid" id="accessoriesGrid">
+        <div class="empty-msg" style="grid-column: 1/-1;">กำลังโหลดคลังอุปกรณ์...</div>
+      </div>
+    </div>
+
+    <!-- Tab Pane 4: Full Dungeon Raid Logs -->
+    <div id="pane-history" class="game-pane gh-pane">
+      <div class="game-table-panel">
+        <table class="game-table">
+          <thead>
+            <tr>
+              <th>TIME</th>
+              <th>MAP & DIFFICULTY</th>
+              <th>UNIT / CHARACTER</th>
+              <th>RESULT</th>
+              <th>DURATION</th>
+              <th>WAVE / KILLS</th>
+              <th>LOOT DROPS</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <tr><td colspan="7" class="empty-msg">กำลังดึงประวัติการแข่ง...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Game GUI Footer -->
+  <footer class="game-footer">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-family: 'Orbitron', sans-serif; font-size: 13px; font-weight: 700; color: var(--neon-cyan);">ANIME ZERO HUD</span>
+      <span>• Real-Time Memory Telemetry Engine</span>
+    </div>
+    <div style="display: flex; gap: 16px;">
+      <a href="/api/data" target="_blank">RAW JSON</a>
+      <a href="#" onclick="syncNow(); return false;">REFRESH</a>
+    </div>
+  </footer>
+
+  <script>
+    let state = {};
+    let matRarityFilter = 'all';
+    let accRarityFilter = 'all';
+
+    // 100% Real In-Game Item Definitions (Materials 101-130 & Accessories 101-128)
+    const GAME_ITEMS = {
+      // Materials
+      "fine cloth": { id: "101", cat: "material", icon: "102816679609155" },
+      "shinobi scroll": { id: "102", cat: "material", icon: "139900035439195" },
+      "mana feather": { id: "103", cat: "material", icon: "132113369360174" },
+      "cursed relic": { id: "104", cat: "material", icon: "109913321338481" },
+      "tech component": { id: "105", cat: "material", icon: "137498955017283" },
+      "eyeball": { id: "106", cat: "material", icon: "106984976173853" },
+      "broken blade": { id: "107", cat: "material", icon: "105954615720624" },
+      "soul fragment": { id: "108", cat: "material", icon: "132677360974573" },
+      "suncore": { id: "109", cat: "material", icon: "129315240126806" },
+      "magic pendant": { id: "110", cat: "material", icon: "119252600098664" },
+      "forbidden fruit": { id: "111", cat: "material", icon: "99397651593848" },
+      "waves core": { id: "112", cat: "material", icon: "121909246759003" },
+      "ghost": { id: "113", cat: "material", icon: "99307813365665" },
+      "ember staff": { id: "114", cat: "material", icon: "102515695079682" },
+      "shadow essence": { id: "115", cat: "material", icon: "125168326880207" },
+      "knight's crest": { id: "116", cat: "material", icon: "104998716462693" },
+      "zero calories flour": { id: "117", cat: "material", icon: "81773153687520" },
+      "zero calories doughnuts": { id: "118", cat: "material", icon: "99598523775917" },
+      "shadow's cloak": { id: "119", cat: "material", icon: "70596224673115" },
+      "monarch's blessing": { id: "120", cat: "material", icon: "125555218853069" },
+      "caprese": { id: "121", cat: "material", icon: "111269245025211" },
+      "ham": { id: "122", cat: "material", icon: "138199229130273" },
+      "omurice": { id: "123", cat: "material", icon: "78497914687710" },
+      "burger": { id: "124", cat: "material", icon: "101954484954876" },
+      "pure sword shards": { id: "125", cat: "material", icon: "118619358407255" },
+      "hunter's star": { id: "126", cat: "material", icon: "110202792714260" },
+      "pure quill": { id: "127", cat: "material", icon: "111585695829783" },
+      "shear fragments": { id: "128", cat: "material", icon: "105648774861497" },
+      "crimson ribbon": { id: "129", cat: "material", icon: "122330769431524" },
+      "thread choker": { id: "130", cat: "material", icon: "96746079416646" },
+
+      // Accessories
+      "shinobi headband": { id: "101", cat: "accessory", icon: "106882402493279" },
+      "gentleman's top hat": { id: "102", cat: "accessory", icon: "113407991049346" },
+      "capsule scarf": { id: "103", cat: "accessory", icon: "128603966698061" },
+      "fire brigade hat": { id: "104", cat: "accessory", icon: "91063289812002" },
+      "sunglasses": { id: "105", cat: "accessory", icon: "114653657419256" },
+      "kitsune mask": { id: "106", cat: "accessory", icon: "118928443538720" },
+      "diva headphones": { id: "107", cat: "accessory", icon: "121495467431567" },
+      "panther bone mask": { id: "108", cat: "accessory", icon: "72312321722385" },
+      "light admiral cloak": { id: "109", cat: "accessory", icon: "74150690260165" },
+      "wind spirit wing": { id: "110", cat: "accessory", icon: "113316087610639" },
+      "dark captain wings": { id: "111", cat: "accessory", icon: "99889331743267" },
+      "flame pirate hat": { id: "112", cat: "accessory", icon: "115737382195945" },
+      "blast archer crown": { id: "113", cat: "accessory", icon: "93077148505154" },
+      "blast archer wings": { id: "114", cat: "accessory", icon: "76476396112464" },
+      "solar wings": { id: "115", cat: "accessory", icon: "76476396112464" },
+      "astral wings": { id: "116", cat: "accessory", icon: "90395945997313" },
+      "spectral wings": { id: "117", cat: "accessory", icon: "98741945520313" },
+      "flame director's hat": { id: "118", cat: "accessory", icon: "89410492490398" },
+      "shadow lord's coat": { id: "119", cat: "accessory", icon: "74150690260165" },
+      "void hunter's eye": { id: "120", cat: "accessory", icon: "104640105675226" },
+      "red emperor's cloak": { id: "121", cat: "accessory", icon: "125736341802288" },
+      "cursed king's collar": { id: "122", cat: "accessory", icon: "76643366609813" },
+      "immortal sovereign's shades": { id: "123", cat: "accessory", icon: "108199213238206" },
+      "order assassin's tie": { id: "124", cat: "accessory", icon: "97090308752380" },
+      "thunder prodigy collar": { id: "125", cat: "accessory", icon: "79873953380414" },
+      "rubber captain's hat": { id: "126", cat: "accessory", icon: "114845957553437" },
+      "otherworld halo": { id: "127", cat: "accessory", icon: "97265775720666" },
+      "adaptation wheel": { id: "128", cat: "accessory", icon: "95952228911110" }
+    };
+
+    function getRarityName(tier) {
+      const t = String(tier || '1');
+      if (t === '4') return 'Mythic';
+      if (t === '3') return 'Legendary';
+      if (t === '2') return 'Epic';
+      return 'Common';
+    }
+
+    function setMatRarityFilter(filterVal, el) {
+      matRarityFilter = filterVal;
+      document.querySelectorAll('#pane-materials .rarity-filter-btn').forEach(b => b.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderMaterials();
+    }
+
+    function setAccRarityFilter(filterVal, el) {
+      accRarityFilter = filterVal;
+      document.querySelectorAll('#pane-accessories .rarity-filter-btn').forEach(b => b.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderAccessories();
+    }
+
+    function sortItems(entries, sortMethod) {
+      return entries.sort((a, b) => {
+        const tierA = Number(a.tier || 1);
+        const tierB = Number(b.tier || 1);
+        const countA = Number(a.count || 0);
+        const countB = Number(b.count || 0);
+        const nameA = String(a.name || '').toLowerCase();
+        const nameB = String(b.name || '').toLowerCase();
+
+        if (sortMethod === 'rarity-desc') {
+          if (tierB !== tierA) return tierB - tierA; // Mythic (4) -> Common (1)
+          if (countB !== countA) return countB - countA;
+          return nameA.localeCompare(nameB);
+        }
+        if (sortMethod === 'rarity-asc') {
+          if (tierA !== tierB) return tierA - tierB; // Common (1) -> Mythic (4)
+          if (countB !== countA) return countB - countA;
+          return nameA.localeCompare(nameB);
+        }
+        if (sortMethod === 'count-desc') {
+          if (countB !== countA) return countB - countA;
+          if (tierB !== tierA) return tierB - tierA;
+          return nameA.localeCompare(nameB);
+        }
+        if (sortMethod === 'name-asc') {
+          return nameA.localeCompare(nameB);
+        }
+        return tierB - tierA;
+      });
+    }
+
+    function getItemIconUrl(name, id, category) {
+      if (!name && !id) return null;
+      const k = String(name || "").toLowerCase().trim();
+
+      // In-game currencies with real extracted PNG textures
+      if (k === "gems" || k === "gem") return "/icons/currency_gems.png";
+      if (k === "gold" || k === "money" || k === "coins" || k === "coin") return "/icons/currency_money.png";
+      if (k.includes("reroll") || k.includes("trait")) return "/icons/currency_traitRerolls.png";
+      if (k.includes("spin")) return "/icons/currency_luckySpins.png";
+      if (k === "xp" || k === "exp") return "/icons/currency_xp.png";
+      if (k === "level") return "/icons/currency_level.png";
+
+      const itemInfo = GAME_ITEMS[k];
+      if (itemInfo) {
+        return `/icons/${itemInfo.cat}_${itemInfo.id}.png`;
+      }
+      if (category && id) {
+        return `/icons/${category}_${id}.png`;
+      }
+      return null;
+    }
+
+    function renderItemBadge(name, category, id) {
+      const url = getItemIconUrl(name, id, category);
+      if (url) {
+        return `<img src="${url}" class="gh-drop-icon-img" onerror="this.onerror=null; this.style.display='none';" alt="${name || ''}" />`;
+      }
+      return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--neon-cyan); vertical-align:-2px; margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+    }
+
+    function numFmt(n) {
+      if (n === undefined || n === null) return '0';
+      return Number(n).toLocaleString('en-US');
+    }
+
+    function timeFmt(unix) {
+      if (!unix) return '-';
+      const ts = Number(unix) > 1e11 ? Number(unix) : Number(unix) * 1000;
+      const d = new Date(ts);
+      if (isNaN(d.getTime())) return '-';
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      const ss = String(d.getSeconds()).padStart(2, '0');
+      return `${hh}:${mm}:${ss}`;
+    }
+
+    function formatDuration(sec) {
+      if (!sec || sec <= 0) return '-';
+      const total = Math.min(3600, Math.floor(Number(sec)));
+      const m = Math.floor(total / 60);
+      const s = total % 60;
+      const mm = String(m).padStart(2, '0');
+      const ss = String(s).padStart(2, '0');
+      return `${mm}:${ss}`;
+    }
+
+    function switchTab(tabId) {
+      const tabs = document.querySelectorAll('.game-tab, .gh-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      const panes = document.querySelectorAll('.game-pane, .gh-pane');
+      panes.forEach(p => p.classList.remove('active'));
+
+      const pane = document.getElementById('pane-' + tabId);
+      if (pane) pane.classList.add('active');
+
+      const btn = Array.from(tabs).find(t => t.getAttribute('onclick')?.includes(tabId) || t.innerText.toLowerCase().includes(tabId));
+      if (btn) btn.classList.add('active');
+    }
+
+    async function fetchState() {
+      try {
+        const pin = localStorage.getItem('dashboard_pin') || '';
+        const url = `/api/data?_t=${Date.now()}` + (pin ? `&pin=${encodeURIComponent(pin)}` : '');
+        const res = await fetch(url, {
+          cache: 'no-store',
+          headers: pin ? { 'x-dashboard-pin': pin } : {}
+        });
+        if (res.status === 401) {
+          showPinPrompt();
+          return;
+        }
+        hidePinPrompt();
+        if (!res.ok) throw new Error('Network error');
+        state = await res.json();
+        renderAll();
+      } catch (err) {
+        setOffline();
+      }
+    }
+
+    function showPinPrompt() {
+      const modal = document.getElementById('pinModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function hidePinPrompt() {
+      const modal = document.getElementById('pinModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function submitPin() {
+      const input = document.getElementById('pinInput');
+      if (input && input.value) {
+        localStorage.setItem('dashboard_pin', input.value.trim());
+        fetchState();
+      }
+    }
+
+    async function syncNow() {
+      const btn = event?.currentTarget;
+      if (btn) {
+        btn.innerText = 'SYNCING...';
+        btn.disabled = true;
+      }
+      try {
+        const res = await fetch('/api/sync', { method: 'POST' });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.state) state = json.state;
+          renderAll();
+        }
+      } catch (err) {
+        console.error('Sync failed', err);
+      } finally {
+        if (btn) {
+          btn.innerHTML = `<svg height="15" viewBox="0 0 16 16" version="1.1" width="15" fill="currentColor"><path d="M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z"></path></svg> <span>SYNC STATE</span>`;
+          btn.disabled = false;
+        }
+      }
+    }
+
+    function setOffline() {
+      const statusPill = document.getElementById('connStatus');
+      statusPill.className = 'game-status-hud offline';
+      document.getElementById('connStatusText').innerText = 'Offline';
+    }
+
+    function renderAll() {
+      // Online Status
+      const statusPill = document.getElementById('connStatus');
+      if (state.connected) {
+        statusPill.className = 'game-status-hud';
+        document.getElementById('connStatusText').innerText = 'ONLINE // CONNECTED';
+      } else {
+        statusPill.className = 'game-status-hud offline';
+        document.getElementById('connStatusText').innerText = 'Offline';
+      }
+
+      // Player Profile
+      const p = state.player || {};
+      const prog = state.playerProg || {};
+      const currentLevel = (prog.level && Number(prog.level) > 0) 
+        ? Number(prog.level) 
+        : ((p.level && Number(p.level) > 0) ? Number(p.level) : 470);
+
+      document.getElementById('heroPlayerName').innerText = p.displayName || p.name || 'Unknown';
+      document.getElementById('heroPlayerHandle').innerText = '@' + (p.name || 'Liesajsor17919');
+      document.getElementById('repoOwnerLink').innerText = p.name || 'Liesajsor17919';
+      document.getElementById('heroGuildTag').innerText = (p.guild && p.guild !== 'None') ? ('GUILD: ' + p.guild) : 'NO GUILD';
+      document.getElementById('playerLevelBadge').innerText = 'LV. ' + currentLevel;
+      document.getElementById('starLevelCounter').innerText = 'LV. ' + currentLevel;
+      document.getElementById('heroLastUpdate').innerText = timeFmt(state.lastUpdated);
+
+      // Dynamic Avatar URL update (routes through server proxy to bypass adblockers & broken links)
+      if (p.userId) {
+        const img = document.getElementById('playerAvatarImg');
+        if (img && img.getAttribute('data-userid') !== String(p.userId)) {
+          img.setAttribute('data-userid', String(p.userId));
+          img.src = '/api/avatar?userId=' + encodeURIComponent(p.userId);
+        }
+      }
+
+      // Player EXP Bar
+      const curXp = Number(prog.currentXp) || 0;
+      const reqXp = Number(prog.requiredXp) || 1;
+      const ratio = Math.min(1, Math.max(0, prog.ratio || (curXp / reqXp)));
+      const pct = (ratio * 100).toFixed(1) + '%';
+
+      const expHeaderLabel = document.getElementById('expSectionTitle');
+      if (expHeaderLabel) expHeaderLabel.innerText = `LEVEL ${currentLevel} PROGRESSION`;
+      document.getElementById('expPercent').innerText = `(${pct})`;
+      document.getElementById('expNumbers').innerText = `${numFmt(curXp)} / ${numFmt(reqXp)} XP`;
+      document.getElementById('expFillBar').style.width = pct;
+
+      // Session record
+      const ss = state.sessionStats || {};
+      document.getElementById('sessionWinLoss').innerText = `${ss.wins || 0}W - ${ss.losses || 0}L`;
+
+      // Currencies
+      const curr = state.currencies || {};
+      document.getElementById('valGems').innerText = numFmt(curr.gems);
+      document.getElementById('valMoney').innerText = numFmt(curr.money);
+      document.getElementById('valSpins').innerText = numFmt(curr.luckySpins);
+      document.getElementById('valRerolls').innerText = numFmt(curr.traitRerolls);
+      document.getElementById('valRolls').innerText = numFmt(prog.totalXp || curr.xp);
+
+      // Tab Counters
+      const matCount = Object.keys(state.materials || {}).length;
+      const accCount = Object.keys(state.accessories || {}).length;
+      const histCount = (state.matchLogs || []).length;
+      document.getElementById('tabMatCounter').innerText = matCount;
+      document.getElementById('tabAccCounter').innerText = accCount;
+      document.getElementById('tabHistCounter').innerText = histCount;
+
+      updateSpotlight();
+      renderMaterials();
+      renderAccessories();
+      renderHistory();
+    }
+
+    function updateSpotlight() {
+      const match = state.latestMatch;
+      if (!match) {
+        document.getElementById('spotMapInfo').innerText = 'Waiting for match...';
+        document.getElementById('spotResultBadge').className = 'game-badge badge-idle';
+        document.getElementById('spotResultBadge').innerHTML = '<span>IDLE</span>';
+        document.getElementById('spotDurationBadge').innerHTML = `<span>-</span>`;
+        document.getElementById('spotRewardsFlow').innerHTML = '<div class="empty-msg" style="padding: 10px;">ยังไม่มีประวัติการแข่งในรอบนี้</div>';
+        return;
+      }
+
+      document.getElementById('spotMapInfo').innerText = `${match.map || 'Hxh'} (${match.difficulty || 'Nightmare'}) • Wave ${match.wave || 11} / ${match.kills || 0} Kills`;
+
+      const badge = document.getElementById('spotResultBadge');
+      if (match.won) {
+        badge.className = 'game-badge badge-victory';
+        badge.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>VICTORY</span>`;
+      } else {
+        badge.className = 'game-badge badge-defeat';
+        badge.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> <span>DEFEAT</span>`;
+      }
+
+      // Duration
+      let dur = match.duration;
+      if (!dur && state.matchLogs && state.matchLogs.length > 0) {
+        dur = state.matchLogs[0].duration;
+        if (!dur) {
+          for (let j = 1; j < state.matchLogs.length; j++) {
+            if (state.matchLogs[j].time && state.matchLogs[0].time && state.matchLogs[0].time !== state.matchLogs[j].time) {
+              const diff = Math.abs(state.matchLogs[0].time - state.matchLogs[j].time);
+              if (diff > 0 && diff < 1800) { dur = diff; break; }
+            }
+          }
+        }
+      }
+      document.getElementById('spotDurationBadge').innerHTML = `
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span>${dur ? formatDuration(dur) : '-'}</span>
+      `;
+
+      const flow = document.getElementById('spotRewardsFlow');
+      const rewards = match.rewards || [];
+      if (rewards.length === 0) {
+        flow.innerHTML = '<div class="empty-msg" style="padding: 10px;">ไม่มีของดรอปเพิ่ม หรืออยู่ในล็อบบี้</div>';
+        return;
+      }
+
+      flow.innerHTML = rewards.map(r => {
+        const iconBadge = renderItemBadge(r.name, r.category, r.id);
+        return `
+          <div class="loot-pill">
+            ${iconBadge}
+            <span style="color: #cbd5e1;">${r.name}:</span>
+            <strong style="color: #34d399;">+${numFmt(r.amount)}</strong>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderMaterials() {
+      const grid = document.getElementById('materialsGrid');
+      const mats = state.materials || {};
+      const query = (document.getElementById('matSearch')?.value || '').toLowerCase();
+      
+      let entries = Object.values(mats).filter(m => {
+        const matchSearch = !query || m.name.toLowerCase().includes(query);
+        const matchRarity = matRarityFilter === 'all' || String(m.tier || '1') === matRarityFilter;
+        return matchSearch && matchRarity;
+      });
+
+      const sortMethod = document.getElementById('matSort')?.value || 'rarity-desc';
+      entries = sortItems(entries, sortMethod);
+
+      if (entries.length === 0) {
+        grid.innerHTML = '<div class="empty-msg" style="grid-column: 1/-1;">No materials match the filter criteria.</div>';
+        return;
+      }
+
+      grid.innerHTML = entries.map(m => {
+        const tier = m.tier || '1';
+        const rarityName = getRarityName(tier);
+
+        return `
+          <div class="rpg-item-slot gh-asset-card tier-${tier}" title="${m.description || m.name}">
+            <span class="slot-tier-tag gh-tier-tag">${rarityName}</span>
+            <span class="slot-count-badge gh-count-pill">${numFmt(m.count)}</span>
+            <div class="slot-visual-chamber gh-asset-visual">
+              <img src="/icons/material_${m.id}.png" onerror="this.onerror=null; this.src='/icons/material_${m.id}.bmp';" alt="${m.name}" class="slot-item-img gh-asset-icon-img" />
+            </div>
+            <div class="slot-item-name gh-asset-name">${m.name}</div>
+            <div class="slot-item-desc gh-asset-desc">${m.description || 'Crafting material'}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderAccessories() {
+      const grid = document.getElementById('accessoriesGrid');
+      const accs = state.accessories || {};
+      const query = (document.getElementById('accSearch')?.value || '').toLowerCase();
+      
+      let entries = Object.values(accs).filter(a => {
+        const matchSearch = !query || a.name.toLowerCase().includes(query);
+        const matchRarity = accRarityFilter === 'all' || String(a.tier || '1') === accRarityFilter;
+        return matchSearch && matchRarity;
+      });
+
+      const sortMethod = document.getElementById('accSort')?.value || 'rarity-desc';
+      entries = sortItems(entries, sortMethod);
+
+      if (entries.length === 0) {
+        grid.innerHTML = '<div class="empty-msg" style="grid-column: 1/-1;">No accessories match the filter criteria.</div>';
+        return;
+      }
+
+      grid.innerHTML = entries.map(a => {
+        const tier = a.tier || '1';
+        const rarityName = getRarityName(tier);
+
+        return `
+          <div class="rpg-item-slot gh-asset-card tier-${tier}" title="${a.description || a.name}">
+            <span class="slot-tier-tag gh-tier-tag">${rarityName}</span>
+            ${a.slot ? `<span class="slot-subtag">${a.slot}</span>` : ''}
+            <span class="slot-count-badge gh-count-pill" style="color: var(--neon-cyan);">${numFmt(a.count)}</span>
+            <div class="slot-visual-chamber gh-asset-visual">
+              <img src="/icons/accessory_${a.id}.png" onerror="this.onerror=null; this.src='/icons/accessory_${a.id}.bmp';" alt="${a.name}" class="slot-item-img gh-asset-icon-img" />
+            </div>
+            <div class="slot-item-name gh-asset-name">${a.name}</div>
+            <div class="slot-item-desc gh-asset-desc">${a.description || 'Accessory stat booster'}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderHistory() {
+      const tbody = document.getElementById('historyTableBody');
+      const overviewBody = document.getElementById('overviewHistoryBody');
+      const rawLogs = state.matchLogs || [];
+
+      // Deduplicate match logs within 25 seconds of each other
+      const logs = [];
+      for (const m of rawLogs) {
+        if (!m.time) { logs.push(m); continue; }
+        const prev = logs[logs.length - 1];
+        if (prev && prev.time && Math.abs(prev.time - m.time) < 25) {
+          if (m.kills && m.kills > (prev.kills || 0)) prev.kills = m.kills;
+          if (m.duration && m.duration > (prev.duration || 0)) prev.duration = m.duration;
+          if (m.rewards && m.rewards.length > 0) {
+            prev.rewards = prev.rewards || [];
+            for (const r of m.rewards) {
+              if (!prev.rewards.some(pr => pr.name === r.name && pr.amount === r.amount)) {
+                prev.rewards.push(r);
+              }
+            }
+          }
+          continue;
+        }
+        logs.push(m);
+      }
+
+      if (logs.length === 0) {
+        const emptyHtml = '<tr><td colspan="7" class="empty-msg">No match runs recorded yet.</td></tr>';
+        if (tbody) tbody.innerHTML = emptyHtml;
+        if (overviewBody) overviewBody.innerHTML = emptyHtml;
+        return;
+      }
+
+      const rowsHtml = (limit) => {
+        const items = limit ? logs.slice(0, limit) : logs;
+        return items.map((m, idx) => {
+          const rewHtml = (m.rewards && m.rewards.length > 0)
+            ? m.rewards.map(r => {
+                const iconBadge = renderItemBadge(r.name, r.category, r.id);
+                return `<span class="loot-pill" style="margin: 2px;">
+                  ${iconBadge} <span style="color:#cbd5e1;">${r.name}:</span> <strong style="color: #34d399;">+${numFmt(r.amount)}</strong>
+                </span>`;
+              }).join(' ')
+            : '<span style="color: var(--game-text-dim);">-</span>';
+
+          // Match duration calculation
+          let dur = m.duration;
+          if (!dur) {
+            for (let j = idx + 1; j < logs.length; j++) {
+              if (logs[j].time && logs[idx].time && logs[idx].time !== logs[j].time) {
+                const diff = Math.abs(logs[idx].time - logs[j].time);
+                if (diff > 0 && diff < 1800) {
+                  dur = diff;
+                  break;
+                }
+              }
+            }
+          }
+          const durText = dur ? formatDuration(dur) : '-';
+
+          const statusHtml = m.won
+            ? `<span class="game-badge badge-victory"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>VICTORY</span>`
+            : `<span class="game-badge badge-defeat"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>DEFEAT</span>`;
+
+          return `
+            <tr>
+              <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--game-text-muted);">${timeFmt(m.time)}</td>
+              <td><strong style="color: #ffffff;">${m.map || 'Hxh'}</strong> <span style="font-size: 12px; color: var(--game-text-dim);">(${m.difficulty || ''})</span></td>
+              <td>
+                <span class="unit-badge">
+                  <svg height="12" viewBox="0 0 16 16" version="1.1" width="12" fill="currentColor">
+                    <path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Z"></path>
+                  </svg>
+                  ${m.character || 'main'}
+                </span>
+              </td>
+              <td>${statusHtml}</td>
+              <td style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #ffffff; white-space: nowrap;">
+                <span style="display:inline-flex; align-items:center; gap:4px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--neon-cyan);">
+                    <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  ${durText}
+                </span>
+              </td>
+              <td style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--game-text-muted);">Wave ${m.wave || 0} / ${m.kills || 0} Kills</td>
+              <td>${rewHtml}</td>
+            </tr>
+          `;
+        }).join('');
+      };
+
+      if (tbody) tbody.innerHTML = rowsHtml();
+      if (overviewBody) overviewBody.innerHTML = rowsHtml(8);
+    }
+
+    fetchState();
+    setInterval(fetchState, 2000);
+  </script>
+
+  <!-- High-Tech Security PIN Modal -->
+  <div id="pinModal" style="display: none; position: fixed; inset: 0; background: rgba(3, 7, 18, 0.96); z-index: 99999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(12px);">
+    <div style="background: linear-gradient(135deg, rgba(14, 21, 35, 0.98) 0%, rgba(9, 13, 24, 0.99) 100%); border: 1px solid var(--neon-cyan); border-radius: 12px; padding: 32px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 30px rgba(0, 240, 255, 0.35);">
+      <div style="margin-bottom: 12px;">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 10px rgba(0,240,255,0.6));">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h3 style="margin-bottom: 6px; font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px; color: #ffffff;">SYSTEM LOCKED</h3>
+      <p style="font-size: 13px; color: var(--game-text-muted); margin-bottom: 20px;">กรุณากรอกรหัส PIN เพื่อปลดล็อกอินเทอร์เฟซระบบ</p>
+      <input type="password" id="pinInput" placeholder="ENTER ACCESS CODE" onkeydown="if(event.key==='Enter') submitPin()" style="width: 100%; padding: 12px 16px; background: rgba(6, 9, 15, 0.9); border: 1px solid var(--game-border); border-radius: 8px; color: var(--neon-cyan); font-size: 18px; text-align: center; margin-bottom: 16px; outline: none; font-family: 'JetBrains Mono', monospace; letter-spacing: 4px;">
+      <button class="game-btn-sync" style="width: 100%; justify-content: center; padding: 12px; font-size: 14px;" onclick="submitPin()">
+        AUTHENTICATE & UNLOCK
+      </button>
+    </div>
+  </div>
+</body>
+</html>

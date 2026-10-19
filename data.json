@@ -1,0 +1,3789 @@
+{
+  "player": {
+    "name": "Liesajsor17919",
+    "guild": "Shinoko",
+    "level": 471,
+    "userId": 9165405454,
+    "displayName": "フレーム",
+    "avatarUrl": "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-D6503A306B66A0258D0C5C0C28E2C068-Png/150/150/AvatarHeadshot/Png/noFilter"
+  },
+  "playerProg": {
+    "isMaxLevel": false,
+    "requiredXp": "482049",
+    "totalXp": "62666149",
+    "level": 471,
+    "ratio": 0.15465855130909928,
+    "currentXp": "74553"
+  },
+  "characters": [
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 5,
+        "ATK": 5
+      },
+      "ratio": 0.0034575858793900135,
+      "name": "Astra yao",
+      "requiredXp": 281121,
+      "id": "astra_yao",
+      "level": 379,
+      "currentXp": 972,
+      "rarity": "Zenless"
+    },
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 5,
+        "ATK": 5
+      },
+      "ratio": 0.593424715167406,
+      "name": "Rin",
+      "requiredXp": 266209,
+      "id": "rin",
+      "level": 371,
+      "currentXp": 157975,
+      "rarity": "Zenless"
+    },
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 5,
+        "ATK": 5
+      },
+      "ratio": 0.015634293482878748,
+      "name": "Sung jinwoo",
+      "requiredXp": 70614,
+      "id": "sung_jinwoo",
+      "level": 230,
+      "currentXp": 1104,
+      "rarity": "Zenless"
+    },
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 5,
+        "ATK": 5
+      },
+      "ratio": 0.6112858863501537,
+      "name": "Hutao",
+      "requiredXp": 55627,
+      "id": "hutao",
+      "level": 213,
+      "currentXp": 34004,
+      "rarity": "Zenless"
+    },
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 5,
+        "ATK": 5
+      },
+      "ratio": 0.4064344057342891,
+      "name": "Ye shunguang",
+      "requiredXp": 29995,
+      "id": "ye_shunguang",
+      "level": 177,
+      "currentXp": 12191,
+      "rarity": "Zenless"
+    },
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 5,
+        "ATK": 5
+      },
+      "ratio": 0.615122570302585,
+      "name": "Chisa",
+      "requiredXp": 14971,
+      "id": "chisa",
+      "level": 147,
+      "currentXp": 9209,
+      "rarity": "Zenless"
+    },
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 5,
+        "ATK": 5
+      },
+      "ratio": 0.38638128937602484,
+      "name": "Miyabi",
+      "requiredXp": 11587,
+      "id": "miyabi",
+      "level": 138,
+      "currentXp": 4477,
+      "rarity": "Zenless"
+    },
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 5,
+        "ATK": 5
+      },
+      "ratio": 0.990344077247382,
+      "name": "Frieren",
+      "requiredXp": 7353,
+      "id": "frieren",
+      "level": 124,
+      "currentXp": 7282,
+      "rarity": "Zenless"
+    },
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 5,
+        "ATK": 5
+      },
+      "ratio": 0.23609411124711002,
+      "name": "Sukuna",
+      "requiredXp": 7353,
+      "id": "sukuna",
+      "level": 124,
+      "currentXp": 1736,
+      "rarity": "Arcane"
+    },
+    {
+      "skills": {
+        "CRIT": 5,
+        "DEF": 5,
+        "SPD": 1,
+        "ATK": 5
+      },
+      "ratio": 0.056049213943950786,
+      "name": "Guts",
+      "requiredXp": 1463,
+      "id": "guts",
+      "level": 78,
+      "currentXp": 82,
+      "rarity": "Mythic"
+    },
+    {
+      "skills": {
+        "CRIT": 4,
+        "DEF": 3,
+        "SPD": 3,
+        "ATK": 5
+      },
+      "ratio": 0.0903010033444816,
+      "name": "Saber",
+      "requiredXp": 598,
+      "id": "saber",
+      "level": 52,
+      "currentXp": 54,
+      "rarity": "Mythic"
+    },
+    {
+      "skills": {
+        "CRIT": 4,
+        "DEF": 1,
+        "SPD": 1,
+        "ATK": 5
+      },
+      "ratio": 0.1017274472168906,
+      "name": "Cha hae in",
+      "requiredXp": 521,
+      "id": "cha_hae_in",
+      "level": 48,
+      "currentXp": 53,
+      "rarity": "Zenless"
+    },
+    {
+      "skills": {
+        "CRIT": 1,
+        "DEF": 1,
+        "SPD": 1,
+        "ATK": 1
+      },
+      "ratio": 0,
+      "name": "Goku",
+      "requiredXp": 100,
+      "id": "goku",
+      "level": 0,
+      "currentXp": 0,
+      "rarity": "Epic"
+    },
+    {
+      "skills": {
+        "CRIT": 1,
+        "DEF": 1,
+        "SPD": 1,
+        "ATK": 1
+      },
+      "ratio": 0,
+      "name": "Killua",
+      "requiredXp": 100,
+      "id": "killua",
+      "level": 0,
+      "currentXp": 0,
+      "rarity": "Epic"
+    },
+    {
+      "skills": {
+        "CRIT": 1,
+        "DEF": 1,
+        "SPD": 1,
+        "ATK": 2
+      },
+      "ratio": 0,
+      "name": "Shanks",
+      "requiredXp": 100,
+      "id": "shanks",
+      "level": 0,
+      "currentXp": 0,
+      "rarity": "Arcane"
+    },
+    {
+      "skills": {
+        "CRIT": 1,
+        "DEF": 1,
+        "SPD": 1,
+        "ATK": 2
+      },
+      "ratio": 0,
+      "name": "Nagumo",
+      "requiredXp": 100,
+      "id": "nagumo",
+      "level": 0,
+      "currentXp": 0,
+      "rarity": "Legendary"
+    },
+    {
+      "skills": {
+        "CRIT": 1,
+        "DEF": 1,
+        "SPD": 1,
+        "ATK": 1
+      },
+      "ratio": 0,
+      "name": "Katakuri",
+      "requiredXp": 100,
+      "id": "katakuri",
+      "level": 0,
+      "currentXp": 0,
+      "rarity": "Arcane"
+    },
+    {
+      "skills": {
+        "CRIT": 1,
+        "DEF": 1,
+        "SPD": 1,
+        "ATK": 1
+      },
+      "ratio": 0,
+      "name": "Juuzou",
+      "requiredXp": 100,
+      "id": "juuzou",
+      "level": 0,
+      "currentXp": 0,
+      "rarity": "Legendary"
+    },
+    {
+      "skills": {
+        "CRIT": 1,
+        "DEF": 1,
+        "SPD": 1,
+        "ATK": 1
+      },
+      "ratio": 0,
+      "name": "Alucard",
+      "requiredXp": 100,
+      "id": "alucard",
+      "level": 0,
+      "currentXp": 0,
+      "rarity": "Mythic"
+    },
+    {
+      "skills": {
+        "CRIT": 1,
+        "DEF": 1,
+        "SPD": 1,
+        "ATK": 2
+      },
+      "ratio": 0,
+      "name": "Luffy",
+      "requiredXp": 100,
+      "id": "luffy",
+      "level": 0,
+      "currentXp": 0,
+      "rarity": "Epic"
+    }
+  ],
+  "currencies": {
+    "zenlessPity": 109,
+    "luckySpins": 8082,
+    "money": 281315727,
+    "gems": 3810308,
+    "xp": 62666149,
+    "traitExoticPity": 0,
+    "mythicPity": 5,
+    "arcanePity": 0,
+    "traitRerolls": 14092,
+    "rolls": 1460,
+    "traitLegendaryPity": 0
+  },
+  "materials": {
+    "101": {
+      "description": "The finest you can find!",
+      "name": "Fine Cloth",
+      "tier": "1",
+      "id": "101",
+      "rarity": "Common",
+      "icon": "102816679609155",
+      "count": 65532
+    },
+    "102": {
+      "description": "Maybe some ninja dropped this..",
+      "name": "Shinobi Scroll",
+      "tier": "1",
+      "id": "102",
+      "rarity": "Common",
+      "icon": "139900035439195",
+      "count": 65535
+    },
+    "103": {
+      "description": "Gear light as a feather.",
+      "name": "Mana Feather",
+      "tier": "2",
+      "id": "103",
+      "rarity": "Rare",
+      "icon": "132113369360174",
+      "count": 14288
+    },
+    "104": {
+      "description": "Not really the best in the menu.",
+      "name": "Cursed Relic",
+      "tier": "3",
+      "id": "104",
+      "rarity": "Epic",
+      "icon": "109913321338481",
+      "count": 6939
+    },
+    "105": {
+      "description": "Best used for nerdy stuff!",
+      "name": "Tech Component",
+      "tier": "3",
+      "id": "105",
+      "rarity": "Epic",
+      "icon": "137498955017283",
+      "count": 6132
+    },
+    "106": {
+      "description": "Really cool, wait.. did it move..?",
+      "name": "Eyeball",
+      "tier": "2",
+      "id": "106",
+      "rarity": "Rare",
+      "icon": "106984976173853",
+      "count": 18607
+    },
+    "107": {
+      "description": "Too broke to get a new one.",
+      "name": "Broken Blade",
+      "tier": "2",
+      "id": "107",
+      "rarity": "Rare",
+      "icon": "105954615720624",
+      "count": 16331
+    },
+    "108": {
+      "description": "Used to forge from within",
+      "name": "Soul Fragment",
+      "tier": "3",
+      "id": "108",
+      "rarity": "Epic",
+      "icon": "132677360974573",
+      "count": 6717
+    },
+    "109": {
+      "description": "Is it getting hot in the room?",
+      "name": "SunCore",
+      "tier": "4",
+      "id": "109",
+      "rarity": "Legendary",
+      "icon": "129315240126806",
+      "count": 1457
+    },
+    "110": {
+      "description": "Like in the fantasy storytellings!",
+      "name": "Magic Pendant",
+      "tier": "4",
+      "id": "110",
+      "rarity": "Legendary",
+      "icon": "119252600098664",
+      "count": 1568
+    },
+    "111": {
+      "description": "i'd eat this if i were you",
+      "name": "Forbidden Fruit",
+      "tier": "4",
+      "id": "111",
+      "rarity": "Legendary",
+      "icon": "99397651593848",
+      "count": 1327
+    },
+    "112": {
+      "description": "Normal waves in arizona.",
+      "name": "Waves core",
+      "tier": "3",
+      "id": "112",
+      "rarity": "Epic",
+      "icon": "121909246759003",
+      "count": 5360
+    },
+    "113": {
+      "description": "It followed you home.. didn't it? Used to awaken Flame Director.",
+      "name": "Ghost",
+      "tier": "4",
+      "id": "113",
+      "rarity": "Legendary",
+      "icon": "99307813365665",
+      "count": 2
+    },
+    "114": {
+      "description": "Still warm from the funeral parlor. Used to awaken Flame Director.",
+      "name": "Ember Staff",
+      "tier": "4",
+      "id": "114",
+      "rarity": "Legendary",
+      "icon": "102515695079682",
+      "count": 6
+    },
+    "115": {
+      "description": "Left behind when a shadow fades. Used to awaken Shadow Lord.",
+      "name": "Shadow Essence",
+      "tier": "2",
+      "id": "115",
+      "rarity": "Rare",
+      "icon": "125168326880207",
+      "count": 8534
+    },
+    "116": {
+      "description": "The Crimson Knight's mark. Used to awaken Shadow Lord.",
+      "name": "Knight's Crest",
+      "tier": "3",
+      "id": "116",
+      "rarity": "Epic",
+      "icon": "104998716462693",
+      "count": 2405
+    },
+    "117": {
+      "description": "Zero calories somehow. Don't ask what's in it.",
+      "name": "Zero Calories Flour",
+      "tier": "1",
+      "id": "117",
+      "rarity": "Common",
+      "icon": "81773153687520",
+      "count": 11775
+    },
+    "118": {
+      "description": "Zero calories, so the whole box is fine.",
+      "name": "Zero Calories Doughnuts",
+      "tier": "2",
+      "id": "118",
+      "rarity": "Rare",
+      "icon": "99598523775917",
+      "count": 4276
+    },
+    "119": {
+      "description": "Still cold from the shadow that wore it.",
+      "name": "Shadow's Cloak",
+      "tier": "3",
+      "id": "119",
+      "rarity": "Epic",
+      "icon": "70596224673115",
+      "count": 1493
+    },
+    "120": {
+      "description": "The Shadow Lord's favor. Only the strongest walk out with one.",
+      "name": "Monarch's Blessing",
+      "tier": "4",
+      "id": "120",
+      "rarity": "Legendary",
+      "icon": "125555218853069",
+      "count": 391
+    },
+    "121": {
+      "description": "Trials food. Stands in for any missing tier 1 material when you awaken.",
+      "name": "Caprese",
+      "tier": "1",
+      "id": "121",
+      "rarity": "Common",
+      "icon": "111269245025211",
+      "count": 1318
+    },
+    "122": {
+      "description": "Trials food. Stands in for any missing tier 2 material when you awaken.",
+      "name": "Ham",
+      "tier": "2",
+      "id": "122",
+      "rarity": "Rare",
+      "icon": "138199229130273",
+      "count": 580
+    },
+    "123": {
+      "description": "Trials food. Stands in for any missing tier 3 material when you awaken.",
+      "name": "Omurice",
+      "tier": "3",
+      "id": "123",
+      "rarity": "Epic",
+      "icon": "78497914687710",
+      "count": 136
+    },
+    "124": {
+      "description": "Trials food. Stands in for any missing tier 4 material when you awaken.",
+      "name": "Burger",
+      "tier": "4",
+      "id": "124",
+      "rarity": "Legendary",
+      "icon": "101954484954876",
+      "count": 31
+    },
+    "125": {
+      "description": "What's left of a blade that never dulled. Used to awaken Solar Radiance.",
+      "name": "Pure Sword Shards",
+      "tier": "2",
+      "id": "125",
+      "rarity": "Rare",
+      "icon": "118619358407255",
+      "count": 9
+    },
+    "126": {
+      "description": "An S-rank's badge, still shining. Used to awaken Solar Radiance.",
+      "name": "Hunter's Star",
+      "tier": "3",
+      "id": "126",
+      "rarity": "Epic",
+      "icon": "110202792714260",
+      "count": 3
+    },
+    "127": {
+      "description": "Light as her footwork. Used to awaken Solar Radiance.",
+      "name": "Pure Quill",
+      "tier": "4",
+      "id": "127",
+      "rarity": "Legendary",
+      "icon": "111585695829783",
+      "count": 1
+    },
+    "128": {
+      "description": "Pieces of a pair of crimson shears. Used to craft and awaken Crimson Eclipse.",
+      "name": "Shear Fragments",
+      "tier": "2",
+      "id": "128",
+      "rarity": "Rare",
+      "icon": "105648774861497",
+      "count": 19
+    },
+    "130": {
+      "description": "Still warm with red light. Used to awaken Crimson Eclipse.",
+      "name": "Thread Choker",
+      "tier": "4",
+      "id": "130",
+      "rarity": "Legendary",
+      "icon": "96746079416646",
+      "count": 1
+    }
+  },
+  "accessories": {
+    "101": {
+      "description": "Tied on tight. Believe it.",
+      "slot": "Head",
+      "name": "Shinobi Headband",
+      "tier": "1",
+      "id": "101",
+      "rarity": "Common",
+      "icon": "106882402493279",
+      "count": 1
+    },
+    "102": {
+      "description": "A proper hat for a proper fight.",
+      "slot": "Head",
+      "name": "Gentleman's Top Hat",
+      "tier": "1",
+      "id": "102",
+      "rarity": "Common",
+      "icon": "113407991049346",
+      "count": 1
+    },
+    "103": {
+      "description": "Warm, light, and it somehow fits in a capsule.",
+      "slot": "Neck",
+      "name": "Capsule Scarf",
+      "tier": "1",
+      "id": "103",
+      "rarity": "Common",
+      "icon": "128603966698061",
+      "count": 1
+    },
+    "104": {
+      "description": "Still smells like smoke from the last call.",
+      "slot": "Head",
+      "name": "Fire Brigade Hat",
+      "tier": "1",
+      "id": "104",
+      "rarity": "Common",
+      "icon": "91063289812002",
+      "count": 1
+    },
+    "105": {
+      "description": "Too cool to miss a crit.",
+      "slot": "Face",
+      "name": "SunGlasses",
+      "tier": "2",
+      "id": "105",
+      "rarity": "Rare",
+      "icon": "114653657419256",
+      "count": 1
+    },
+    "106": {
+      "description": "The fox grins so you don't have to.",
+      "slot": "Face",
+      "name": "Kitsune Mask",
+      "tier": "2",
+      "id": "106",
+      "rarity": "Rare",
+      "icon": "118928443538720",
+      "count": 1
+    },
+    "107": {
+      "description": "Plays the same song on loop. Nobody complains.",
+      "slot": "Head",
+      "name": "Diva Headphones",
+      "tier": "2",
+      "id": "107",
+      "rarity": "Rare",
+      "icon": "121495467431567",
+      "count": 1
+    },
+    "108": {
+      "description": "A beast's bone mask, still a little feral.",
+      "slot": "Face",
+      "name": "Panther Bone Mask",
+      "tier": "2",
+      "id": "108",
+      "rarity": "Rare",
+      "icon": "72312321722385",
+      "count": 1
+    },
+    "109": {
+      "description": "Justice, worn over the shoulders.",
+      "slot": "Back",
+      "name": "Light Admiral Cloak",
+      "tier": "3",
+      "id": "109",
+      "rarity": "Epic",
+      "icon": "74150690260165",
+      "count": 1
+    },
+    "110": {
+      "description": "Catches every breeze, even indoors.",
+      "slot": "Back",
+      "name": "Wind Spirit Wing",
+      "tier": "3",
+      "id": "110",
+      "rarity": "Epic",
+      "icon": "113316087610639",
+      "count": 1
+    },
+    "111": {
+      "description": "Black wings for a captain who never lost a duel.",
+      "slot": "Back",
+      "name": "Dark Captain Wings",
+      "tier": "3",
+      "id": "111",
+      "rarity": "Epic",
+      "icon": "99889331743267",
+      "count": 1
+    },
+    "112": {
+      "description": "Hot to the touch. The fire never went out.",
+      "slot": "Head",
+      "name": "Flame Pirate Hat",
+      "tier": "3",
+      "id": "112",
+      "rarity": "Epic",
+      "icon": "115737382195945",
+      "count": 1
+    },
+    "113": {
+      "description": "Worn by the king of blasts and bows.",
+      "slot": "Head",
+      "name": "Blast Archer Crown",
+      "tier": "4",
+      "id": "113",
+      "rarity": "Legendary",
+      "icon": "93077148505154",
+      "count": 1
+    },
+    "114": {
+      "description": "The archer's wings. Every arrow lands harder.",
+      "slot": "Back",
+      "name": "Blast Archer Wings",
+      "tier": "4",
+      "id": "114",
+      "rarity": "Legendary",
+      "icon": "76476396112464",
+      "count": 1
+    },
+    "116": {
+      "description": "Frozen bone wings that glow like starlight.",
+      "slot": "Back",
+      "name": "Astral Wings",
+      "tier": "4",
+      "id": "116",
+      "rarity": "Legendary",
+      "icon": "90395945997313",
+      "count": 1
+    },
+    "117": {
+      "description": "Icy claw wings that drift like a ghost.",
+      "slot": "Back",
+      "name": "Spectral Wings",
+      "tier": "4",
+      "id": "117",
+      "rarity": "Legendary",
+      "icon": "98741945520313",
+      "count": 1
+    },
+    "118": {
+      "description": "The Flame Director's hat. Business is booming.",
+      "slot": "Head",
+      "name": "Flame Director's Hat",
+      "tier": "2",
+      "id": "118",
+      "rarity": "Rare",
+      "icon": "89410492490398",
+      "count": 1
+    },
+    "119": {
+      "description": "The Shadow Lord's long coat. Arise.",
+      "slot": "Back",
+      "name": "Shadow Lord's Coat",
+      "tier": "4",
+      "id": "119",
+      "rarity": "Legendary",
+      "icon": "74150690260165",
+      "count": 1
+    },
+    "120": {
+      "description": "A floating eye that never blinks.",
+      "slot": "Face",
+      "name": "Void Hunter's Eye",
+      "tier": "2",
+      "id": "120",
+      "rarity": "Rare",
+      "icon": "104640105675226",
+      "count": 1
+    },
+    "121": {
+      "description": "The red-haired emperor's cloak. One look and they back down.",
+      "slot": "Back",
+      "name": "Red Emperor's Cloak",
+      "tier": "3",
+      "id": "121",
+      "rarity": "Epic",
+      "icon": "125736341802288",
+      "count": 1
+    },
+    "122": {
+      "description": "Marked by the Cursed King.",
+      "slot": "Neck",
+      "name": "Cursed King's Collar",
+      "tier": "3",
+      "id": "122",
+      "rarity": "Epic",
+      "icon": "76643366609813",
+      "count": 1
+    },
+    "123": {
+      "description": "Tinted for a vampire who hates the sun.",
+      "slot": "Face",
+      "name": "Immortal Sovereign's Shades",
+      "tier": "3",
+      "id": "123",
+      "rarity": "Epic",
+      "icon": "108199213238206",
+      "count": 1
+    },
+    "124": {
+      "description": "Neat, sharp and always on the job.",
+      "slot": "Neck",
+      "name": "Order Assassin's Tie",
+      "tier": "1",
+      "id": "124",
+      "rarity": "Common",
+      "icon": "97090308752380",
+      "count": 2
+    },
+    "125": {
+      "description": "Assassin family issue. Comes with a little static.",
+      "slot": "Neck",
+      "name": "Thunder Prodigy Collar",
+      "tier": "2",
+      "id": "125",
+      "rarity": "Rare",
+      "icon": "79873953380414",
+      "count": 1
+    },
+    "126": {
+      "description": "The captain's treasure. Don't lose it.",
+      "slot": "Head",
+      "name": "Rubber Captain's Hat",
+      "tier": "2",
+      "id": "126",
+      "rarity": "Rare",
+      "icon": "114845957553437",
+      "count": 1
+    },
+    "127": {
+      "description": "A halo from the other world. Training never stops.",
+      "slot": "Head",
+      "name": "Otherworld Halo",
+      "tier": "3",
+      "id": "127",
+      "rarity": "Epic",
+      "icon": "97265775720666",
+      "count": 1
+    },
+    "128": {
+      "description": "A divine wheel. It turns, and it adapts.",
+      "slot": "Head",
+      "name": "Adaptation Wheel",
+      "tier": "3",
+      "id": "128",
+      "rarity": "Epic",
+      "icon": "95952228911110",
+      "count": 1
+    }
+  },
+  "matchLogs": [
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792347541,
+      "duration": 91,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31733,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 16
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792347450,
+      "duration": 77,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31784,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 24
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 6
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792347373,
+      "duration": 79,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31792,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 10
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792347294,
+      "duration": 79,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31458,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 8
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 4
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792347215,
+      "duration": 87,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31492,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 8
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 2
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792347128,
+      "duration": 85,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31691,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 12
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 2
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 6
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792347043,
+      "duration": 79,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31867,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 14
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 4
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346964,
+      "duration": 88,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31733,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 16
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 4
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 6
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346876,
+      "duration": 92,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31591,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 14
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 2
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346784,
+      "duration": 77,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31550,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 16
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346707,
+      "duration": 85,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31849,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 14
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 8
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346622,
+      "duration": 87,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31983,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 16
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 10
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346535,
+      "duration": 82,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31625,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 12
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 10
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346453,
+      "duration": 88,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31825,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 14
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346365,
+      "duration": 88,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31367,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 12
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 2
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346277,
+      "duration": 97,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 32091,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 8
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 2
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346180,
+      "duration": 85,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31884,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 16
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346095,
+      "duration": 88,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31693,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 18
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 4
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792346007,
+      "duration": 88,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31909,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 10
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 8
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345919,
+      "duration": 86,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31701,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 12
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345833,
+      "duration": 91,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31575,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 14
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 2
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345742,
+      "duration": 82,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31233,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 10
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345660,
+      "duration": 87,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31591,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 4
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345573,
+      "duration": 83,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31517,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 4
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 10
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345490,
+      "duration": 86,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31249,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 8
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 4
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345404,
+      "duration": 98,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 32091,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 14
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 4
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 8
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345306,
+      "duration": 78,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31383,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 8
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345228,
+      "duration": 89,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31633,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 12
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 4
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345139,
+      "duration": 92,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31550,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 14
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 8
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 6
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792345047,
+      "duration": 77,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31325,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 20
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 8
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 6
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792344970,
+      "duration": 90,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31975,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 8
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 6
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792344880,
+      "duration": 81,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31925,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 14
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 2
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792344799,
+      "duration": 85,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31708,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 4
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 10
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 4
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 9,
+      "time": 1792344701,
+      "duration": 5,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 90,
+      "rewards": [
+        {
+          "icon": "🪙",
+          "amount": 5529,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 9269,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 10
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 2
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792344566,
+      "duration": 85,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31975,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 8
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 12
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 2
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792344481,
+      "duration": 91,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31891,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 6
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 10
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792344390,
+      "duration": 80,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 31591,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 6
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 2
+        },
+        {
+          "name": "Magic Pendant",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/119252600098664",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "won": true,
+      "difficulty": "Nightmare",
+      "wave": 11,
+      "time": 1792344310,
+      "duration": 85,
+      "mode": "Story",
+      "character": "rin",
+      "kills": 106,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 32191,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 12075,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Eyeball",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/106984976173853",
+          "amount": 12
+        },
+        {
+          "name": "Soul Fragment",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/132677360974573",
+          "amount": 6
+        },
+        {
+          "name": "Cursed Relic",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/109913321338481",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195739,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30786,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 18
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 4
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 18
+        }
+      ],
+      "duration": 88
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195651,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30918,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 12
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 2
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 16
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/99397651593848",
+          "amount": 2
+        }
+      ],
+      "duration": 89
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195562,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30346,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 10
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 4
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 24
+        }
+      ],
+      "duration": 95
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195467,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30428,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 8
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 2
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 12
+        }
+      ],
+      "duration": 86
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195381,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30761,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 4
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 8
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 22
+        }
+      ],
+      "duration": 88
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195293,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30787,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 12
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 4
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 32
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/99397651593848",
+          "amount": 2
+        }
+      ],
+      "duration": 99
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195194,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30753,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 16
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 8
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 26
+        }
+      ],
+      "duration": 82
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195112,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30902,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 14
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 2
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 22
+        }
+      ],
+      "duration": 87
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792195025,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30802,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Rare",
+          "icon": "http://localhost:18888/api/icon/132113369360174",
+          "amount": 14
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Epic",
+          "icon": "http://localhost:18888/api/icon/121909246759003",
+          "amount": 2
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "http://localhost:18888/api/icon/139900035439195",
+          "amount": 24
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Legendary",
+          "icon": "http://localhost:18888/api/icon/99397651593848",
+          "amount": 4
+        }
+      ],
+      "duration": 87
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792194938,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30248,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "🔄",
+          "amount": 1,
+          "name": "Trait Rerolls",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 12
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 12
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 24
+        }
+      ],
+      "duration": 84
+    },
+    {
+      "map": "Hxh",
+      "character": "rin",
+      "time": 1792194854,
+      "difficulty": "Nightmare",
+      "won": true,
+      "mode": "Story",
+      "kills": 106,
+      "wave": 11,
+      "rewards": [
+        {
+          "icon": "💎",
+          "amount": 350,
+          "name": "Gems",
+          "category": "currency"
+        },
+        {
+          "icon": "🪙",
+          "amount": 30493,
+          "name": "Gold",
+          "category": "currency"
+        },
+        {
+          "icon": "⚡",
+          "amount": 11751,
+          "name": "XP",
+          "category": "currency"
+        },
+        {
+          "name": "Mana Feather",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 10
+        },
+        {
+          "name": "Waves core",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 4
+        },
+        {
+          "name": "Shinobi Scroll",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 26
+        },
+        {
+          "name": "Forbidden Fruit",
+          "category": "material",
+          "rarity": "Common",
+          "icon": "🎒",
+          "amount": 2
+        }
+      ],
+      "duration": 86
+    }
+  ],
+  "sessionStats": {
+    "totalMatches": 183,
+    "wins": 181,
+    "losses": 2,
+    "gemsGained": 60200,
+    "goldGained": 5297485,
+    "itemsGained": 5714
+  },
+  "lastUpdated": 1792351270,
+  "connected": true,
+  "latestMatch": {
+    "map": "Hxh",
+    "won": true,
+    "difficulty": "Nightmare",
+    "wave": 11,
+    "time": 1792347541,
+    "duration": 91,
+    "mode": "Story",
+    "character": "rin",
+    "kills": 106,
+    "rewards": [
+      {
+        "icon": "💎",
+        "amount": 350,
+        "name": "Gems",
+        "category": "currency"
+      },
+      {
+        "icon": "🪙",
+        "amount": 31733,
+        "name": "Gold",
+        "category": "currency"
+      },
+      {
+        "icon": "🔄",
+        "amount": 1,
+        "name": "Trait Rerolls",
+        "category": "currency"
+      },
+      {
+        "icon": "⚡",
+        "amount": 12075,
+        "name": "XP",
+        "category": "currency"
+      },
+      {
+        "name": "Eyeball",
+        "category": "material",
+        "rarity": "Rare",
+        "icon": "http://localhost:18888/api/icon/106984976173853",
+        "amount": 16
+      }
+    ]
+  },
+  "live": {
+    "inMatch": true,
+    "wave": "Wave 1/3",
+    "info": "Nightmare · Area 5/5 · 11 left",
+    "timer": "01:04"
+  }
+}
